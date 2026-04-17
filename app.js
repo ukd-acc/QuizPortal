@@ -9,7 +9,7 @@ function shuffleArray(arr) {
 
 // app.js
 async function initApp() {
-  // load settings once
+  // Load initial settings from root (just for structure, will be overridden)
   state.settings = await loadJSON("settings.json");
 
   // init auth (users)
@@ -23,10 +23,13 @@ async function initApp() {
 
 
 async function initQuiz() {
-  state.settings = await loadJSON("settings.json");
+  const courseFolder = state.selectedCourse; // Get the selected course folder (e.g., "Game1270")
+  
+  // Load course-specific settings from the course folder
+  state.settings = await loadJSON(`${courseFolder}/settings.json`);
   state.quiz = { title: state.settings.title, sections: [] };
 
-  const quizFolder = state.selectedQuizFolder; // Use the folder selected during login
+  const quizFolder = `${courseFolder}/${state.selectedQuizFolder}`; // Combine course folder with quiz folder
 
   for (const secMeta of state.settings.sections) {
     const sec = await loadJSON(`${quizFolder}/${secMeta.file}`);
@@ -111,6 +114,7 @@ function renderQuiz() {
     if (sec.type === "fill_in_the_blank") sectionEl.appendChild(renderFillInTheBlankSection(sec));
     if (sec.type === "fill_in_the_blank_list") sectionEl.appendChild(renderFillInTheBlankListSection(sec));
     if (sec.type === "short_answer") sectionEl.appendChild(renderShortAnswerSection(sec));
+    if (sec.type === "coding_test") sectionEl.appendChild(renderCodingTestSection(sec));
 
     // Add section to TOC
     const tocItem = document.createElement("li");

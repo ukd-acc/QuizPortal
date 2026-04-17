@@ -449,3 +449,232 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
 .short-answer-list li {
   margin-bottom: 16px;
 }
+
+/* ===== CODING TEST STYLES ===== */
+.coding-section {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.coding-section h2 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.code-challenge {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.problem-description {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+}
+
+.problem-description h3 {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+.problem-description h4 {
+  margin: 12px 0 8px 0;
+  color: var(--muted);
+}
+
+.problem-description pre {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 12px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  margin: 8px 0;
+}
+
+.code-editor-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.code-editor-container label {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.code-editor {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.9rem;
+  min-height: 200px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.code-editor:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.code-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.runCodeBtn, .clearCodeBtn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.runCodeBtn {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.runCodeBtn:hover {
+  background: #7fb8ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(109, 167, 255, 0.3);
+}
+
+.clearCodeBtn {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+.clearCodeBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.output-panel {
+  min-height: 60px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.output-panel .loading {
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.output-panel .error {
+  color: var(--err);
+  background: rgba(255, 92, 124, 0.1);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 3px solid var(--err);
+  margin-bottom: 12px;
+}
+
+.output-panel .error pre {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  margin: 8px 0 0 0;
+}
+
+.output-panel .output {
+  color: var(--text);
+  background: rgba(53, 181, 106, 0.1);
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 3px solid var(--ok);
+  margin-bottom: 12px;
+}
+
+.output-panel .output pre {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  margin: 8px 0 0 0;
+}
+
+.test-results {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.test-results strong {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.test-case {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  border-left: 3px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.test-case.pass {
+  background: rgba(53, 181, 106, 0.15);
+  border-left-color: var(--ok);
+}
+
+.test-case.fail {
+  background: rgba(255, 92, 124, 0.15);
+  border-left-color: var(--err);
+}
+
+.test-num {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.test-status {
+  font-weight: 600;
+}
+
+.test-case.pass .test-status {
+  color: var(--ok);
+}
+
+.test-case.fail .test-status {
+  color: var(--err);
+}
+
+.test-details {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 8px;
+  width: 100%;
+}
+
+.output-panel .success {
+  background: rgba(53, 181, 106, 0.2);
+  border: 2px solid var(--ok);
+  color: var(--ok);
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 12px;
+}

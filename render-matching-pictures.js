@@ -12,7 +12,7 @@ function renderMatchingPicturesSection(section) {
       const media = document.createElement("div");
       media.className = "prompt-media";
       media.innerHTML = `
-        <img src="${q.image}" alt="Prompt ${idx + 1}" class="prompt-image"/>
+        <img src="${state.selectedCourse}/${q.image}" alt="Prompt ${idx + 1}" class="prompt-image"/>
         <div class="prompt-caption">${q.question}</div>
       `;
   

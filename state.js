@@ -7,5 +7,7 @@ const state = {
     startTime: null,  // Date object when quiz started
     endTime: null,    // Date object when quiz ended
     settings: null,   // loaded from settings.json
+    selectedCourse: null, // selected course (e.g., "Game1270" or "Game1377")
     selectedQuizFolder: null // folder for the selected quiz
 };
+

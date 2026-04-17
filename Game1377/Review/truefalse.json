@@ -1,0 +1,28 @@
+{
+  "type": "true_false",
+  "title": "True or False (1 point each)",
+  "instructions": "Select True or False for each statement.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "question": "Steam Greenlight allowed more indie games to rise to popularity.",
+      "answer": true
+    },
+    {
+      "question": "The Birth and Success of Electronic Gaming was driven by game players demanding better graphics, better audio and more processing power.",
+      "answer": true
+    },
+    {
+      "question": "The most techncially powerful console usually sells the most units.",
+      "answer": false
+    },
+    {
+      "question": "Emergent gameplay is when players have only one solution to one problem.",
+      "answer": false
+    },
+    {
+      "question": "Consoles are always sold for a large profit.",
+      "answer": false
+    }  
+  ]
+}

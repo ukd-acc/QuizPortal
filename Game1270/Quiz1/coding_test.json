@@ -1,0 +1,27 @@
+{
+  "type": "coding_test",
+  "id": "csharp-1",
+  "title": "C# Coding Challenge: Sum Two Numbers (1 point)",
+  "instructions": "Write a C# method that takes two integers and returns their sum.",
+  "problem": "Create a public class called 'Solution' with a public method 'Execute(string input)' that:\n1. Parses the input string (two numbers separated by comma)\n2. Returns the sum of the two numbers\n3. Return type should be int",
+  "examples": "Input: \"5, 3\"\nOutput: 8\n\nInput: \"10, -5\"\nOutput: 5",
+  "startingCode": "public class Solution {\n  public int Execute(string input) {\n    // Parse input and return sum\n    string[] parts = input.Split(',');\n    int a = int.Parse(parts[0].Trim());\n    int b = int.Parse(parts[1].Trim());\n    return a + b;\n  }\n}",
+  "testCases": [
+    {
+      "input": "5, 3",
+      "expectedOutput": "8"
+    },
+    {
+      "input": "10, -5",
+      "expectedOutput": "5"
+    },
+    {
+      "input": "0, 0",
+      "expectedOutput": "0"
+    },
+    {
+      "input": "-3, -7",
+      "expectedOutput": "-10"
+    }
+  ]
+}
