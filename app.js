@@ -114,7 +114,6 @@ function renderQuiz() {
     if (sec.type === "fill_in_the_blank") sectionEl.appendChild(renderFillInTheBlankSection(sec));
     if (sec.type === "fill_in_the_blank_list") sectionEl.appendChild(renderFillInTheBlankListSection(sec));
     if (sec.type === "short_answer") sectionEl.appendChild(renderShortAnswerSection(sec));
-    if (sec.type === "coding_test") sectionEl.appendChild(renderCodingTestSection(sec));
 
     // Add section to TOC
     const tocItem = document.createElement("li");
