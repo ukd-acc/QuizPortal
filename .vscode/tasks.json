@@ -1,0 +1,42 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Python Server",
+            "type": "shell",
+            "command": "python",
+            "args": ["-m", "http.server", "8000"],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^.*$",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^Serving HTTP",
+                    "endsPattern": "^(?:.*?)$"
+                }
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "Stop Python Server",
+            "type": "shell",
+            "command": "taskkill",
+            "args": ["/IM", "python.exe", "/F"],
+            "windows": {
+                "command": "taskkill",
+                "args": ["/IM", "python.exe", "/F"]
+            },
+            "problemMatcher": []
+        }
+    ]
+}

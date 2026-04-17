@@ -27,6 +27,14 @@ async function initQuiz() {
   
   // Load course-specific settings from the course folder
   state.settings = await loadJSON(`${courseFolder}/settings.json`);
+  
+  if (!state.settings) {
+    console.error(`Failed to load settings from ${courseFolder}/settings.json`);
+    alert("Error: Could not load quiz settings. Please try again.");
+    renderLogin();
+    return;
+  }
+  
   state.quiz = { title: state.settings.title, sections: [] };
 
   const quizFolder = `${courseFolder}/${state.selectedQuizFolder}`; // Combine course folder with quiz folder

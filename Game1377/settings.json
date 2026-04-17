@@ -1,7 +1,7 @@
 {
-  "quizId": "GAME1270-Quiz",
-  "title": "GAME 1270: Introduction to Game Design and Development",
-  "course": "Introduction to Game Design and Development",
+  "quizId": "GAME1377-Quiz",
+  "title": "GAME 1377: Game Development",
+  "course": "Game Development",
   "logo": "../acc_logo.png",
 
   "userFolder": "Fall2025-03",
@@ -16,7 +16,7 @@
     { "file": "short_answer.json" }
   ],
 
-  "emailRecipients": ["utsab.das@austincc.edu"],
+  "emailRecipients": ["instructor@austincc.edu"],
   "emailProvider": "emailjs",
   "emailConfig": {
     "serviceID": "service_l412vd9",
