@@ -34,12 +34,20 @@ function renderCodeBlocksFITBSection(section) {
         let html = escapeHtml(codeParts[0]);
         
         for (let i = 1; i < codeParts.length; i++) {
-          // Estimate size based on expected answer length
-          const expectedLength = Array.isArray(q.answer) ? 
-            Math.max(...q.answer.map(a => a.length)) : 
-            (q.answer ? q.answer.length : 5);
+          // Dynamically size based on the longest expected answer
+          let maxAnswerLength = 5; // default minimum
           
-          html += `<input type="text" class="cbfitb-input cbfitb-input-inline" data-question="${idx}" data-blank="${i - 1}" style="width: ${Math.max(expectedLength * 0.6, 40)}px;" placeholder=""/>`;
+          if (Array.isArray(q.answer)) {
+            maxAnswerLength = Math.max(...q.answer.map(a => a.length));
+          } else if (q.answer) {
+            maxAnswerLength = q.answer.length;
+          }
+          
+          // Calculate width: each character is roughly 0.65em in monospace font
+          // Add padding for visual breathing room
+          const widthPx = Math.max(maxAnswerLength * 8.5 + 20, 50);
+          
+          html += `<input type="text" class="cbfitb-input cbfitb-input-inline" data-question="${idx}" data-blank="${i - 1}" style="width: ${widthPx}px;" placeholder=""/>`;
           html += escapeHtml(codeParts[i]);
         }
         
