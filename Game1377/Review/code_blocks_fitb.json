@@ -1,0 +1,33 @@
+{
+  "type": "code_blocks_fitb",
+  "title": "Code Analysis - Fill in the Blank (1 point each)",
+  "instructions": "Fill in the blanks in the code snippets below.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "If I have an array defined as shown, what is the value of games[3]?",
+      "code": "string[] games = {\"Mario\", \"Final Fantasy\", \"Tetris\", \"GTA\", \"Minecraft\" };",
+      "answer": "GTA"
+    },
+    {
+      "prompt": "What is the value of n in the following code snippet?",
+      "code": "int n = 0;\nfor (int i = 0; i < 5; i++) {\n\tn = n + i;\n}",
+      "answer": "10"
+    },
+    {
+      "prompt": "What goes in the blank to so the player destroys GameObjects that have the \"Enemy\" tag?",
+      "code": "public class Player : MonoBehaviour\n{\n\tprivate void __(Collider other) {\n\t\tif (other.CompareTag(\"Enemy\")) {\n\t\t\tDestroy(other.gameObject);\n\t\t  }\n\t}\n}",
+      "answer": "OnTriggerEnter"
+    },
+    {
+        "prompt": "What is the BEST option to put in the blank so this code always displays a random string from the given array?",
+        "code": "public string[] GameStartShouts = {\"Let's-a go!\", \"Here we go!\", \"It's-a me, Mario!\"};\n\tprivate void Start() {\n\tint randomIndex = Random.Range(0, __);\n\t\tDebug.Log(GameStartShouts[randomIndex]);\n\t}\n}",
+        "answer": "GameStartShouts.Length"
+    },
+    {
+        "prompt": "What is the result of this code?",
+        "code":"__ CalculateAttackRoll(int baseProficiency, int attackBonus) {\n\tint randomRoll = Random.Range(0, 20);\n\treturn baseProficiency + attackBonus + randomRoll;\n}",
+        "answer": "int"
+    }
+  ]
+}

@@ -60,16 +60,25 @@ async function initQuiz() {
         q.answers = shuffleArray(q.answers || q.answer); 
       });
     }
+    else if (sec.type === "code_blocks_mc") {
+      sec.prompts = shuffleArray(sec.prompts);
+      sec.prompts.forEach(q => {
+        q.answers = shuffleArray(q.answers || q.answer); 
+      });
+    }
     else if (sec.type === "matching_pictures") {
       sec.prompts = shuffleArray(sec.prompts);
       sec.word_bank = shuffleArray(sec.word_bank);
     }
-    /*else if (sec.type === "fill_in_the_blank") {
+    else if (sec.type === "fill_in_the_blank") {
+      sec.questions = shuffleArray(sec.questions);
+    }
+    else if (sec.type === "code_blocks_fitb") {
       sec.questions = shuffleArray(sec.questions);
     }
     else if (sec.type === "fill_in_the_blank_list") {
       sec.questions = shuffleArray(sec.questions);
-    }*/
+    }
 
     state.quiz.sections.push(sec);
   }
@@ -119,9 +128,12 @@ function renderQuiz() {
     if (sec.type === "true_false") sectionEl.appendChild(renderTFSection(sec));
     if (sec.type === "matching_pictures") sectionEl.appendChild(renderMatchingPicturesSection(sec));
     if (sec.type === "multiple_choice") sectionEl.appendChild(renderMCSection(sec));
+    if (sec.type === "code_blocks_mc") sectionEl.appendChild(renderCodeBlocksMCSection(sec));
     if (sec.type === "fill_in_the_blank") sectionEl.appendChild(renderFillInTheBlankSection(sec));
+    if (sec.type === "code_blocks_fitb") sectionEl.appendChild(renderCodeBlocksFITBSection(sec));
     if (sec.type === "fill_in_the_blank_list") sectionEl.appendChild(renderFillInTheBlankListSection(sec));
     if (sec.type === "short_answer") sectionEl.appendChild(renderShortAnswerSection(sec));
+    if (sec.type === "coding_test") sectionEl.appendChild(renderCodingTestSection(sec));
 
     // Add section to TOC
     const tocItem = document.createElement("li");

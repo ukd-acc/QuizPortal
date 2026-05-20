@@ -1,0 +1,10 @@
+{
+  "sections": [
+    { "file": "matching.json" },
+    { "file": "multiple_choice.json" },
+    { "file": "code_blocks_mc.json" },
+    { "file": "truefalse.json" },
+    { "file": "fill_in_the_blank.json" },
+    { "file": "short_answer.json" }
+  ]
+}

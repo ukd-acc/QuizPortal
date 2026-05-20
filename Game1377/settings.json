@@ -1,19 +1,22 @@
 {
   "quizId": "GAME1377-Quiz",
-  "title": "GAME 1377: Game Development",
+  "title": "GAME 1377: Scripting for Game Developers",
   "course": "Game Development",
   "logo": "../acc_logo.png",
 
-  "userFolder": "Fall2025-03",
+  "userFolder": "Summer2026",
 
   "sections": [
     { "file": "matching.json" },
     { "file": "multiple_choice.json" },
+    { "file": "code_blocks_mc.json" },
     { "file": "truefalse.json" },
     { "file": "matching_pictures.json" },
     { "file": "fill_in_the_blank.json" },
+    { "file": "code_blocks_fitb.json" },
     { "file": "fill_in_the_blank_list.json" },
-    { "file": "short_answer.json" }
+    { "file": "short_answer.json" },
+    { "file": "coding_test.json" }
   ],
 
   "emailRecipients": ["instructor@austincc.edu"],

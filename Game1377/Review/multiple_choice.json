@@ -1,0 +1,33 @@
+{
+  "type": "multiple_choice",
+  "title": "Multiple Choice (1 point each)",
+  "instructions": "Select the best answer for each question.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "Which of the following variables would be visible in the Inspector?",
+      "answers": ["string w", "int x", "private float y", "public Vector3 z"],
+      "correct_answer": "public Vector3 z"
+    },
+    {
+      "question": "Which of the following checks if two conditions are true?",
+      "answers": ["AND operator", "OR operator", "NOT operator", "XOR operator"],
+      "correct_answer": "AND operator"
+    },
+    {
+      "question": "What is the proper way to get a reference to a Rigidbody component on a GameObject?",
+      "answers": ["GetComponent<Rigidbody>()", "Rigidbody.GetComponent()", "GetComponent(Rigidbody)", "Rigidbody.GetComponent<Rigidbody>()"],
+      "correct_answer": "GetComponent<Rigidbody>()"
+    },
+    {
+      "question": "If you use GetComponent to get a reference to a component that doesn’t exist on the GameObject, what value will you get back?",
+      "answers": ["0", "null", "undefined", "NaN"],
+      "correct_answer": "null"
+    },
+    {
+      "question": "What is Time.deltaTime?",
+      "answers": ["The time it takes for the game to start", "The time it takes for a frame to render", "The time it takes for a function to execute", "The time it takes for an object to move"],
+      "correct_answer": "The time it takes for a frame to render"
+    }
+  ]
+}

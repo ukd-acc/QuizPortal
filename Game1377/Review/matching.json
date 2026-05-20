@@ -14,10 +14,10 @@
     },
     {
       "question": "The “i” in a for loop.",
-      "answer": "Milton Bradley"
+      "answer": "Iterator"
     },
     {
-      "question": "Can hold multiple values of one type.",
+      "question": "Can hold multiple values of one data type.",
       "answer": "Array"
     },
     {
@@ -45,28 +45,24 @@
       "answer": "Project Panel"
     },
     {
-        "question": "Press to run and test the game in the editor.",
-        "answer": "Play Button"
+      "question": "A statement used to check conditions.",
+      "answer": "If Statement"
     },
     {
-        "question": "A function that outputs something usually does it through this.",
-        "answer": "Return Value"
+      "question": "A function that outputs something usually does it through this.",
+      "answer": "Return Value"
     },
     {
-        "question": "In a Unity C# Script, this is primarily used for initialization.",
-        "answer": "void Start"
+      "question": "In a Unity C# Script, this method is primarily used for initialization.",
+      "answer": "Start"
     },
     {
-        "question": "Used to pass information from the outside of the function to the inside of the function.",
-        "answer": "Parameter list"
+      "question": "Used to pass information from the outside of the function to the inside of the function.",
+      "answer": "Parameter list"
     },
     {
-        "question": "Ends a statement and tells the computer we are done making that statement",
-        "answer": "Semicolon"
-    },
-    {
-        "question": "A way to look at an object’s various properties and behaviors in the editor.",
-        "answer": "Inspector Panel"
+      "question": "Ends a statement and tells the computer we are done making that statement",
+      "answer": "Semicolon"
     }
   ],
   "word_bank": [
@@ -74,12 +70,14 @@
     { "text": "Project Panel" },
     { "text": "Int" },
     { "text": "Void" },
-    { "text": "Play Button" },
+    { "text": "If" },
+    { "text": "Else" },
+    { "text": "Switch" },
     { "text": "Update" },
     { "text": "Comments" },
     { "text": "Console Panel" },
     { "text": "Inspector Panel" },
-    { "text": "void Start" },
+    { "text": "Start" },
     { "text": "Iterator" },
     { "text": "Return Value" },
     { "text": "Parameter list" },
@@ -87,7 +85,9 @@
     { "text": "Instantiation" },
     { "text": "Programming" },
     { "text": "Semicolon" },
-    { "text": "public" }
+    { "text": "Public" },
+    { "text": "Private" },
+    { "text": "Protected" }
 
   ]
 }

@@ -4,7 +4,7 @@ async function initAuth() {
 }
 
 async function loadUsersForCourse(courseFolder) {
-  const userFolder = `${courseFolder}/Fall2025-03`;
+  const userFolder = `${courseFolder}/${state.settings.userFolder}`;
   try {
     state.users = await loadJSON(`${userFolder}/users.json`);
   } catch {
@@ -13,8 +13,8 @@ async function loadUsersForCourse(courseFolder) {
 }
   
 async function renderLogin() {
-  const courses = ["Game1270", "Game1377"];
-  const quizFolders = ["Quiz1", "Quiz2","Midterm_ClosedBook","Midterm_OpenBook", "Quiz3", "Quiz4", "Final_ClosedBook","Final_OpenBook"]; // Add available quiz folders here
+  const courses = ["Game1377"];
+  const quizFolders = ["Review"]; // Add available quiz folders here
 
   qs("#app").innerHTML = `
     <div class="container login">
@@ -71,8 +71,11 @@ function onLogin() {
   const selectedCourse = qs("#courseDropdown").value; // Get selected course
   const selectedQuiz = qs("#quizDropdown").value; // Get selected quiz folder
 
-  // Load users for the selected course first
-  loadUsersForCourse(selectedCourse).then(() => {
+  // Load course-specific settings first, then load users
+  loadJSON(`${selectedCourse}/settings.json`).then(courseSettings => {
+    state.settings = courseSettings;
+    return loadUsersForCourse(selectedCourse);
+  }).then(() => {
     const account = state.users.find(x => x.username === u && x.password === p);
 
     if (!account) {

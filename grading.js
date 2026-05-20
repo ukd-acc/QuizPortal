@@ -91,6 +91,61 @@ function gradeFillInTheBlankList(section) {
   return { correct, wrongAnswers };
 }
 
+function gradeCodeBlocksFITB(section) {
+  let correct = 0;
+  const wrongAnswers = [];
+
+  section.questions.forEach((q, idx) => {
+    total += section.points_per_question;
+    
+    // Get all inputs for this question (both inline and after-code)
+    const inlineInputs = qsa(`.cbfitb-input-inline[data-question="${idx}"]`);
+    const afterInputs = qsa(`.cbfitb-input-after[data-question="${idx}"]`);
+    const allInputs = [...inlineInputs, ...afterInputs];
+    
+    if (allInputs.length === 0) {
+      // No input found, count as wrong
+      wrongAnswers.push({
+        type: "Code Analysis - Fill in Blank",
+        question: q.prompt,
+        student: "(no answer)",
+        correct: Array.isArray(q.answer) ? q.answer.join(" or ") : q.answer
+      });
+      return;
+    }
+
+    // Normalize accepted answers to lowercase
+    const acceptedAnswers = Array.isArray(q.answer) ? 
+      q.answer.map(a => a.toLowerCase()) : 
+      [q.answer.toLowerCase()];
+
+    let questionCorrect = true;
+    const studentAnswers = [];
+
+    allInputs.forEach((input) => {
+      const userAnswer = input.value.trim().toLowerCase();
+      studentAnswers.push(userAnswer || "(no answer)");
+
+      if (!acceptedAnswers.includes(userAnswer)) {
+        questionCorrect = false;
+      }
+    });
+
+    if (questionCorrect) {
+      correct += section.points_per_question;
+    } else {
+      wrongAnswers.push({
+        type: "Code Analysis - Fill in Blank",
+        question: q.prompt,
+        student: studentAnswers.join(", "),
+        correct: Array.isArray(q.answer) ? q.answer.join(" or ") : q.answer
+      });
+    }
+  });
+
+  return { correct, wrongAnswers };
+}
+
 function gradeQuiz() {
   let points = 0, total = 0;
   const wrongAnswers = [];
@@ -151,6 +206,24 @@ function gradeQuiz() {
       });
     }
 
+    else if (section.type === "code_blocks_mc") {
+      section.prompts.forEach((q, idx) => {
+        total += section.points_per_question;
+        const studentAnswer = state.answers[`cbmc-${idx}`];
+
+        if (studentAnswer && studentAnswer === q.correct_answer) {
+          points += section.points_per_question;
+        } else {
+          wrongAnswers.push({
+            type: "Code Analysis - Multiple Choice",
+            question: q.question,
+            student: studentAnswer || "(no answer)",
+            correct: q.correct_answer
+          });
+        }
+      });
+    }
+
     else if (section.type === "fill_in_the_blank") {
       const result = gradeFillInTheBlank(section);
       points += result.correct;
@@ -162,6 +235,56 @@ function gradeQuiz() {
       }, 0);
 
       wrongAnswers.push(...result.wrongAnswers);
+    }
+
+    else if (section.type === "code_blocks_fitb") {
+      section.questions.forEach((q, idx) => {
+        total += section.points_per_question;
+        
+        // Get all inputs for this question (both inline and after-code)
+        const inlineInputs = qsa(`.cbfitb-input-inline[data-question="${idx}"]`);
+        const afterInputs = qsa(`.cbfitb-input-after[data-question="${idx}"]`);
+        const allInputs = [...inlineInputs, ...afterInputs];
+        
+        if (allInputs.length === 0) {
+          // No input found, count as wrong
+          wrongAnswers.push({
+            type: "Code Analysis - Fill in Blank",
+            question: q.prompt || q.code,
+            student: "(no answer)",
+            correct: Array.isArray(q.answer) ? q.answer.join(" or ") : q.answer
+          });
+          return;
+        }
+
+        // Normalize accepted answers to lowercase
+        const acceptedAnswers = Array.isArray(q.answer) ? 
+          q.answer.map(a => a.toLowerCase()) : 
+          [q.answer.toLowerCase()];
+
+        let questionCorrect = true;
+        const studentAnswers = [];
+
+        allInputs.forEach((input) => {
+          const userAnswer = input.value.trim().toLowerCase();
+          studentAnswers.push(userAnswer || "(no answer)");
+
+          if (!acceptedAnswers.includes(userAnswer)) {
+            questionCorrect = false;
+          }
+        });
+
+        if (questionCorrect) {
+          points += section.points_per_question;
+        } else {
+          wrongAnswers.push({
+            type: "Code Analysis - Fill in Blank",
+            question: q.prompt || q.code,
+            student: studentAnswers.join(", "),
+            correct: Array.isArray(q.answer) ? q.answer.join(" or ") : q.answer
+          });
+        }
+      });
     }
 
     else if (section.type === "fill_in_the_blank_list") {

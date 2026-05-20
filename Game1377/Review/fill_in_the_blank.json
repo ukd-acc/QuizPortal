@@ -5,10 +5,6 @@
   "points_per_question": 1,
   "questions": [
     {
-      "prompt": "___ is the counterpart to ‘hardware’.  Without it, a computer and all its components can't do anything.",
-      "answers": [["software"]]
-    },
-    {
       "prompt": "What does RAM stand for? ___",
       "answers": [["random access memory","randomaccessmemory"]]
     },
@@ -21,37 +17,24 @@
       "answers": [["bit"]]
     },
     {
-      "prompt": "UX stands for ___",
-      "answers": [["user experience","userexperience","user exp","userexp"]]
+      "prompt": "___ is the method used to create GameObjects in Unity.",
+      "answers": [["Instantiate"]]
     },
     {
-      "prompt": "The ___ hugely revitalized the video game industry in 1986.",
-      "answers": [["nintendo entertainment system","nintendoentertainmentsystem","nes","famicom"]]
+      "prompt": "What component is used to evaluate collisions in Unity? ___",
+      "answers": [["Collider"]]
     },
     {
-      "prompt": "Gamers who score high on the ___ cluster want to finish everything the game has to offer and stive for power in the context of the game world.",
-      "answers": [["achievement"]]
+      "prompt": "What method is used to output messages to the Console in Unity? ___",
+      "answers": [["Debug.Log","DebugLog", "Debug.Log()", "DebugLog()", "Debug.Log(\"Message\")", "DebugLog(\"Message\")"]]
     },
     {
-      "prompt": "In MDA, ___ refers to the moment to moment elements of player interaction.",
-      "answers": [["mechanics"]]
+      "prompt": "What moves one animation state to another in an Animator Controller? ___",
+      "answers": [["Transition", "Transitions"]]
     },
     {
-      "prompt": "The  ___ state, also known as 'The Zone', is characterized by complete absorption in what one does.",
-      "answers": [["flow"]]
-    },
-    {
-      "prompt": "List two of the oldest games ever found: ___ and ___.",
-      "answers": [["senet", "ur", "mancala", "go"]]
-    },
-    {
-      "prompt": "Who were the two founders of the first video game company? ___ and ___.",
-      "answers": [["nolan bushnell","ted dabney"]]
-    },
-    {
-      "prompt": "The first console wars in the US were between companies ___ and ___.",
-      "answers": [["nintendo","sega"], ["nintendo","sega"]]
+      "prompt": "What is the comparison operator symbol for EQUAL TO? ___",
+      "answers": [["=="]]
     }
-
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "type": "code_blocks_mc",
+  "title": "Code Analysis (1 point each)",
+  "instructions": "Analyze the code snippet and select the best answer.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What kind of error (if any) would this code snippet produce?",
+      "code": "float x = 1.0f",
+      "answers": ["No error", "Syntax error", "Type error", "Runtime error", "Null Reference Error", "Index Out of Range Error"],
+      "correct_answer": "Type error"
+    },
+    {
+      "question": "What kind of error (if any) would this code snippet produce?",
+      "code": "string score = 10;",
+      "answers": ["No error", "Syntax error", "Type error", "Runtime error", "Null Reference Error", "Index Out of Range Error"],
+      "correct_answer": "Type error"
+    },
+    {
+      "question": "What kind of error (if any) would this code snippet produce?",
+      "code": "GameObject enemy;\nenemy.transform.position = Vector3.zero;",
+      "answers": ["No error", "Syntax error", "Type error", "Runtime error", "Null Reference Error", "Index Out of Range Error"],
+      "correct_answer": "Null Reference Error"
+    },
+    {
+      "question": "What kind of error (if any) would this code snippet produce?",
+      "code": "int[] numbers = new int[3];\nnumbers[3] = 10;",
+      "answers": ["No error", "Syntax error", "Type error", "Runtime error", "Null Reference Error", "Index Out of Range Error"],
+      "correct_answer": "Index Out of Range Error"
+    },
+    {
+      "question": "What does the following code output?",
+      "code": "int[] numbersA = { 1, 2, 3 };\nint[] numbersB = numbersA;\nnumbersB[0] = 99;\nDebug.Log(numbersA[0]);",
+      "answers": ["1", "2", "3", "99"],
+      "correct_answer": "99"
+    }
+  ]
+}
