@@ -4,13 +4,13 @@
   "instructions": "Provide detailed answers to the following questions. Readjust the text box size as needed",
   "questions": [
     {
-      "prompt": "Sum an Array: Write a method that takes in an array of integers and returns the sum of the elements. (4 pts)"
+      "prompt": "Sum an Array: Write a method that takes in an array of integers and returns the sum of the elements. (2 pts)"
     },
     {
-      "prompt": "Debugging: Describe all the tools you have to Debug in Unity.  (5 pts)"
+      "prompt": "Debugging: Describe all the tools you have to Debug in Unity.  (3 pts)"
     },
     {
-      "prompt": "Rock Paper Scissors: Write a method that takes in two enums or strings representing Rock, Paper, or Scissors and returns which one wins according to the rules of Rock Paper Scissors.  (6 pts)"
+      "prompt": "Rock Paper Scissors: Write a method that takes in two enums or strings representing Rock, Paper, or Scissors and returns which one wins according to the rules of Rock Paper Scissors.  (5 pts)"
     }
   ]
 }

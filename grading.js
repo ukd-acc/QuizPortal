@@ -26,7 +26,8 @@ function gradeFillInTheBlank(section) {
 
     inputs.forEach((input, blankIdx) => {
       const userAnswer = input.value.trim().toLowerCase(); // Normalize input
-      const possibleAnswers = Array.isArray(q.answers[blankIdx]) ? q.answers[blankIdx] : q.answers;
+      const rawAnswers = Array.isArray(q.answers[blankIdx]) ? q.answers[blankIdx] : q.answers;
+      const possibleAnswers = (Array.isArray(rawAnswers) ? rawAnswers : [rawAnswers]).map(a => a.toLowerCase()); // Normalize all answers to lowercase
 
       studentAnswers.push(userAnswer || "(no answer)");
 
@@ -63,7 +64,7 @@ function gradeFillInTheBlankList(section) {
     const studentAnswers = []; // Collect all user answers for the question
 
     // Flatten possible answers once for the entire question
-    const possibleAnswers = q.answers.flat();
+    const possibleAnswers = q.answers.flat().map(a => a.toLowerCase()); // Normalize all answers to lowercase
 
     inputs.forEach((input) => {
       const userAnswer = input.value.trim().toLowerCase(); // Normalize input

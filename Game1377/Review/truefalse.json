@@ -5,11 +5,11 @@
   "points_per_question": 1,
   "questions": [
     {
-      "question": "A variable’s name can’t be a number.",
-      "answer": true
+      "question": "All colliders will physically block objects from passing through.",
+      "answer": false
     },
     {
-      "question": "A public variable is accessible from other scripts.",
+      "question": "A variable's data type cannot be changed after it is declared.",
       "answer": true
     },
     {
@@ -17,12 +17,12 @@
       "answer": false
     },
     {
-      "question": "You can modify the values of different properties of an object through script.",
+      "question": "A private variable can be accessed only within its own class.",
       "answer": true
     },
     {
-      "question": "Void returns a type.",
-      "answer": false
+      "question": "Input.GetAxis(\"Horizontal\") returns a value between -1 and 1.",
+      "answer": true
     }  
   ]
 }

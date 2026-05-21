@@ -9,8 +9,8 @@
       "answers": [["bit"]]
     },
     {
-      "prompt": "___ is the method used to create GameObjects in Unity.",
-      "answers": [["Instantiate"]]
+      "prompt": "What does RAM stand for? ___",
+      "answers": [["Random Access Memory"]]
     },
     {
       "prompt": "What component is used to evaluate collisions in Unity? ___",
