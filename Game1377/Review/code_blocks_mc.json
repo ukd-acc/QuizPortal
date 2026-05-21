@@ -8,7 +8,7 @@
       "question": "What kind of error (if any) would this code snippet produce?",
       "code": "float x = 1.0f",
       "answers": ["No error", "Syntax error", "Type error", "Runtime error", "Null Reference Error", "Index Out of Range Error"],
-      "correct_answer": "Type error"
+      "correct_answer": "Syntax error"
     },
     {
       "question": "What kind of error (if any) would this code snippet produce?",
