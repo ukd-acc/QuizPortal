@@ -10,7 +10,7 @@
       "answer": "GTA"
     },
     {
-      "prompt": "What is the value of n in the following code snippet?",
+      "prompt": "What is the value of n after this code runs?",
       "code": "int n = 0;\nfor (int i = 0; i < 5; i++) {\n\tn = n + i;\n}",
       "answer": "10"
     },
@@ -25,7 +25,7 @@
         "answer": "GameStartShouts.Length"
     },
     {
-        "prompt": "What is the result of this code?",
+        "prompt": "What goes in the blank?",
         "code":"__ CalculateAttackRoll(int baseProficiency, int attackBonus) {\n\tint randomRoll = Random.Range(0, 20);\n\treturn baseProficiency + attackBonus + randomRoll;\n}",
         "answer": "int"
     }
