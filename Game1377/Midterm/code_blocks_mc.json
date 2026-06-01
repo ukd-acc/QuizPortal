@@ -1,0 +1,56 @@
+{
+  "type": "code_blocks_mc",
+  "title": "Code Analysis (1 point each)",
+  "instructions": "Analyze the code snippet and select the best answer.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What is the best syntax to check if an object is null?",
+      "answers": [
+        {"code": "if (obj == null)"},
+        {"code": "if (obj != true)"},
+        {"code": "if (!obj)"},
+        {"code": "if (obj.Equals(0))"}
+      ],
+      "correct_answer": "if (obj == null)"
+    },
+    {
+        "question": "If the following line of code to make a character jump isn't working, where is the first place you should look?",
+        "code": "if(Input.GetButtonDown(\"Jump\"))",
+        "answers": ["Input settings in the Unity editor", "The Rigidbody component", "The console window", ""],
+        "correct_answer": "Input settings in the Unity editor"
+    },
+    {
+      "question": "Which code snippet correctly declares a List of strings?",
+      "answers": [
+        {"code": "List<string> names = new List<string>();"},
+        {"code": "string[] names = new List<string>();"},
+        {"code": "List names = new List();"},
+        {"code": "List<string> names = new string[];"}
+      ],
+      "correct_answer": "List<string> names = new List<string>();"
+    },
+    {
+      "question": "What does this code snippet output?",
+      "code": "for (int i = 0; i < 3; i++) {\n  Debug.Log(i);\n}",
+      "answers": ["0 1 2", "1 2 3", "0 1 2 3", "3 2 1"],
+      "correct_answer": "0 1 2"
+    },
+    {
+      "question": "Which code snippet correctly gets a Rigidbody component from a GameObject?",
+      "answers": [
+        {"code": "Rigidbody rb = gameObject.GetComponent<Rigidbody>();"},
+        {"code": "Rigidbody rb = GetComponent(Rigidbody);"},
+        {"code": "Rigidbody rb = gameObject.Rigidbody;"},
+        {"code": "Rigidbody rb = new Rigidbody();"}
+      ],
+      "correct_answer": "Rigidbody rb = gameObject.GetComponent<Rigidbody>();"
+    },
+    {
+      "question": "What does the following code output?",
+      "code": "Vector3 v1 = new Vector3(1, 2, 3);\nVector3 v2 = new Vector3(4, 5, 6);\nfloat distance = Vector3.Distance(v1, v2);\nDebug.Log(distance);",
+      "answers": ["7", "15", "9", "5.19"],
+      "correct_answer": "5.19"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "type": "multiple_choice",
+  "title": "Multiple Choice (1 point each)",
+  "instructions": "Select the best answer for each question.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What does normalizing a Vector3 do?",
+      "answers": ["It adjusts the x, y and z values so the magnitude is 1.", "It flattens it out.", "It wipes all of the x, y, and z values.", "It sets the Y value to 1."],
+      "correct_answer": "It adjusts the x, y and z values so the magnitude is 1."
+    },
+    {
+      "question": "What method is typically used to detect when one object makes physical contact (like a ball hitting a wall)?",
+      "answers": ["OnCollisionEnter", "OnTriggerEnter", "OnComponentHit", "OnComponentBeginOverlap"],
+      "correct_answer": "OnCollisionEnter"
+    },
+    {
+      "question": "What is the result of calling Instantiate(prefab)?",
+      "answers": ["It creates a new instance of the prefab", "It deletes the prefab", "It unloads the prefab from memory", "It destroys the prefab"],
+      "correct_answer": "It creates a new instance of the prefab"
+    },
+    {
+      "question": "What happens if you try to access a component that doesn't exist using GetComponent?",
+      "answers": ["It returns null", "A breakpoint is created", "Unity crashes", "It creates a new component"],
+      "correct_answer": "It returns null"
+    },
+    {
+      "question": "What's the difference between GetKeyDown and GetKey?",
+      "answers": ["GetKeyDown fires once when key is first pressed; GetKey returns true while held", "GetKeyDown returns true while key is held; GetKey only fires once", "No difference", "They are unrelated"],
+      "correct_answer": "GetKeyDown fires once when key is first pressed; GetKey returns true while held"
+    },
+    {
+      "question": "Which data type is best for storing true/false values?",
+      "answers": ["bool", "int", "float", "string"],
+      "correct_answer": "bool"
+    },
+    {
+      "question": "Which loop is best for iterating over a List when the index matters?",
+      "answers": ["for", "foreach", "while", "do-while"],
+      "correct_answer": "for"
+    },
+    {
+      "question": "What keyword prevents a variable from being accessible outside of its class?",
+      "answers": ["private", "public", "invisible", "global"],
+      "correct_answer": "private"
+    },
+    {
+      "question": "What is the purpose of a prefab?",
+      "answers": ["To save reusable GameObjects", "To make UI", "To change lighting", "To detect collisions"],
+      "correct_answer": "To save reusable GameObjects"
+    },
+    {
+      "question": "What is the main purpose of Invoke()?",
+      "answers": ["Calls a method after a delay", "Calls a method on another object", "Instantiates a prefab", "Makes code run faster"],
+      "correct_answer": "Calls a method after a delay"
+    },
+    {
+      "question": "Which best describes Input.GetButton vs Input.GetKey?",
+      "answers": ["GetButton uses Input Manager mappings, GetKey checks physical keys", "GetButton checks any key, GetKey is spacebar only", "GetKey is controllers only", "GetButton detects release only"],
+      "correct_answer": "GetButton uses Input Manager mappings, GetKey checks physical keys"
+    },
+    {
+      "question": "Which component must be added for physics movement?",
+      "answers": ["Rigidbody", "BoxCollider", "Transform", "AudioSource"],
+      "correct_answer": "Rigidbody"
+    },
+    {
+      "question": "When does LateUpdate() run?",
+      "answers": ["After Update()", "Before physics calculations", "As the game exits", "Only once per game"],
+      "correct_answer": "After Update()"
+    },
+    {
+      "question": "What does overriding a prefab do?",
+      "answers": ["Applies changes from instance to prefab", "Duplicates it", "Deletes the original", "Makes it static"],
+      "correct_answer": "Applies changes from instance to prefab"
+    },
+    {
+      "question": "If jump input isn't working, where should you check first?",
+      "answers": ["Both Console errors and Input Manager", "Rigidbody", "Console errors", "Input Manager"],
+      "correct_answer": "Both Console errors and Input Manager"
+    },
+    {
+      "question": "What does Input.GetButton() return?",
+      "answers": ["True while held", "Button ID", "True only first frame", "String name"],
+      "correct_answer": "True while held"
+    },
+    {
+      "question": "What is the correct way to declare a list of integers?",
+      "answers": ["List<int> list = new List<int>()", "int list = new List", "List myList = int[]", "new list() myList"],
+      "correct_answer": "List<int> list = new List<int>()"
+    },
+    {
+      "question": "How do you delay Invoke by 2 seconds?",
+      "answers": ["Invoke(\"MyMethod\", 2f)", "Invoke(MyMethod, 2)", "Invoke(\"MyMethod\", \"2\")", "InvokeDelayed"],
+      "correct_answer": "Invoke(\"MyMethod\", 2f)"
+    },
+    {
+      "question": "How do you properly destroy a GameObject?",
+      "answers": ["Destroy(GameObject)", "Remove(GameObject)", "GameObject.Destroy()", "gameObject.remove()"],
+      "correct_answer": "Destroy(GameObject)"
+    },
+    {
+      "question": "Which tag is commonly used for the player?",
+      "answers": ["Player", "MainCamera", "Hero", "GameManager"],
+      "correct_answer": "Player"
+    },
+    {
+      "question": "Which is NOT a Unity data type?",
+      "answers": ["Direction", "Vector3", "Rigidbody", "Transform"],
+      "correct_answer": "Direction"
+    },
+    {
+      "question": "A variable inside a method has what scope?",
+      "answers": ["Local", "Class", "Global", "Static"],
+      "correct_answer": "Local"
+    },
+    {
+      "question": "What does Vector3.Distance(a, b) calculate?",
+      "answers": ["The distance between two points in 3D space", "The angle between two vectors", "The cross product of two vectors", "The time between two frames"],
+      "correct_answer": "The distance between two points in 3D space"
+    }
+  ]
+}

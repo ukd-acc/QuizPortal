@@ -1,0 +1,68 @@
+{
+  "type": "matching",
+  "title": "Matching (1 point each)",
+  "instructions": "Select the correct answer from the dropdown.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What vector is represented by Vector3.forward?",
+      "answer": "(0, 0, 1)"
+    },
+    {
+      "question": "What vector is represented by Vector3.right?",
+      "answer": "(1, 0, 0)"
+    },
+    {
+      "question": "What vector is represented by Vector3.zero?",
+      "answer": "(0, 0, 0)"
+    },
+    {
+      "question": "What vector is represented by Vector3.up?",
+      "answer": "(0, 1, 0)"
+    },
+    {
+      "question": "What vector is represented by Vector3.one?",
+      "answer": "(1, 1, 1)"
+    },
+    {
+      "question": "Lists all GameObjects in the scene.",
+      "answer": "Hierarchy"
+    },
+    {
+      "question": "Shows component properties for the selected GameObject.",
+      "answer": "Inspector"
+    },
+    {
+      "question": "Contains all assets and scripts in the project.",
+      "answer": "Project"
+    },
+    {
+      "question": "The 3D view of the level in the editor.",
+      "answer": "Scene view"
+    },
+    {
+      "question": "What the player will see at runtime.",
+      "answer": "Game view"
+    },
+    {
+      "question": "Used to move, rotate, and scale objects.",
+      "answer": "Transform"
+    }
+
+  ],
+  "word_bank": [
+    { "text": "(0, 0, 1)" },
+    { "text": "(1, 0, 0)" },
+    { "text": "(0, 0, 0)" },
+    { "text": "(0, 1, 0)" },
+    { "text": "Hierarchy" },
+    { "text": "Inspector" },
+    { "text": "Project" },
+    { "text": "Scene view" },
+    { "text": "Game view" },
+    { "text": "Transform" },
+    { "text": "Magnitude" },
+    { "text": "Navigation"},
+    { "text": "Preferences"}
+  ]
+}

@@ -30,7 +30,18 @@ function renderCodeBlocksMCSection(section) {
     q.answers.forEach(ans => {
       const option = document.createElement("div");
       option.className = "cbmc-option";
-      option.textContent = ans;
+
+      // Check if answer is an object with code property
+      if (typeof ans === "object" && ans.code) {
+        const codeBlock = document.createElement("pre");
+        codeBlock.className = "cbmc-answer-code";
+        const codeEl = document.createElement("code");
+        codeEl.textContent = ans.code;
+        codeBlock.appendChild(codeEl);
+        option.appendChild(codeBlock);
+      } else {
+        option.textContent = ans;
+      }
 
       option.onclick = () => {
         // Clear previous selection for this question
@@ -41,8 +52,12 @@ function renderCodeBlocksMCSection(section) {
         // Highlight the clicked one
         option.classList.add("selected");
 
-        // Save answer
-        state.answers[`cbmc-${idx}`] = ans;
+        // Save answer - store the display value for grading
+        if (typeof ans === "object" && ans.code) {
+          state.answers[`cbmc-${idx}`] = ans.code;
+        } else {
+          state.answers[`cbmc-${idx}`] = ans;
+        }
       };
 
       div.appendChild(option);

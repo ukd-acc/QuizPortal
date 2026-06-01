@@ -1,0 +1,44 @@
+{
+  "type": "true_false",
+  "title": "True or False (1 point each)",
+  "instructions": "Select True or False for each statement.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "question": "Start() is the first method called in the Unity lifecycle.",
+      "answer": false
+    },
+    {
+      "question": "Private variables show in the Unity Inspector by default.",
+      "answer": false
+    },
+    {
+      "question": "Time.deltaTime helps make movement consistent across varying frame rates.",
+      "answer": true
+    },
+    {
+      "question": "Debug.Log() is used to create breakpoints.",
+      "answer": false
+    },
+    {
+      "question": "You should make all variables public if possible.",
+      "answer": false
+    },
+    {
+      "question": "The Update() method is called once per frame in Unity.",
+      "answer": true
+    },
+    {
+      "question": "The only way to get inputs in Unity is via the Input Manager, using methods like Input.GetAxis, Input.GetKey, etc.",
+      "answer": false
+    },
+    {
+      "question": "A Vector3 with magnitude 1 is considered normalized.",
+      "answer": true
+    },
+    {
+      "question": "Physics collisions are checked in FixedUpdate.",
+      "answer": true
+    }
+  ]
+}

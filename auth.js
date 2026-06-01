@@ -51,18 +51,61 @@ async function renderLogin() {
         <div class="login-actions">
           <div class="flex">
             <button id="loginBtn">Sign In</button>
-            <button class="secondary" id="showHelp">Where do passwords come from?</button>
           </div>
-          <div class="notice">No account? Ask your instructor.</div>
+          <div class="notice">No account or password? Ask your instructor.</div>
         </div>
       </div>
     </div>
   `;
 
   qs("#loginBtn").addEventListener("click", onLogin);
-  qs("#showHelp").addEventListener("click", () => {
-    alert("Get your password from your instructor.");
+
+  // Add Enter key listener to username and password fields
+  qs("#username").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const u = qs("#username").value.trim();
+      const p = qs("#password").value;
+      if (u && p) {
+        onLogin();
+      }
+    }
   });
+
+  qs("#password").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const u = qs("#username").value.trim();
+      const p = qs("#password").value;
+      if (u && p) {
+        onLogin();
+      }
+    }
+  });
+
+  // Add input listeners to enable/disable login button
+  const usernameInput = qs("#username");
+  const passwordInput = qs("#password");
+  const loginBtn = qs("#loginBtn");
+
+  // Initial button state
+  updateLoginButtonState();
+
+  usernameInput.addEventListener("input", updateLoginButtonState);
+  passwordInput.addEventListener("input", updateLoginButtonState);
+
+  function updateLoginButtonState() {
+    const u = usernameInput.value.trim();
+    const p = passwordInput.value;
+
+    if (u && p) {
+      loginBtn.disabled = false;
+      loginBtn.classList.add("enabled");
+      loginBtn.classList.remove("disabled");
+    } else {
+      loginBtn.disabled = true;
+      loginBtn.classList.add("disabled");
+      loginBtn.classList.remove("enabled");
+    }
+  }
 }
 
 function onLogin() {
