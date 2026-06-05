@@ -1,0 +1,28 @@
+{
+  "type": "fill_in_the_blank",
+  "title": "Fill in the Blank (1 point per blank)",
+  "instructions": "Type the correct answer(s) in the blank(s). Do NOT use periods to end your answers.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "How do you create a new GameObject in Unity at runtime? ___",
+      "answers": [["Instantiate()", "Instantiate() method", "Instantiate(prefab)", "Instantiate(prefab, position, rotation)", "Instantiate"]]
+    },
+    {
+      "prompt": "GetComponent<T>() will return ___ if the component doesn't exist on the GameObject.",
+      "answers": [["null", "Null", "NULL", "Null value", "null value", "NullValue", "NULL value", "nullValue", "NULLValue"]]
+    },
+    {
+      "prompt": "What component is used to evaluate collisions in Unity? ___",
+      "answers": [["Collider"]]
+    },
+    {
+      "prompt": "What method is used to output messages to the Console in Unity? ___",
+      "answers": [["Debug.Log","DebugLog", "Debug.Log()", "DebugLog()", "Debug.Log(\"Message\")", "DebugLog(\"Message\")"]]
+    },
+    {
+      "prompt": "What moves one animation state to another in an Animator Controller? ___",
+      "answers": [["Transition", "Transitions"]]
+    }
+  ]
+}

@@ -15,16 +15,6 @@
       "correct_answer": "OnCollisionEnter"
     },
     {
-      "question": "What is the result of calling Instantiate(prefab)?",
-      "answers": ["It creates a new instance of the prefab", "It deletes the prefab", "It unloads the prefab from memory", "It destroys the prefab"],
-      "correct_answer": "It creates a new instance of the prefab"
-    },
-    {
-      "question": "What happens if you try to access a component that doesn't exist using GetComponent?",
-      "answers": ["It returns null", "A breakpoint is created", "Unity crashes", "It creates a new component"],
-      "correct_answer": "It returns null"
-    },
-    {
       "question": "What's the difference between GetKeyDown and GetKey?",
       "answers": ["GetKeyDown fires once when key is first pressed; GetKey returns true while held", "GetKeyDown returns true while key is held; GetKey only fires once", "No difference", "They are unrelated"],
       "correct_answer": "GetKeyDown fires once when key is first pressed; GetKey returns true while held"

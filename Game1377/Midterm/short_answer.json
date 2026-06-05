@@ -1,0 +1,16 @@
+{
+  "type": "short_answer",
+  "title": "Short Answer Questions",
+  "instructions": "Provide detailed answers to the following questions. Readjust the text box size as needed",
+  "questions": [
+    {
+      "prompt": "What is the difference between Triggers and Collisions in Unity and what is a good example for each? (2 pts)"
+    },
+    {
+      "prompt": "Debugging: Describe all the tools you have to Debug in Unity.  (3 pts)"
+    },
+    {
+      "prompt": "Rock Paper Scissors: Write a method that takes in two enums or strings representing Rock, Paper, or Scissors and returns which one wins according to the rules of Rock Paper Scissors. Return \"No Winner\" if there is a tie. (5 pts)"
+    }
+  ]
+}
