@@ -10,7 +10,13 @@
       "prompt": "Debugging: Describe all the tools you have to Debug in Unity.  (3 pts)"
     },
     {
-      "prompt": "Rock Paper Scissors: Write a method that takes in two enums or strings representing Rock, Paper, or Scissors and returns which one wins according to the rules of Rock Paper Scissors. Return \"No Winner\" if there is a tie. (5 pts)"
+      "prompt": "Rock Paper Scissors: Write a method that takes in two string parameters representing Rock, Paper, or Scissors and return a string indicating which one wins according to the rules of Rock Paper Scissors. Return \"No Winner\" if there is a tie. (5 pts)"
+    },
+    {
+      "prompt": "Collisions: Write a method commonly used in Unity for checking collisions that would exist in a script (you only need to write the method). In the method, it should check if the object collided with has a Rigidbody component. If it does, destroy the object the script would be attached to. Otherwise, destroy the other object that collided with this one. (5 pts)"
+    },
+    {
+      "prompt": "Input: Assume you have a GameObject called DummyPrefab and you are writing your code in the Update method. Write code that would create one of these prefabs at a random position where x is between -5f and 5f, y is 0f, and z = between -4f and 4f whenever you press the S key."
     }
   ]
 }
