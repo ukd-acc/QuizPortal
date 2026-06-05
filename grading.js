@@ -318,15 +318,15 @@ function showSummary(res) {
         <p>You scored <strong>${res.points}/${res.total}</strong> (${res.percent}%).</p>
         <h3>Short Answer Responses:</h3>
         <ul class="short-answer-list">
-          ${res.shortAnswerResponses.map(r => 
+          ${res.shortAnswerResponses.map((r, i) =>
             `<li><strong>${r.question}</strong><br/>
-             <span class="student">Your answer: ${r.answer}</span></li>`
+             <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre></li>`
           ).join("")}
         </ul>
         <h3>Incorrect Answers:</h3>
         ${res.wrongAnswers.length === 0 ? "<p>All answers correct 🎉</p>" :
           `<ul class="wrong-list">
-            ${res.wrongAnswers.map(w => 
+            ${res.wrongAnswers.map(w =>
               `<li><strong>${w.type}</strong> - ${w.question}<br/>
                <span class="student">Your answer: ${w.student}</span><br/>
                <span class="correct">Correct answer: ${w.correct}</span></li>`
@@ -336,6 +336,10 @@ function showSummary(res) {
       </div>
     </div>
   `;
+
+  res.shortAnswerResponses.forEach((r, i) => {
+    app.querySelector(`pre[data-sa="${i}"]`).textContent = r.answer || "(no answer)";
+  });
 
   qs("#logoutBtn").addEventListener("click", logout);
 }

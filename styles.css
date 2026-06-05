@@ -652,6 +652,14 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
   margin-bottom: 16px;
 }
 
+.student-answer {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  margin: 4px 0 0 0;
+  padding: 0;
+}
+
 /* ===== CODING TEST STYLES ===== */
 .coding-section {
   background: var(--card);

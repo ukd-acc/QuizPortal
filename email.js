@@ -30,7 +30,7 @@ function sendResultsByEmail(result) {
   let shortAnswerDetails = "No short answers";
   if(result.shortAnswerResponses.length > 0) {
     shortAnswerDetails = result.shortAnswerResponses.map(r => 
-      `${r.question}: ${r.answer}`
+      `${r.question}:\n${r.answer}`
     ).join("\n\n");
   }
   const templateParams = {
