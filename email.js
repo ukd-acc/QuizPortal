@@ -38,13 +38,12 @@ function sendResultsByEmail(result) {
     name: state.user.fullName || state.user.username,
     title: state.settings.title,
     time: new Date().toLocaleString(),
-    message: (
+    message:
       `${state.settings.title} results for ${state.user.fullName}:\n\n` +
       `Score: ${result.points}/${result.total} (${result.percent}%).\n` +
       `Duration: ${durationMin} minute${durationMin !== 1 ? "s" : ""}.\n\n` +
       `Incorrect answers:\n${wrongDetails}\n` +
       `Short answers: \n${shortAnswerDetails}`
-    ).replace(/\n/g, "<br>")
 
   };
   
