@@ -1,7 +1,8 @@
 function renderShortAnswerSection(section) {
   const wrapper = document.createElement("div");
   wrapper.className = "section shortanswer";
-  wrapper.innerHTML = `<h2>${section.title}</h2><p>${section.instructions}</p>`;
+  // Only include instructions paragraph if non-empty to avoid extra vertical gap
+  wrapper.innerHTML = `<h2>${section.title}</h2>` + (section.instructions && section.instructions.trim() ? `<p>${section.instructions}</p>` : "");
 
   section.questions.forEach((q, idx) => {
     const questionBox = document.createElement("div");
@@ -46,6 +47,13 @@ function renderShortAnswerSection(section) {
     questionBox.appendChild(row);
     wrapper.appendChild(questionBox);
   });
+
+  // Debug: log the generated HTML structure so we can spot any unexpected inputs
+  try {
+    console.debug('renderShortAnswerSection HTML:', wrapper.innerHTML);
+  } catch (e) {
+    console.debug('renderShortAnswerSection: cannot serialize wrapper innerHTML', e);
+  }
 
   return wrapper;
 }

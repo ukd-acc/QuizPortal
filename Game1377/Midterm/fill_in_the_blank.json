@@ -14,7 +14,7 @@
     },
     {
       "prompt": "What component is used to evaluate collisions in Unity? ___",
-      "answers": [["Collider"]]
+      "answers": [["Collider", "Colliders"]]
     },
     {
       "prompt": "What method is used to output messages to the Console in Unity? ___",

@@ -151,6 +151,7 @@ function gradeQuiz() {
   let points = 0, total = 0;
   const wrongAnswers = [];
   const shortAnswerResponses = [];
+  const likertResponses = [];
 
   state.quiz.sections.forEach(section => {
     if (section.type === "matching") {
@@ -301,11 +302,20 @@ function gradeQuiz() {
     else if (section.type === "short_answer") {
       shortAnswerResponses.push(...gradeShortAnswer(section));
     }
+    else if (section.type === "likert") {
+      // Collect likert responses (survey) but do not affect scoring
+      section.prompts.forEach((q, idx) => {
+        const secIdx = typeof section._sectionIndex !== 'undefined' ? section._sectionIndex : 0;
+        const key = `likert-${secIdx}-${idx}`;
+        const resp = state.answers[key];
+        likertResponses.push({ question: q.question, value: resp ? resp.value : null, label: resp ? resp.label : null });
+      });
+    }
   });
 
   const percent = total > 0 ? Math.round((points / total) * 100) : 0;
 
-  return { points, total, percent, wrongAnswers, shortAnswerResponses };
+  return { points, total, percent, wrongAnswers, shortAnswerResponses, likertResponses };
 }
 
 /* ---------- SUMMARY ---------- */
@@ -315,13 +325,19 @@ function showSummary(res) {
     <div class="container">
       <div class="card">
         <h2>Quiz Summary</h2>
-        <p>You scored <strong>${res.points}/${res.total}</strong> (${res.percent}%).</p>
+  ${res.total > 0 ? `<p>You scored <strong>${res.points}/${res.total}</strong> (${res.percent}%).</p>` : `<p><em>No score for survey-only quizzes.</em></p>`}
         <h3>Short Answer Responses:</h3>
         <ul class="short-answer-list">
           ${res.shortAnswerResponses.map((r, i) =>
             `<li><strong>${r.question}</strong><br/>
              <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre></li>`
           ).join("")}
+        </ul>
+        <h3>Survey Responses:</h3>
+        <ul class="short-answer-list">
+          ${res.likertResponses && res.likertResponses.length ? res.likertResponses.map(l =>
+            `<li><strong>${l.question}</strong><br/><span class="student">Selected: ${l.label !== null ? l.label : '(no response)'}</span></li>`
+          ).join("") : `<li>No survey responses</li>`}
         </ul>
         <h3>Incorrect Answers:</h3>
         ${res.wrongAnswers.length === 0 ? "<p>All answers correct 🎉</p>" :

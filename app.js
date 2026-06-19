@@ -39,6 +39,12 @@ async function initQuiz() {
 
   const quizFolder = `${courseFolder}/${state.selectedQuizFolder}`; // Combine course folder with quiz folder
 
+  // If the selected quiz folder has its own settings.json, prefer it (e.g., Survey 1)
+  const quizLevelSettings = await loadJSON(`${quizFolder}/settings.json`);
+  if (quizLevelSettings) {
+    state.settings = quizLevelSettings;
+  }
+
   for (const secMeta of state.settings.sections) {
     const sec = await loadJSON(`${quizFolder}/${secMeta.file}`);
     if (!sec) {
@@ -123,11 +129,15 @@ function renderQuiz() {
     sectionEl.className = "quiz-section";
     sectionsEl.appendChild(sectionEl);
 
+    // Attach section index for renderers that need unique keys/names
+    sec._sectionIndex = idx;
+
     // Render section content
     if (sec.type === "matching") sectionEl.appendChild(renderMatchingSection(sec));
     if (sec.type === "true_false") sectionEl.appendChild(renderTFSection(sec));
     if (sec.type === "matching_pictures") sectionEl.appendChild(renderMatchingPicturesSection(sec));
     if (sec.type === "multiple_choice") sectionEl.appendChild(renderMCSection(sec));
+    if (sec.type === "likert") sectionEl.appendChild(renderLikertSection(sec));
     if (sec.type === "code_blocks_mc") sectionEl.appendChild(renderCodeBlocksMCSection(sec));
     if (sec.type === "fill_in_the_blank") sectionEl.appendChild(renderFillInTheBlankSection(sec));
     if (sec.type === "code_blocks_fitb") sectionEl.appendChild(renderCodeBlocksFITBSection(sec));

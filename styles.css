@@ -630,6 +630,14 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
   margin-bottom: 16px;
 }
 
+/* Reduce vertical gap for prompt paragraphs inside question rows and likert prompts */
+.sa-row p,
+.likert-prompt,
+.section .question-box > p {
+  margin-top: 0;    /* remove top gap */
+  margin-bottom: 8px; /* small bottom gap */
+}
+
 .sa-input {
   background-color: #1a244a; /* Dark blue background */
   color: #ffffff; /* White text */
@@ -667,6 +675,29 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
   padding: 20px;
   margin-bottom: 20px;
 }
+
+/* ===== LIKERT SCALE STYLES ===== */
+.likert-scale {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.likert-question { margin-bottom: 10px; }
+
+.likert-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px;
+}
+
+.likert-option input[type="radio"] { margin-bottom: 6px; }
+.likert-label { font-weight: 700; margin-bottom: 6px; }
+.likert-caption { font-size: 0.8em; color: var(--muted); text-align: center; }
+
+.section.likert .question-box { display: block; }
 
 .coding-section h2 {
   margin-top: 0;

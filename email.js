@@ -33,6 +33,12 @@ function sendResultsByEmail(result) {
       `${r.question}:\n${r.answer}`
     ).join("\n\n");
   }
+  let likertDetails = "No survey responses";
+  if (result.likertResponses && result.likertResponses.length > 0) {
+    likertDetails = result.likertResponses.map(l =>
+      `${l.question}: ${l.label !== null ? l.label : '(no response)'} (${l.value !== null ? l.value : 'n/a'})`
+    ).join("\n");
+  }
   const templateParams = {
     to_email: state.settings.emailRecipients.join(", "),
     name: state.user.fullName || state.user.username,
@@ -42,8 +48,9 @@ function sendResultsByEmail(result) {
       `${state.settings.title} results for ${state.user.fullName}:\n\n` +
       `Score: ${result.points}/${result.total} (${result.percent}%).\n` +
       `Duration: ${durationMin} minute${durationMin !== 1 ? "s" : ""}.\n\n` +
-      `Incorrect answers:\n${wrongDetails}\n` +
-      `Short answers: \n${shortAnswerDetails}`
+  `Incorrect answers:\n${wrongDetails}\n` +
+  `Short answers:\n${shortAnswerDetails}\n\n` +
+  `Survey responses:\n${likertDetails}`
 
   };
   

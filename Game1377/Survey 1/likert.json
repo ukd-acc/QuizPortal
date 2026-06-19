@@ -1,0 +1,35 @@
+{
+  "type": "likert",
+  "title": "Survey 1 — Confidence in Coding Topics",
+  "instructions": "For each topic below, select how confident you feel about understanding and implementing code in that area.",
+  "points_per_question": 0,
+  "scale_labels": [
+    "Not at all confident",
+    "Slightly confident",
+    "Somewhat confident",
+    "Very confident",
+    "Completely confident"
+  ],
+  "prompts": [
+    { "question": "Variables and data types" },
+    { "question": "Arithmetic Operators (Addition, Subtraction, Multiplication, Division)" },
+    { "question": "Modulo (%)" },
+    { "question": "Conditional Operators (>, <, ==, !=, >=, <=)" },
+    { "question": "Increment and Decrement operators (++, --, +=, etc.)" },
+    { "question": "Conditional Statements (if, else if, else)" },
+    { "question": "Switch Statements" },
+    { "question": "For Loops" },
+    { "question": "While Loops" },
+    { "question": "Flow Control in Loops (Continue, Break, Skipping Iterations, if/else in loops)" },
+    { "question": "Declaring arrays" },
+    { "question": "Indexing into an array" },
+    { "question": "Iterating through an array" },
+    { "question": "Enums" },
+    { "question": "Creating Methods" },
+    { "question": "Parameters" },
+    { "question": "Return Types" },
+    { "question": "Reference vs Value Types" },
+    { "question": "Local Variables in Methods" },
+    { "question": "Structs" }
+  ]
+}
