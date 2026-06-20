@@ -1,0 +1,196 @@
+{
+  "type": "fill_in_the_blank",
+  "title": "Modulo Practice",
+  "instructions": "Type the correct answer(s) in the blank(s). Do NOT use periods to end your answers.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "7 % 3 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "10 % 4 = ___",
+      "answers": [["2"]]
+    },
+    {
+      "prompt": "15 % 5 = ___",
+      "answers": [["0"]]
+    },
+    {
+      "prompt": "9 % 2 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "20 % 7 = ___",
+      "answers": [["6"]]
+    },
+    {
+      "prompt": "11 % 11 = ___",
+      "answers": [["0"]]
+    },
+    {
+      "prompt": "0 % 6 = ___",
+      "answers": [["0"]]
+    },
+    {
+      "prompt": "13 % 4 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "25 % 8 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "30 % 9 = ___",
+      "answers": [["3"]]
+    },
+    {
+      "prompt": "17 % 5 = ___",
+      "answers": [["2"]]
+    },
+    {
+      "prompt": "6 % 7 = ___",
+      "answers": [["6"]]
+    },
+    {
+      "prompt": "100 % 10 = ___",
+      "answers": [["0"]]
+    },
+    {
+      "prompt": "47 % 6 = ___",
+      "answers": [["5"]]
+    },
+    {
+      "prompt": "33 % 4 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "22 % 3 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "55 % 12 = ___",
+      "answers": [["7"]]
+    },
+    {
+      "prompt": "81 % 9 = ___",
+      "answers": [["0"]]
+    },
+    {
+      "prompt": "99 % 10 = ___",
+      "answers": [["9"]]
+    },
+    {
+      "prompt": "64 % 7 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "(3 + 5) % 3 = ___",
+      "answers": [["2"]]
+    },
+    {
+      "prompt": "(12 * 3) % 7 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "17^2 % 5 = ___",
+      "answers": [["4"]]
+    },
+    {
+      "prompt": "(100 - 63) % 6 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "2^8 % 10 = ___",
+      "answers": [["6"]]
+    },
+    {
+      "prompt": "(7 % 3) + (9 % 4) = ___",
+      "answers": [["3"]]
+    },
+    {
+      "prompt": "-5 % 3 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "-11 % 4 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "1000 % 7 = ___",
+      "answers": [["6"]]
+    },
+    {
+      "prompt": "3^10 % 8 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "(6 * 7) % 11 = ___",
+      "answers": [["9"]]
+    },
+    {
+      "prompt": "50! % 7 = ___",
+      "answers": [["0"]]
+    },
+    {
+      "prompt": "(2^3 + 3^2) % 5 = ___",
+      "answers": [["2"]]
+    },
+    {
+      "prompt": "123 % 12 = ___",
+      "answers": [["3"]]
+    },
+    {
+      "prompt": "(15 % 4) * (10 % 3) = ___",
+      "answers": [["3"]]
+    },
+    {
+      "prompt": "7^4 % 10 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "-20 % 6 = ___",
+      "answers": [["4"]]
+    },
+    {
+      "prompt": "999 % 37 = ___",
+      "answers": [["0"]]
+    },
+    {
+      "prompt": "2^20 % 5 = ___",
+      "answers": [["1"]]
+    },
+    {
+      "prompt": "(13^2 - 4) % 9 = ___",
+      "answers": [["6"]]
+    },
+    {
+      "prompt": "Today is Tuesday. What day will it be in 100 days? Hint: convert days/weeks into numbers (Mo = 0, Tu = 1, We = 2, Th = 3, Fr = 4, Sa = 5, Su = 6, Week = 7), then use modulo = ___",
+      "answers": [["Thursday"]]
+    },
+    {
+      "prompt": "A clock currently shows 3:00. What hour does it show 50 hours later? = ___",
+      "answers": [["5"]]
+    },
+    {
+      "prompt": "You arrange 47 chairs into rows of 8. How many chairs are left over in the last row? = ___",
+      "answers": [["7"]]
+    },
+    {
+      "prompt": "You distribute 134 apples equally into 15 baskets. How many apples are left over? = ___",
+      "answers": [["14"]]
+    },
+    {
+      "prompt": "A stripe color pattern repeats, with stripe 0 starting as: Red, Blue, Green, Yellow. What color is stripe 53? = ___",
+      "answers": [["Green"]]
+    },
+    {
+      "prompt": "January 1st is a Wednesday. What day will January 1st be the following year (assume no leap year)? Hint: convert days/weeks into numbers (Mo = 0, Tu = 1, We = 2, Th = 3, Fr = 4, Sa = 5, Su = 6, Week = 7), then use modulo= ___",
+      "answers": [["Thursday"]]
+    },
+    {
+      "prompt": "230 people are assigned chairs numbered 1 to 17, repeating. What chair number does person 200 get? = ___",
+      "answers": [["13"]]
+    }
+  ]
+}

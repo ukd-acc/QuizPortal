@@ -52,38 +52,35 @@ async function initQuiz() {
       continue; 
     }
 
-    // Shuffle once here
-    if (sec.type === "matching") {
-      sec.prompts = shuffleArray(sec.prompts);
-      sec.word_bank = shuffleArray(sec.word_bank);   
-    }
-    else if (sec.type === "true_false") {
-      sec.questions = shuffleArray(sec.questions);
-    }
-    else if (sec.type === "multiple_choice") {
-      sec.prompts = shuffleArray(sec.prompts);
-      sec.prompts.forEach(q => {
-        q.answers = shuffleArray(q.answers || q.answer); 
-      });
-    }
-    else if (sec.type === "code_blocks_mc") {
-      sec.prompts = shuffleArray(sec.prompts);
-      sec.prompts.forEach(q => {
-        q.answers = shuffleArray(q.answers || q.answer); 
-      });
-    }
-    else if (sec.type === "matching_pictures") {
-      sec.prompts = shuffleArray(sec.prompts);
-      sec.word_bank = shuffleArray(sec.word_bank);
-    }
-    else if (sec.type === "fill_in_the_blank") {
-      sec.questions = shuffleArray(sec.questions);
-    }
-    else if (sec.type === "code_blocks_fitb") {
-      sec.questions = shuffleArray(sec.questions);
-    }
-    else if (sec.type === "fill_in_the_blank_list") {
-      sec.questions = shuffleArray(sec.questions);
+    // Shuffle once here if the quiz allows randomization. Individual quizzes can set
+    // "randomize": false in their settings.json to preserve ordering.
+    const shuffleEnabled = typeof state.settings.randomize === 'undefined' ? true : Boolean(state.settings.randomize);
+    if (shuffleEnabled) {
+      if (sec.type === "matching") {
+        sec.prompts = shuffleArray(sec.prompts);
+        sec.word_bank = shuffleArray(sec.word_bank);
+      } else if (sec.type === "true_false") {
+        sec.questions = shuffleArray(sec.questions);
+      } else if (sec.type === "multiple_choice") {
+        sec.prompts = shuffleArray(sec.prompts);
+        sec.prompts.forEach(q => {
+          q.answers = shuffleArray(q.answers || q.answer);
+        });
+      } else if (sec.type === "code_blocks_mc") {
+        sec.prompts = shuffleArray(sec.prompts);
+        sec.prompts.forEach(q => {
+          q.answers = shuffleArray(q.answers || q.answer);
+        });
+      } else if (sec.type === "matching_pictures") {
+        sec.prompts = shuffleArray(sec.prompts);
+        sec.word_bank = shuffleArray(sec.word_bank);
+      } else if (sec.type === "fill_in_the_blank") {
+        sec.questions = shuffleArray(sec.questions);
+      } else if (sec.type === "code_blocks_fitb") {
+        sec.questions = shuffleArray(sec.questions);
+      } else if (sec.type === "fill_in_the_blank_list") {
+        sec.questions = shuffleArray(sec.questions);
+      }
     }
 
     state.quiz.sections.push(sec);
