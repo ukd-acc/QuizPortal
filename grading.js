@@ -157,7 +157,7 @@ function gradeQuiz() {
     if (section.type === "matching") {
       section.prompts.forEach((q, idx) => {
         total += section.points_per_question;
-        const studentAnswer = state.answers[`matching-${idx}`];
+        const studentAnswer = state.answers[`matching-${section._sectionIndex}-${idx}`];
 
         if (studentAnswer && studentAnswer.toLowerCase() === q.answer.toLowerCase()) {
           points += section.points_per_question;
@@ -333,19 +333,20 @@ function showSummary(res) {
              <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre></li>`
           ).join("")}
         </ul>
+        ${res.likertResponses && res.likertResponses.length ? `
         <h3>Survey Responses:</h3>
         <ul class="short-answer-list">
-          ${res.likertResponses && res.likertResponses.length ? res.likertResponses.map(l =>
+          ${res.likertResponses.map(l =>
             `<li><strong>${l.question}</strong><br/><span class="student">Selected: ${l.label !== null ? l.label : '(no response)'}</span></li>`
-          ).join("") : `<li>No survey responses</li>`}
-        </ul>
+          ).join("")}
+        </ul>` : ''}
         <h3>Incorrect Answers:</h3>
         ${res.wrongAnswers.length === 0 ? "<p>All answers correct 🎉</p>" :
           `<ul class="wrong-list">
             ${res.wrongAnswers.map(w =>
-              `<li><strong>${w.type}</strong> - ${w.question}<br/>
-               <span class="student">Your answer: ${w.student}</span><br/>
-               <span class="correct">Correct answer: ${w.correct}</span></li>`
+              `<li><strong>${escapeHtml(w.type)}</strong> - ${escapeHtml(w.question)}<br/>
+               <span class="student">Your answer: ${escapeHtml(w.student)}</span><br/>
+               <span class="correct">Correct answer: ${escapeHtml(w.correct)}</span></li>`
             ).join("")}
            </ul>`}
         <button id="logoutBtn" class="secondary">Log Out</button>

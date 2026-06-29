@@ -15,42 +15,202 @@
       "correct_answer": "if (obj == null)"
     },
     {
-        "question": "If the following line of code to make a character jump isn't working, where is the first place you should look?",
-        "code": "if(Input.GetButtonDown(\"Jump\"))",
-        "answers": ["Input settings in the Unity editor", "The Rigidbody component", "The console window", ""],
-        "correct_answer": "Input settings in the Unity editor"
-    },
-    {
-      "question": "Which code snippet correctly declares a List of strings?",
-      "answers": [
-        {"code": "List<string> names = new List<string>();"},
-        {"code": "string[] names = new List<string>();"},
-        {"code": "List names = new List();"},
-        {"code": "List<string> names = new string[];"}
-      ],
-      "correct_answer": "List<string> names = new List<string>();"
-    },
-    {
       "question": "What does this code snippet output?",
-      "code": "for (int i = 0; i < 3; i++) {\n  Debug.Log(i);\n}",
-      "answers": ["0 1 2", "1 2 3", "0 1 2 3", "3 2 1"],
-      "correct_answer": "0 1 2"
+      "code": "for (int i = 3; i > 0; i-=2)\n{\n\tDebug.Log(i);\n}",
+      "answers": ["3", "1 3", "1", "3 1"],
+      "correct_answer": "3 1"
     },
     {
-      "question": "Which code snippet correctly gets a Rigidbody component from a GameObject?",
+      "question": "I have two scripts, ScriptA and ScriptB, attached to a single GameObject. What could I write in the code of ScriptB to get a reference to the ScriptA attached to their shared GameObject?",
       "answers": [
-        {"code": "Rigidbody rb = gameObject.GetComponent<Rigidbody>();"},
-        {"code": "Rigidbody rb = GetComponent(Rigidbody);"},
-        {"code": "Rigidbody rb = gameObject.Rigidbody;"},
-        {"code": "Rigidbody rb = new Rigidbody();"}
+        {"code": "ScriptA scriptARef = FindObjectOfType<ScriptA>();"},
+        {"code": "ScriptA scriptARef = GetComponent<ScriptA>();"},
+        {"code": "ScriptA scriptARef = gameObject.ScriptA;"},
+        {"code": "ScriptA scriptARef = ScriptB.GetComponent<ScriptA>();"}
       ],
-      "correct_answer": "Rigidbody rb = gameObject.GetComponent<Rigidbody>();"
+      "correct_answer": "ScriptA scriptARef = GetComponent<ScriptA>();"
     },
     {
       "question": "What does the following code output?",
-      "code": "Vector3 v1 = new Vector3(1, 2, 3);\nVector3 v2 = new Vector3(4, 5, 6);\nfloat distance = Vector3.Distance(v1, v2);\nDebug.Log(distance);",
-      "answers": ["7", "15", "9", "5.19"],
-      "correct_answer": "5.19"
+      "code": "Vector3 v1 = Vector3.up * 5 + Vector3.right * 2 + Vector3.forward * 3; \nDebug.Log(v1)",
+      "answers": ["(2.0, 5.0, 3.0)", "(5.0, 2.0, 3.0)", "(3.0, 5.0, 2.0)", "(5.0, 3.0, 2.0)"],
+      "correct_answer": "(2.0, 5.0, 3.0)"
+    },
+        {
+      "question": "You write the following line of code, but when pressing the button, the character doesn't appear to jump, where is NOT a place you need to look?",
+      "code": "if(Input.GetButtonDown(\"Jump\"))",
+      "answers": [
+        "The GameObject's MeshRenderer component",
+        "Project Settings -> Input Manager",
+        "The console window",
+        "Project Settings -> Player"
+      ],
+      "correct_answer": "The GameObject's MeshRenderer component"
+    },
+    {
+      "question": "Which of the following for loops would produce the same output in the console as this foreach loop?",
+      "code": "int[] numbers = new int[] { 2, 4, 6, 8 };\nforeach (int n in numbers)\n{\n  Debug.Log(n * 2);\n}",
+      "answers": [
+        {
+          "code": "for (int i = 0; i < numbers.Length; i++)\n{\n\tDebug.Log(i * 2);\n}"
+        },
+        {
+          "code": "for (int i = 1; i <= numbers.Length; i++)\n{\n\tDebug.Log(numbers[i] * 2);\n}"
+        },
+        {
+          "code": "for (int i = 0; i < numbers.Length; i++)\n{\n\tDebug.Log(numbers[i] * 2);\n}"
+        },
+        {
+          "code": "for (int i = numbers.Length - 1; i >= 0; i--)\n{\n\tDebug.Log(numbers[i] * 2);\n}"
+        }
+      ],
+      "correct_answer": "for (int i = 0; i < numbers.Length; i++)\n{\n  Debug.Log(numbers[i] * 2);\n}"
+    },
+    {
+      "question": "What will be printed to the console?",
+      "code": "int score = 2;\nswitch (score)\n{\n\tcase 1:\n\t\tDebug.Log(\"Low\");\n\tbreak;\n\tcase 2:\n\tcase 3:\n\t\tDebug.Log(\"Medium\");\n\t\tif (score == 3)\n\t\t{\n\t\t\tDebug.Log(\"Borderline High\");\n\t\t}\n\t\tbreak;\n\tcase 4:\n\t\tDebug.Log(\"High\");\n\t\tbreak;\n\tdefault:\n\t\tDebug.Log(\"Unknown\");\n\t\tbreak;\n}",
+      "answers": [
+        "Medium",
+        "Medium\nBorderline High",
+        "Low",
+        "High",
+        "Unknown"
+      ],
+      "correct_answer": "Medium"
+    },
+    {
+      "question": "What could would I write to have a projectile go through an object and output the object hit?",
+      "answers": [
+        {
+          "code": "void OnTriggerEnter(Collider other)\n{\n  Debug.Log(other.gameObject.name);\n}"
+        },
+        {
+          "code": "void OnCollisionEnter(Collision collision)\n{\n  Debug.Log(collision.gameObject.name);\n}"
+        },
+        {
+          "code": "void OnTriggerStay(Collider other)\n{\n  Debug.Log(other.gameObject.name);\n}"
+        },
+        {
+          "code": "void OnCollisionStay(Collision collision)\n{\n  Debug.Log(collision.gameObject.name);\n}"
+        }
+      ],
+      "correct_answer": "void OnTriggerEnter(Collider other)\n{\n  Debug.Log(other.gameObject.name);\n}"
+    },
+    {
+      "question": "What does the following code snippet do?",
+      "code": "void Update()\n{\n\ttransform.Rotate(Vector3.up * 90 * Time.deltaTime);\n}",
+      "answers": [
+        "Rotates the object 90 degrees around transform's local Y-axis every second",
+        "Rotates the object 90 degrees around world Y-axis every second",
+        "Rotates the object 90 degrees upwards every second",
+        "Rotates the object 90 degrees around transform's local Y-axis every frame",
+        "Rotates the object 90 degrees around world Y-axis every frame",
+        "Rotates the object 90 degrees upwards every frame"
+      ],
+      "correct_answer": "Rotates the object 90 degrees around world Y-axis every second"
+    },
+    {
+      "question": "Which of the following correctly accesses the y position of a GameObject variable named 'player'?",
+      "answers": [
+        {
+          "code": "player.transform.position.y"
+        },
+        {
+          "code": "player.position.y"
+        },
+        {
+          "code": "player.transform.y"
+        },
+        {
+          "code": "player.y"
+        }
+      ],
+      "correct_answer": "player.transform.position.y"
+    },
+    {
+      "question": "How do you properly destroy a GameObject?",
+      "answers": [
+        {
+          "code": "Destroy(gameObject)"
+        },
+        {
+          "code": "Remove(gameObject)"
+        },
+        {
+          "code": "GameObject.Destroy()"
+        },
+        {
+          "code": "gameObject.remove()"
+        }
+      ],
+      "correct_answer": "Destroy(gameObject)"
+    },
+    {
+      "question": "What is the correct way to declare an array of integers with 5 slots?",
+      "answers": [
+        {
+          "code": "int[] myArray = new int[5];"
+        },
+        {
+          "code": "Array<int> myArray = new Array<int>();"
+        },
+        {
+          "code": "List<int> myArray = new List<int>();"
+        },
+        {
+          "code": "new int[5] myArray;"
+        }
+      ],
+      "correct_answer": "int[] myArray = new int[5];"
+    },
+    {
+      "question": "How do you call MyMethod after a 2 second delay?",
+      "answers": [
+        {
+          "code": "Invoke(\"MyMethod\", 2f);"
+        },
+        {
+          "code": "Invoke(MyMethod, 2);"
+        },
+        {
+          "code": "Invoke(\"MyMethod\", \"2\");"
+        },
+        {
+          "code": "InvokeDelayed(\"MyMethod\", 2f);"
+        }
+      ],
+      "correct_answer": "Invoke(\"MyMethod\", 2f);"
+    },
+    {
+      "question": "What is the correct way to declare a struct named EnemyData with a public string field called name?",
+      "answers": [
+        {
+          "code": "struct EnemyData\n{\n\tpublic string name; \n}"
+        },
+        {
+          "code": "class EnemyData\n{\n\tpublic string name;\n}"
+        },
+        {
+          "code": "EnemyData struct = new EnemyData(string name);"
+        },
+        {
+          "code": "public EnemyData(string name) { }"
+        }
+      ],
+      "correct_answer": "struct EnemyData\n{\n\tpublic string name; \n}"
+    },
+    {
+      "question": "What does this code do?",
+      "code": "Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);\nRaycastHit hit;\nif (Physics.Raycast(ray, out hit, 100f))\n{\n    Debug.Log(hit.collider.gameObject.name);\n}",
+      "answers": [
+        "Casts a ray from the camera through the mouse cursor and logs the name of the gameObject with the attached collider the ray hit",
+        "Casts a ray from the mouse position to the camera and logs the name of the gameObject with the attached collider the ray hit",
+        "Casts a ray from the player to the camera and logs the name of the gameObject with the attached collider the ray hit",
+        "Casts a ray from the player along its forward vector and logs the name of the gameObject with the attached collider the ray hit"
+      ],
+      "correct_answer": "Casts a ray from the camera through the mouse cursor and logs the name of the gameObject with the attached collider the ray hit"
     }
+
+
   ]
 }

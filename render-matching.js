@@ -26,7 +26,7 @@ function renderMatchingSection(section) {
       sortedWordBank.map(opt => `<option value="${opt.text}">${opt.text}</option>`).join("");
 
     select.addEventListener("change", () => {
-      state.answers[`matching-${idx}`] = select.value;
+      state.answers[`matching-${section._sectionIndex}-${idx}`] = select.value;
     });
 
     selectWrapper.appendChild(select);

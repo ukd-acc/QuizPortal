@@ -4,13 +4,17 @@
   "instructions": "Provide detailed answers to the following questions. Readjust the text box size as needed",
   "questions": [
     {
-      "prompt": "What is the difference between Triggers and Collisions in Unity and what is a good example for each? (2 pts)"
+      "prompt": "Describe how source control works and the primary reasons we use it in game development? (5 pts)"
     },
     {
-      "prompt": "Debugging: Describe all the tools you have to Debug in Unity.  (3 pts)"
+      "prompt": "Write a method that sums every other and every third element in the array (e.g. If the array was [1,2,3] the sum would be 2 + 3 = 5. If the array was was [4,8,15,16,23,42], the sum would be 8 + 15 + 23 + 42 = 88). (5 pts)"
     },
     {
-      "prompt": "Rock Paper Scissors: Write a method that takes in two enums or strings representing Rock, Paper, or Scissors and returns which one wins according to the rules of Rock Paper Scissors. Return \"No Winner\" if there is a tie. (5 pts)"
+      "prompt": "You have a script that fires a projectile. You find that it isn't hitting your target. What are all the steps you could take to debug this? (Be very specific on where you would check or what you would do) (10 pts)"
+    },
+    {
+      "prompt": "Odds and Evens is a game where two players call out either odd or even, then choose a number between 1 and 5. If the sum of the two numbers is even, the player who called even wins. If the sum is odd, the player who called odd wins. Write a method that takes in two integer parameters representing the players' choices and returns an enum with the entries Odd and Even indicating whether \"odd\" or \"even\" is the winner. (10 pts)"
     }
+    
   ]
 }

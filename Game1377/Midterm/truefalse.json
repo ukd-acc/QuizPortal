@@ -17,10 +17,6 @@
       "answer": true
     },
     {
-      "question": "Debug.Log() is used to create breakpoints.",
-      "answer": false
-    },
-    {
       "question": "You should make all variables public if possible.",
       "answer": false
     },
@@ -33,12 +29,21 @@
       "answer": false
     },
     {
-      "question": "A Vector3 with magnitude 1 is considered normalized.",
+      "question": "A Vector with magnitude 1 is considered normalized.",
       "answer": true
     },
     {
       "question": "Physics collisions are checked in FixedUpdate.",
       "answer": true
+    },
+    {
+      "question": "A reference type means that the variable's value is a copy of the original.",
+      "answer": false
+    },
+    {
+      "question": "Casting a float to an int rounds to the nearest whole number.",
+      "answer": false
     }
+
   ]
 }

@@ -1,68 +1,78 @@
-{
-  "type": "matching",
-  "title": "Matching (1 point each)",
-  "instructions": "Select the correct answer from the dropdown.",
-  "points_per_question": 1,
-  "prompts": [
-    {
-      "question": "What vector is represented by Vector3.forward?",
-      "answer": "(0, 0, 1)"
-    },
-    {
-      "question": "What vector is represented by Vector3.right?",
-      "answer": "(1, 0, 0)"
-    },
-    {
-      "question": "What vector is represented by Vector3.zero?",
-      "answer": "(0, 0, 0)"
-    },
-    {
-      "question": "What vector is represented by Vector3.up?",
-      "answer": "(0, 1, 0)"
-    },
-    {
-      "question": "What vector is represented by Vector3.one?",
-      "answer": "(1, 1, 1)"
-    },
-    {
-      "question": "Lists all GameObjects in the scene.",
-      "answer": "Hierarchy"
-    },
-    {
-      "question": "Shows component properties for the selected GameObject.",
-      "answer": "Inspector"
-    },
-    {
-      "question": "Contains all assets and scripts in the project.",
-      "answer": "Project"
-    },
-    {
-      "question": "The 3D view of the level in the editor.",
-      "answer": "Scene view"
-    },
-    {
-      "question": "What the player will see at runtime.",
-      "answer": "Game view"
-    },
-    {
-      "question": "Used to move, rotate, and scale objects.",
-      "answer": "Transform"
-    }
-
-  ],
-  "word_bank": [
-    { "text": "(0, 0, 1)" },
-    { "text": "(1, 0, 0)" },
-    { "text": "(0, 0, 0)" },
-    { "text": "(0, 1, 0)" },
-    { "text": "Hierarchy" },
-    { "text": "Inspector" },
-    { "text": "Project" },
-    { "text": "Scene view" },
-    { "text": "Game view" },
-    { "text": "Transform" },
-    { "text": "Magnitude" },
-    { "text": "Navigation"},
-    { "text": "Preferences"}
-  ]
-}
+[
+  {
+    "type": "matching",
+    "title": "Matching - Vectors (1 point each)",
+    "instructions": "Select the correct answer from the dropdown.",
+    "points_per_question": 1,
+    "prompts": [
+      {
+        "question": "What vector represents forward in World Space?",
+        "answer": "Vector3.forward"
+      },
+      {
+        "question": "What vector usually represents moving a GameObject forward in a top-down 2D Game?",
+        "answer": "transform.up"
+      },
+      {
+        "question": "What vector represents the origin?",
+        "answer": "Vector3.zero"
+      },
+      {
+        "question": "What vector would you rotate around to change the pitch (up and down) of a GameObject?",
+        "answer": "transform.right"
+      }
+    ],
+    "word_bank": [
+      { "text": "Vector3.forward" },
+      { "text": "Vector3.right" },
+      { "text": "Vector3.up" },
+      { "text": "transform.forward" },
+      { "text": "transform.right" },
+      { "text": "transform.up" },
+      { "text": "Vector3.zero" },
+      { "text": "Vector3.one" }
+    ]
+  },
+  {
+    "type": "matching",
+    "title": "Matching - Unity Views (1 point each)",
+    "instructions": "Select the correct answer from the dropdown.",
+    "points_per_question": 1,
+    "prompts": [
+      {
+        "question": "Lists all GameObjects in the scene.",
+        "answer": "Hierarchy"
+      },
+      {
+        "question": "Shows component properties for the selected GameObject.",
+        "answer": "Inspector"
+      },
+      {
+        "question": "Contains all assets and scripts in the project.",
+        "answer": "Project"
+      },
+      {
+        "question": "The 3D view of the level in the editor.",
+        "answer": "Scene view"
+      },
+      {
+        "question": "What the player will see at runtime.",
+        "answer": "Game view"
+      },
+      {
+        "question": "Used to output error messages and debug information.",
+        "answer": "Console"
+      }
+    ],
+    "word_bank": [
+      { "text": "Hierarchy" },
+      { "text": "Inspector" },
+      { "text": "Project" },
+      { "text": "Scene view" },
+      { "text": "Game view" },
+      { "text": "Navigation" },
+      { "text": "Preferences" },
+      { "text": "Console" }
+    ]
+  }
+]

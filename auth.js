@@ -14,7 +14,7 @@ async function loadUsersForCourse(courseFolder) {
   
 async function renderLogin() {
   const courses = ["Game1377"];
-  const quizFolders = ["Review", "Survey 1", "Modulo Quiz"]; // Add available quiz folders here
+  const quizFolders = ["Midterm", "Survey 1", "Modulo Quiz", "Review"]; // Add available quiz folders here
 
   qs("#app").innerHTML = `
     <div class="container login">

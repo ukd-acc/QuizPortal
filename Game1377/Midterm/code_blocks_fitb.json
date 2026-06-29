@@ -1,0 +1,23 @@
+{
+  "type": "code_blocks_fitb",
+  "title": "Code Analysis - Fill in the Blank (5 points each)",
+  "instructions": "Fill in the blanks in the code snippets below.",
+  "points_per_question": 5,
+  "questions": [
+    {
+      "prompt": "Let's say I have two scripts called MyScript1 and MyScript2 attached to one GameObject. What goes in the blank in MyScript2 to log the MyFloat variable from the MyScript1 from MyScript2?",
+      "code": "public class MyScript1 : MonoBehaviour\n{\n\tpublic float MyFloat = 6;\n}\n\npublic class MyScript2 : MonoBehaviour\n{\n\tvoid Start()\n\t{\n\t\t___\n\t}\n}",
+      "answer": "Debug.Log(GetComponent<MyScript1>().MyFloat);"
+    },
+    {
+      "prompt": "Write the missing line that moves the object based on player input and speed using Translate.",
+      "code": "float speed = 5.0f;\nvoid Update()\n{\n\tfloat hInput, vInput;\n\thInput = Input.GetAxis(\"Horizontal\");\n\tvInput = Input.GetAxis(\"Vertical\");\n\t ___\n}",
+      "answer": "transform.Translate(new Vector3(hInput, 0, vInput).normalized * speed * Time.deltaTime);"
+    },  
+    {
+      "prompt": "Write the missing line that spawns an instance of the bullet prefab 2 units in front of the object this script is on with the same rotation as the object firing the bullet.",
+      "code": "GameObject myBulletPrefab;\nvoid Update()\n{\n\tif (Input.GetButtonDown(\"Fire1\"))\n\t{\n\t\t___\n\t}\n}",
+      "answer": "Instantiate(myBulletPrefab, transform.position + transform.forward * 2, transform.rotation);"
+    }
+  ]
+}

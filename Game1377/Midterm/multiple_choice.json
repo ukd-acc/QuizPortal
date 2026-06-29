@@ -15,19 +15,14 @@
       "correct_answer": "OnCollisionEnter"
     },
     {
-      "question": "What's the difference between GetKeyDown and GetKey?",
-      "answers": ["GetKeyDown fires once when key is first pressed; GetKey returns true while held", "GetKeyDown returns true while key is held; GetKey only fires once", "No difference", "They are unrelated"],
-      "correct_answer": "GetKeyDown fires once when key is first pressed; GetKey returns true while held"
-    },
-    {
       "question": "Which data type is best for storing true/false values?",
       "answers": ["bool", "int", "float", "string"],
       "correct_answer": "bool"
     },
     {
-      "question": "Which loop is best for iterating over a List when the index matters?",
+      "question": "Which loop is best for iterating until something happens?",
       "answers": ["for", "foreach", "while", "do-while"],
-      "correct_answer": "for"
+      "correct_answer": "while"
     },
     {
       "question": "What keyword prevents a variable from being accessible outside of its class?",
@@ -61,13 +56,8 @@
     },
     {
       "question": "What does overriding a prefab do?",
-      "answers": ["Applies changes from instance to prefab", "Duplicates it", "Deletes the original", "Makes it static"],
+      "answers": ["Applies changes from instance to prefab", "Creates a new instance", "Creates a new prefab", "Resets the instance to match the prefab"],
       "correct_answer": "Applies changes from instance to prefab"
-    },
-    {
-      "question": "If jump input isn't working, where should you check first?",
-      "answers": ["Both Console errors and Input Manager", "Rigidbody", "Console errors", "Input Manager"],
-      "correct_answer": "Both Console errors and Input Manager"
     },
     {
       "question": "What does Input.GetButton() return?",
@@ -75,39 +65,25 @@
       "correct_answer": "True while held"
     },
     {
-      "question": "What is the correct way to declare a list of integers?",
-      "answers": ["List<int> list = new List<int>()", "int list = new List", "List myList = int[]", "new list() myList"],
-      "correct_answer": "List<int> list = new List<int>()"
-    },
-    {
-      "question": "How do you delay Invoke by 2 seconds?",
-      "answers": ["Invoke(\"MyMethod\", 2f)", "Invoke(MyMethod, 2)", "Invoke(\"MyMethod\", \"2\")", "InvokeDelayed"],
-      "correct_answer": "Invoke(\"MyMethod\", 2f)"
-    },
-    {
-      "question": "How do you properly destroy a GameObject?",
-      "answers": ["Destroy(GameObject)", "Remove(GameObject)", "GameObject.Destroy()", "gameObject.remove()"],
-      "correct_answer": "Destroy(GameObject)"
-    },
-    {
-      "question": "Which tag is commonly used for the player?",
-      "answers": ["Player", "MainCamera", "Hero", "GameManager"],
-      "correct_answer": "Player"
-    },
-    {
       "question": "Which is NOT a Unity data type?",
-      "answers": ["Direction", "Vector3", "Rigidbody", "Transform"],
+      "answers": ["Direction", "Vector3", "Rigidbody", "Quaternion"],
       "correct_answer": "Direction"
     },
     {
-      "question": "A variable inside a method has what scope?",
-      "answers": ["Local", "Class", "Global", "Static"],
+      "question": "A variable declared inside a method is what kind of variable?",
+      "answers": ["Local", "Class", "Public", "Private"],
       "correct_answer": "Local"
     },
     {
-      "question": "What does Vector3.Distance(a, b) calculate?",
-      "answers": ["The distance between two points in 3D space", "The angle between two vectors", "The cross product of two vectors", "The time between two frames"],
-      "correct_answer": "The distance between two points in 3D space"
+      "question": "Which statement about methods in C# is true?",
+      "answers": [
+        "A method can call other methods",
+        "A method must always return a value",
+        "A method cannot accept more than one parameter",
+        "A void method cannot contain a return statement"
+      ],
+      "correct_answer": "A method can call other methods"
     }
+
   ]
 }

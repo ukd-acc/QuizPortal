@@ -5,24 +5,25 @@
   "points_per_question": 1,
   "questions": [
     {
-      "prompt": "How do you create a new GameObject in Unity at runtime? ___",
-      "answers": [["Instantiate()", "Instantiate() method", "Instantiate(prefab)", "Instantiate(prefab, position, rotation)", "Instantiate"]]
+      "prompt": "What is 42 % 17? ___",
+      "answers": [["8"]]
     },
     {
       "prompt": "GetComponent<T>() will return ___ if the component doesn't exist on the GameObject.",
       "answers": [["null", "Null", "NULL", "Null value", "null value", "NullValue", "NULL value", "nullValue", "NULLValue"]]
     },
     {
-      "prompt": "What component is used to evaluate collisions in Unity? ___",
-      "answers": [["Collider", "Colliders"]]
+      "prompt": "Physics.Raycast takes a Ray and a RaycastHit as an ___ parameter, meaning the method writes the hit result back into the variable you pass in.",
+      "answers": [["out", "Out", "OUT", "out parameter", "Out parameter", "OUT parameter", "outParameter", "OutParameter", "OUTParameter"]]
     },
     {
       "prompt": "What method is used to output messages to the Console in Unity? ___",
       "answers": [["Debug.Log","DebugLog", "Debug.Log()", "DebugLog()", "Debug.Log(\"Message\")", "DebugLog(\"Message\")"]]
     },
     {
-      "prompt": "What moves one animation state to another in an Animator Controller? ___",
-      "answers": [["Transition", "Transitions"]]
+      "prompt": "In a class, methods and variables written in the class are called ___",
+      "answers": [["members", "class members", "classMember", "ClassMember", "Class Members", "Class members"]]
     }
+
   ]
 }
