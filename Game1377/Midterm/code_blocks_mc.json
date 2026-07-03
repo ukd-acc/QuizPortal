@@ -64,7 +64,7 @@
           "code": "for (int i = numbers.Length - 1; i >= 0; i--)\n{\n\tDebug.Log(numbers[i] * 2);\n}"
         }
       ],
-      "correct_answer": "for (int i = 0; i < numbers.Length; i++)\n{\n  Debug.Log(numbers[i] * 2);\n}"
+      "correct_answer": "for (int i = 0; i < numbers.Length; i++)\n{\n\tDebug.Log(numbers[i] * 2);\n}"
     },
     {
       "question": "What will be printed to the console?",
@@ -107,7 +107,7 @@
         "Rotates the object 90 degrees around world Y-axis every frame",
         "Rotates the object 90 degrees upwards every frame"
       ],
-      "correct_answer": "Rotates the object 90 degrees around world Y-axis every second"
+      "correct_answer": "Rotates the object 90 degrees around transform's local Y-axis every second"
     },
     {
       "question": "Which of the following correctly accesses the y position of a GameObject variable named 'player'?",
