@@ -79,7 +79,7 @@
       "correct_answer": "Medium"
     },
     {
-      "question": "What could would I write to have a projectile go through an object and output the object hit?",
+      "question": "What could I write to have a projectile go through an object and output the object hit?",
       "answers": [
         {
           "code": "void OnTriggerEnter(Collider other)\n{\n  Debug.Log(other.gameObject.name);\n}"

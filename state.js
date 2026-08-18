@@ -8,6 +8,7 @@ const state = {
     endTime: null,    // Date object when quiz ended
     settings: null,   // loaded from settings.json
     selectedCourse: null, // selected course (e.g., "Game1270" or "Game1377")
+    selectedTerm: null, // roster/term folder the logged-in account matched (e.g., "Fall2026")
     selectedQuizFolder: null // folder for the selected quiz
 };
 
