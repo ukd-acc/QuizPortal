@@ -1,0 +1,62 @@
+{
+  "type": "short_answer",
+  "title": "Short Answer Questions",
+  "instructions": "Provide detailed answers to the following questions. Readjust the text box size as needed",
+  "questions": [
+    {
+      "prompt": "What is the purpose of a program in regards to the CPU? ___",
+      "answers": [
+        [
+          "The purpose of a program is to tell the CPU what to do. A program is a list of instructions that cause the CPU to perform/execute operations."
+        ]
+      ]
+    },
+    {
+      "prompt": "What does CPU stand for and what is its function? ___",
+      "answers": [
+        [
+          "Central Processing Unit. Runs programs. Executes instructions. Tells the computer what to do. The brain of the computer."
+        ]
+      ]
+    },
+
+    {
+      "prompt": "What is the purpose of the build process that uses a compiler, assembler, and linker? ___",
+      "answers": [
+        [
+          "The build process combines the compiler, assembler, and linker to convert source code into an executable program."
+        ]
+      ]
+    },
+    {
+      "prompt": "What are the 5 steps (focus) in the program development cycle (in creating code/programs), which is repeated until no errors can be found in the program? ___",
+      "answers": [
+        [
+          "1. Design the Program",
+          "2. Write Code",
+          "3. Correct Syntax Error",
+          "4. Test the Executable Code (find logic errors/bugs)",
+          "5. Debug the Code"
+        ]
+      ]
+    },
+    {
+      "prompt": "What are the three lessons and approach of problem-solving techniques we learned via the following exercises in class? The Fox, the Goose and the Corn; Sliding Eight; Sudoku. ___",
+      "answers": [
+        [
+          "The Fox, the Goose and the Corn: Solution-based or process of elimination problem-solving. (Restriction and Rules/Constraints based.)",
+          "Sliding Eight: Strategies or employing techniques to systematically solve the problem. Planning and systematic approach.",
+          "Sudoku: Constraints- (most constrained variable) and Pattern-based problem-solving. (Algorithmic)"
+        ]
+      ]
+    },
+    {
+      "prompt": "What does RAM stand for and what is its function? ___",
+      "answers": [
+        [
+          "Random Access Memory. Work area of the computer. Stores a program while the program is running, as well as data that the program is working with."
+        ]
+      ]
+    }
+  ]
+}

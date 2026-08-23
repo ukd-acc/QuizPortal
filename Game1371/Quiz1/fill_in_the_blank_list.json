@@ -1,0 +1,28 @@
+{
+  "type": "fill_in_the_blank_list",
+  "title": "Fill in the List (1 points per blank, 75 total)",
+  "instructions": "Type the correct answer(s) in the blank(s).",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "Name 6 major components/categories of a modern computer system for gaming. ___ ___ ___ ___ ___ ___",
+      "answers": [["CPU","RAM","GPU","Storage","Input","Output", "Motherboard"]]
+    },
+    {
+      "prompt": "What are the two values used in a binary system, like memory for a computer? ___ ___",
+      "answers": [["0","1"]]
+    },
+    {
+      "prompt": "What are the four aspects of computational thinking? ___ ___ ___ ___",
+      "answers": [["decomposition","pattern recognition","abstraction","algorithmic thinking", "algorithm", "algorithms"]]
+    },
+    {
+      "prompt": "What are the two main categories of software programs? ___ ___",
+      "answers": [[ "System Software","Application Software"]]
+    },
+    {
+      "prompt": "What are the two tools programmers use to create models of programs during the program design process (prior to actually writing code)? ___ ___",
+      "answers": [[ "Pseudo Code","Flowcharts"]]
+    }
+  ]
+}

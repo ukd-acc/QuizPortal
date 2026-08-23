@@ -1,11 +1,14 @@
 {
-  "quizId": "GAME1270-Quiz",
-  "title": "GAME 1270: Introduction to Game Design and Development",
-  "course": "Introduction to Game Design and Development",
-  "logo": "acc_logo.png",
+  "quizId": "GAME1371-Quiz",
+  "title": "GAME 1371: Coding Basics for Designers",
+  "course": "Coding Basics for Designers",
+  "logo": "../acc_logo.png",
 
-  "quizFolder": "Quiz1",
-  "userFolder": "Fall2025-03",
+  "label": "GAME 1371: Coding Basics for Designers",
+  "termFolders": ["Fall2026"],
+  "quizFolders": ["Day1Questionnaire", "Quiz1"],
+
+  "userFolder": "Fall2026",
 
   "sections": [
     { "file": "matching.json" },
@@ -15,12 +18,10 @@
     { "file": "fill_in_the_blank.json" },
     { "file": "fill_in_the_blank_list.json" },
     { "file": "short_answer.json" }
-
   ],
 
   "emailRecipients": ["utsab.das@austincc.edu"],
   "emailProvider": "emailjs",
-  "courseFolders": ["Game1270", "Game1371", "Game1377"],
   "emailConfig": {
     "serviceID": "service_l412vd9",
     "templateID": "template_6ftojqe",

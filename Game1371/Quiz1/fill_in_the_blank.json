@@ -1,0 +1,105 @@
+{
+  "type": "fill_in_the_blank",
+  "title": "Fill in the Blank (1 point per blank)",
+  "instructions": "Type the correct answer(s) in the blank(s). Do NOT use periods to end your answers.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "It is essential to a computer. Without it, the physical computer can do nothing. ___",
+      "answers": [
+        [
+          "Software"
+        ]
+      ]
+    },
+    {
+      "prompt": "How many bits are in a byte? ___",
+      "answers": [
+        [
+          "8"
+        ]
+      ]
+    },
+    {
+      "prompt": "Each position in the binary system (e.g. 10101010) is known as a ? ___",
+      "answers": [
+        [
+          "bit"
+        ]
+      ]
+    },
+    
+    {
+      "prompt": "A CPU only understands binary numbers that are written in what language? ___",
+      "answers": [
+        [
+          "Machine Language", "Machine Code"
+        ]
+      ]
+    },
+    {
+      "prompt": "In the early days of computing as an alternative to binary numbers for instructions it used short words also known as mnemonics (which was more practical for people to write a program and also known as a low-level language)? ___",
+      "answers": [
+        [
+          "Assembly/Assembler"
+        ]
+      ]
+    },
+    {
+      "prompt": "What type of programming language allows you to create powerful and complex programs without knowing how the CPU works or using machine code? ___",
+      "answers": [
+        [
+          "High-level Languages", "high level languages"
+        ]
+      ]
+    },
+    {
+      "prompt": "Game Development primarily uses a certain kind (category) of programming language? ___",
+      "answers": [
+        [
+          "Object Oriented Programming (OOP) of the C-Language"
+        ]
+      ]
+    },
+    {
+      "prompt": "What is the programming language being taught in this class (embedded in Unity as a scripting language)? ___",
+      "answers": [
+        [
+          "C#"
+        ]
+      ]
+    },
+    {
+      "prompt": "What does IDE stand for (example is Microsoft Visual Studio)? ___",
+      "answers": [
+        [
+          "Integrated Development Environments"
+        ]
+      ]
+    },
+    {
+      "prompt": "Each language has a set of rules / grammar that must be strictly followed when writing a program. What is this set of rules called? ___",
+      "answers": [
+        [
+          "Syntax"
+        ]
+      ]
+    },
+    {
+      "prompt": "What is the error referred to during writing a program, e.g. simple mistake of misspelling a key word or incorrect use of the rules of the language? ___",
+      "answers": [
+        [
+          "Syntax error"
+        ]
+      ]
+    },
+    {
+      "prompt": "What is the error referred to once the code is in executable form, e.g. a mistake that does not prevent the program from running, but causes it to produce incorrect results? ___",
+      "answers": [
+        [
+          "Logic error"
+        ]
+      ]
+    }
+  ]
+}

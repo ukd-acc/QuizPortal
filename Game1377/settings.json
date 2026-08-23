@@ -4,6 +4,10 @@
   "course": "Game Development",
   "logo": "../acc_logo.png",
 
+  "label": "GAME 1377: Scripting for Game Developers",
+  "termFolders": ["Summer2026"],
+  "quizFolders": ["Survey 1", "Quiz1", "Midterm", "Modulo Quiz", "Review"],
+
   "userFolder": "Summer2026",
 
   "sections": [

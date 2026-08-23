@@ -1,6 +1,19 @@
 async function initAuth() {
-  // initAuth is now a no-op since users are loaded during login
-  // when we know which course/term was selected
+  const courseFolders = state.settings.courseFolders || [];
+  const courseSettings = await Promise.all(courseFolders.map(async courseFolder => ({
+    courseFolder,
+    settings: await loadJSON(`${courseFolder}/settings.json`)
+  })));
+
+  COURSE_CONFIG = Object.fromEntries(
+    courseSettings
+      .filter(({ settings }) => settings)
+      .map(({ courseFolder, settings }) => [courseFolder, {
+        label: settings.label || settings.title,
+        termFolders: settings.termFolders || [],
+        quizFolders: settings.quizFolders || []
+      }])
+  );
 }
 
 async function loadUsersForTerm(courseFolder, termFolder) {
@@ -30,28 +43,8 @@ async function findCourseMatches(username, password) {
   return Object.values(matchesByCourse);
 }
 
-// Registry of courses this portal serves. Edit these arrays to add/remove
-// terms (rosters) or quizzes for a course.
-//   termFolders  - subfolders searched for users.json / users.sample.json.
-//                  Order oldest -> newest; if a login matches more than one
-//                  term for the same course, the newest match wins.
-//   quizFolders  - subfolders offered on the quiz-selection screen.
-const COURSE_CONFIG = {
-  Game1270: {
-    label: "GAME 1270: Introduction to Game Design and Development",
-    termFolders: ["Fall2025-03", "Fall2026"],
-    quizFolders: [
-      "Quiz1", "Quiz2", "Quiz3", "Quiz4",
-      "Midterm", "Midterm_OpenBook", "Midterm_ClosedBook",
-      "Final_OpenBook", "Final_ClosedBook",
-    ],
-  },
-  Game1377: {
-    label: "GAME 1377: Scripting for Game Developers",
-    termFolders: ["Summer2026"],
-    quizFolders: ["Survey 1", "Quiz1", "Midterm", "Modulo Quiz", "Review"],
-  },
-};
+// Populated from each course's settings.json during initialization.
+let COURSE_CONFIG = {};
 
 async function renderLogin() {
   qs("#app").innerHTML = `

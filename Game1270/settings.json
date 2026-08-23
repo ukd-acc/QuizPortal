@@ -4,7 +4,15 @@
   "course": "Introduction to Game Design and Development",
   "logo": "../acc_logo.png",
 
-  "userFolder": "Fall2025-03",
+  "label": "GAME 1270: Introduction to Game Design and Development",
+  "termFolders": ["Fall2025-03", "Fall2026"],
+  "quizFolders": [
+    "Quiz1", "Quiz2", "Quiz3", "Quiz4",
+    "Midterm", "Midterm_OpenBook", "Midterm_ClosedBook",
+    "Final_OpenBook", "Final_ClosedBook"
+  ],
+
+  "userFolder": "Fall2026",
 
   "sections": [
     { "file": "matching.json" },

@@ -1,0 +1,53 @@
+{
+  "type": "short_answer",
+  "title": "First Day Questionnaire",
+  "instructions": "Provide answers to the following questions. Readjust the text box size as needed",
+  "questions": [
+    {
+      "prompt": "What are your top three favorite games, and why? ___"
+    },
+    {
+      "prompt": "What are your favorite game genres, and why? ___"
+    },
+
+    {
+      "prompt": "What games are you currently playing?  Why are you playing these games specifically? ___"
+    },
+    {
+      "prompt": "What is your favorite device to play games with?  Why? ___"
+    },
+    {
+      "prompt": "What degree are you aiming for?  What other GDAMG courses have you taken? ___"
+    },
+    {
+      "prompt": "What is your previous/other education? ___"
+    },
+    {
+      "prompt": "Why are you taking this class? ___"
+    },
+    {
+      "prompt": "What do you hope to learn from this class?  Is there anything not planned for this course that you would like to learn from me? ___"
+    },
+    {
+      "prompt": "What is your dream job or career, and why? ___"
+    },
+    {
+      "prompt": "Have you worked at a games, software, or entertainment company before?  If so, where? ___"
+    },
+    {
+      "prompt": "Where do you see yourself in 5 years?  What will you be doing? ___"
+    },
+    {
+      "prompt": "What game dev tools are you familiar with?  Do you have any prior coding experience? ___"
+    },
+    {
+      "prompt": "What are your hobbies, and what do you do for fun? ___"
+    },
+    {
+      "prompt": "What would you like me to know about yourself? ___"
+    },
+    {
+      "prompt": "What do you want to know about me? ___"
+    }
+  ]
+}

@@ -30,7 +30,7 @@ function sendResultsByEmail(result) {
   let shortAnswerDetails = "No short answers";
   if(result.shortAnswerResponses.length > 0) {
     shortAnswerDetails = result.shortAnswerResponses.map(r => 
-      `${r.question}:\n${r.answer}`
+      `${r.question}:\nStudent: ${r.answer || "(no answer)"}\nReference answer: ${r.correctAnswer || "(no answer provided)"}`
     ).join("\n\n");
   }
   let likertDetails = "No survey responses";

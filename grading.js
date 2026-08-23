@@ -4,10 +4,12 @@ function gradeShortAnswer(section) {
 
   section.questions.forEach((q, idx) => {
     const textarea = qs(`.sa-input[data-question="${idx}"]`);
-    const userAnswer = textarea.value.trim();
+    const userAnswer = textarea ? textarea.value.trim() : "";
+    const referenceAnswers = Array.isArray(q.answers) ? q.answers.flat() : [];
     responses.push({
       question: q.prompt,
-      answer: userAnswer || "(no answer)"
+      answer: userAnswer || "(no answer)",
+      correctAnswer: referenceAnswers.join(" or ") || "(no answer provided)"
     });
   });
 
@@ -330,7 +332,8 @@ function showSummary(res) {
         <ul class="short-answer-list">
           ${res.shortAnswerResponses.map((r, i) =>
             `<li><strong>${r.question}</strong><br/>
-             <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre></li>`
+             <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre>
+             <span class="correct">Reference answer:</span><pre class="correct-answer" data-sa-correct="${i}"></pre></li>`
           ).join("")}
         </ul>
         ${res.likertResponses && res.likertResponses.length ? `
@@ -356,6 +359,7 @@ function showSummary(res) {
 
   res.shortAnswerResponses.forEach((r, i) => {
     app.querySelector(`pre[data-sa="${i}"]`).textContent = r.answer || "(no answer)";
+    app.querySelector(`pre[data-sa-correct="${i}"]`).textContent = r.correctAnswer || "(no answer provided)";
   });
 
   qs("#logoutBtn").addEventListener("click", logout);
