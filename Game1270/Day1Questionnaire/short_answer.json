@@ -1,0 +1,52 @@
+{
+  "type": "short_answer",
+  "title": "First Day Questionnaire",
+  "instructions": "Provide answers to the following questions. Readjust the text box size as needed",
+  "questions": [
+    {
+      "prompt": "What are your three favorite games and why?"
+    },
+    {
+      "prompt": "What are some games you are currently playing?"
+    },
+    {
+      "prompt": "What is your favorite game genre and why?"
+    },
+    {
+      "prompt": "What is platform do you play on the most (PC, console, mobile, etc.) and why?"
+    },
+    {
+      "prompt": "What degree are you aiming for? What other GDAMG courses have you taken or are you currently taking?"
+    },
+    {
+      "prompt": "What previous or other education have you had (it can be any field or area, not just games)?"
+    },
+    {
+      "prompt": "Why are you taking this class?"
+    },
+    {
+      "prompt": "What do you hope to learn from this class? Is there anything not planned for this course that you would like to learn?"
+    },
+    {
+      "prompt": "What is your dream job or career, and why?"
+    },
+    {
+      "prompt": "Have you worked at a games, software, or entertainment company before? If so, where?"
+    },
+    {
+      "prompt": "Where do you see yourself in 5 years? What will you be doing?"
+    },
+    {
+      "prompt": "What game dev tools are you familiar with?"
+    },
+    {
+      "prompt": "What are your hobbies, and what do you do for fun?"
+    },
+    {
+      "prompt": "What would you like me to know about yourself?"
+    },
+    {
+      "prompt": "What do you want to know about me (I'll answer these in class.)?"
+    }
+  ]
+}

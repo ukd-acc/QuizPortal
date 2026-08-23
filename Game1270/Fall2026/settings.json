@@ -1,7 +1,7 @@
 {
   "startDate": "2026-08-24",
   "activeQuizzes": [
-    //"Quiz1", "Quiz2", "Quiz3", "Quiz4",
+    "Day1Questionnaire"//"Quiz1", "Quiz2", "Quiz3", "Quiz4",
     //"Midterm", "Midterm_OpenBook", "Midterm_ClosedBook",
     //"Final_OpenBook", "Final_ClosedBook"
   ]
