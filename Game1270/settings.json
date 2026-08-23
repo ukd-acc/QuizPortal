@@ -5,12 +5,7 @@
   "logo": "../acc_logo.png",
 
   "label": "GAME 1270: Introduction to Game Design and Development",
-  "termFolders": ["Fall2025-03", "Fall2026"],
-  "quizFolders": [
-    "Quiz1", "Quiz2", "Quiz3", "Quiz4",
-    "Midterm", "Midterm_OpenBook", "Midterm_ClosedBook",
-    "Final_OpenBook", "Final_ClosedBook"
-  ],
+  "termFolders": ["Fall2025", "Fall2026"],
 
   "userFolder": "Fall2026",
 

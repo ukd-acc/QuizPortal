@@ -10,8 +10,7 @@ async function initAuth() {
       .filter(({ settings }) => settings)
       .map(({ courseFolder, settings }) => [courseFolder, {
         label: settings.label || settings.title,
-        termFolders: settings.termFolders || [],
-        quizFolders: settings.quizFolders || []
+        termFolders: settings.termFolders || []
       }])
   );
 }
@@ -24,8 +23,8 @@ async function loadUsersForTerm(courseFolder, termFolder) {
 }
 
 // Find every (course, term) roster the given credentials appear in, then
-// collapse to one entry per course, keeping the newest matching term
-// (last entry in that course's termFolders array wins).
+// keep the newest matching term separately for each course. Each term's
+// settings.json supplies the active quizzes for that class.
 async function findCourseMatches(username, password) {
   const matchesByCourse = {};
 
@@ -35,7 +34,15 @@ async function findCourseMatches(username, password) {
       const users = await loadUsersForTerm(courseFolder, termFolder);
       const account = users.find(x => x.username === username && x.password === password);
       if (account) {
-        matchesByCourse[courseFolder] = { courseFolder, termFolder, account };
+        const classSettings = await loadJSON(`${courseFolder}/${termFolder}/settings.json`);
+        const match = { courseFolder, termFolder, account, classSettings };
+        const existingMatch = matchesByCourse[courseFolder];
+        const startDate = Date.parse(classSettings?.startDate || "") || 0;
+        const existingStartDate = Date.parse(existingMatch?.classSettings?.startDate || "") || 0;
+
+        if (!existingMatch || startDate >= existingStartDate) {
+          matchesByCourse[courseFolder] = match;
+        }
       }
     }
   }
@@ -145,7 +152,7 @@ async function onLogin() {
   state.user = { username: matches[0].account.username, fullName: matches[0].account.fullName || matches[0].account.username };
 
   if (matches.length === 1) {
-    selectCourse(matches[0]);
+    selectCourse(matches[0], matches);
   } else {
     renderCourseSelect(matches);
   }
@@ -167,6 +174,7 @@ function renderCourseSelect(matches) {
               ${COURSE_CONFIG[m.courseFolder].label}
             </button>
           `).join("")}
+          <button id="backToLoginBtn" class="secondary">Logout</button>
         </div>
       </div>
     </div>
@@ -174,19 +182,21 @@ function renderCourseSelect(matches) {
 
   qsa(".course-option").forEach(btn => {
     btn.addEventListener("click", () => {
-      selectCourse(matches[Number(btn.dataset.idx)]);
+      selectCourse(matches[Number(btn.dataset.idx)], matches);
     });
   });
+
+  qs("#backToLoginBtn").addEventListener("click", returnToLogin);
 }
 
-function selectCourse(match) {
+function selectCourse(match, matches) {
   state.selectedCourse = match.courseFolder;
   state.selectedTerm = match.termFolder;
-  renderQuizSelect(match);
+  renderQuizSelect(match, matches);
 }
 
-function renderQuizSelect(match) {
-  const quizFolders = COURSE_CONFIG[match.courseFolder].quizFolders;
+function renderQuizSelect(match, matches) {
+  const quizFolders = match.classSettings?.activeQuizzes || [];
 
   qs("#app").innerHTML = `
     <div class="container login">
@@ -201,6 +211,7 @@ function renderQuizSelect(match) {
           ${quizFolders.map((folder, idx) => `
             <button class="secondary quiz-option" data-idx="${idx}">${folder}</button>
           `).join("")}
+          <button id="backFromQuizSelectBtn" class="secondary">Back</button>
         </div>
       </div>
     </div>
@@ -212,6 +223,22 @@ function renderQuizSelect(match) {
       initQuiz();
     });
   });
+
+  qs("#backFromQuizSelectBtn").addEventListener("click", () => {
+    if (matches && matches.length > 1) {
+      renderCourseSelect(matches);
+    } else {
+      returnToLogin();
+    }
+  });
+}
+
+function returnToLogin() {
+  state.user = null;
+  state.selectedCourse = null;
+  state.selectedTerm = null;
+  state.selectedQuizFolder = null;
+  renderLogin();
 }
 
 function logout() {

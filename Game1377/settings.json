@@ -6,7 +6,6 @@
 
   "label": "GAME 1377: Scripting for Game Developers",
   "termFolders": ["Summer2026"],
-  "quizFolders": ["Survey 1", "Quiz1", "Midterm", "Modulo Quiz", "Review"],
 
   "userFolder": "Summer2026",
 
@@ -23,7 +22,7 @@
     { "file": "coding_test.json" }
   ],
 
-  "emailRecipients": ["instructor@austincc.edu"],
+  "emailRecipients": ["utsab.das@austincc.edu"],
   "emailProvider": "emailjs",
   "emailConfig": {
     "serviceID": "service_l412vd9",

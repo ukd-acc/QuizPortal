@@ -5,7 +5,7 @@
   "logo": "acc_logo.png",
 
   "quizFolder": "Quiz1",
-  "userFolder": "Fall2025-03",
+  "userFolder": "Fall2025",
 
   "sections": [
     { "file": "matching.json" },
