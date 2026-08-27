@@ -1,0 +1,20 @@
+{
+  "type": "fill_in_the_blank",
+  "title": "Binary and Number Bases",
+  "instructions": "Add a document that shows your work for each problem. Each binary place is a power of two. For binary-to-decimal questions, add the place values with a 1. For decimal-to-binary questions, leading zeroes are optional.",
+  "points_per_question": 1,
+  "questions": [
+    { "prompt": "0000 0101 = ___", "answers": [["5"]] },
+    { "prompt": "0000 1010 = ___", "answers": [["10"]] },
+    { "prompt": "0001 0000 = ___", "answers": [["16"]] },
+    { "prompt": "0010 0110 = ___", "answers": [["38"]] },
+    { "prompt": "0100 0001 = ___", "answers": [["65"]] },
+    { "prompt": "1111 1111 = ___", "answers": [["255"]] },
+    { "prompt": "6 = ___", "answers": [["110"]], "answer_patterns": ["^0*110$"] },
+    { "prompt": "13 = ___", "answers": [["1101"]], "answer_patterns": ["^0*1101$"] },
+    { "prompt": "32 = ___", "answers": [["100000"]], "answer_patterns": ["^0*100000$"] },
+    { "prompt": "65 = ___", "answers": [["1000001"]], "answer_patterns": ["^0*1000001$"] },
+    { "prompt": "100 = ___", "answers": [["1100100"]], "answer_patterns": ["^0*1100100$"] },
+    { "prompt": "200 = ___", "answers": [["11001000"]], "answer_patterns": ["^0*11001000$"] }
+  ]
+}

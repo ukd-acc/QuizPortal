@@ -231,6 +231,27 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
 }
 .kpi strong { font-size:1.4rem; }
 
+.short-answer-list,
+.wrong-list {
+  min-width: 0;
+  padding-left: 20px;
+}
+
+.short-answer-list li,
+.wrong-list li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.student-answer,
+.correct-answer {
+  max-width: 100%;
+  margin: 6px 0 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 /* Give overall page breathing room */
 .container {
   max-width: 1000px;

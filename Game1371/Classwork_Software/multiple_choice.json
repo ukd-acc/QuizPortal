@@ -1,0 +1,48 @@
+{
+  "type": "multiple_choice",
+  "title": "Multiple Choice",
+  "instructions": "Reminder: data sizes increase from byte to KB to MB to GB to TB. The build process goes from source code to compiler to assembler to linker, producing an executable. When a game launches, its executable moves from storage to RAM, then instructions move into cache for the CPU.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "Which ordering lists these data sizes from SMALLEST to LARGEST?",
+      "answers": [
+        "1 byte < 1 KB < 1 MB < 1 GB < 1 TB",
+        "1 KB < 1 byte < 1 MB < 1 GB < 1 TB",
+        "1 byte < 1 MB < 1 KB < 1 GB < 1 TB",
+        "1 TB < 1 GB < 1 MB < 1 KB < 1 byte"
+      ],
+      "correct_answer": "1 byte < 1 KB < 1 MB < 1 GB < 1 TB"
+    },
+    {
+      "question": "What is the correct order of the build process, from source code to a runnable program?",
+      "answers": [
+        "Write source code, compiler turns it into assembly, assembler turns it into object code, linker connects object files into an executable",
+        "Write source code, linker connects object files, compiler turns it into assembly, assembler creates the executable",
+        "Assembler creates object code, write source code, linker connects object files, compiler creates the executable",
+        "Compiler creates the executable, assembler turns it into source code, write source code, linker connects object files"
+      ],
+      "correct_answer": "Write source code, compiler turns it into assembly, assembler turns it into object code, linker connects object files into an executable"
+    },
+    {
+      "question": "What is the final output of the build process called, the thing you can actually run?",
+      "answers": [
+        "An executable file",
+        "Source code",
+        "An object file",
+        "A device driver"
+      ],
+      "correct_answer": "An executable file"
+    },
+    {
+      "question": "What is the correct order when you launch a game?",
+      "answers": [
+        "The executable sits in storage, it is loaded into RAM, instructions load from RAM into cache, and the CPU uses registers to carry out the instructions",
+        "The executable sits in storage, the CPU uses registers, it is loaded into RAM, and instructions load into cache",
+        "Instructions load into cache, the executable sits in storage, it is loaded into RAM, and the CPU uses registers",
+        "The executable is loaded into RAM, it sits in storage, the CPU uses registers, and instructions load into cache"
+      ],
+      "correct_answer": "The executable sits in storage, it is loaded into RAM, instructions load from RAM into cache, and the CPU uses registers to carry out the instructions"
+    }
+  ]
+}

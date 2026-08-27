@@ -1,0 +1,15 @@
+{
+  "type": "short_answer",
+  "title": "Programming Languages: Short Answer",
+  "instructions": "Reminder: high-level code hides hardware details, while low-level code is close to what the CPU does.",
+  "questions": [
+    {
+      "prompt": "In your own words, what does it mean for a language to be high-level versus low-level?",
+      "answers": [["High-level code is easier for humans to read and hides hardware details. Low-level code, such as assembly or machine code, is close to the instructions the CPU executes and is harder for humans to write."]]
+    },
+    {
+      "prompt": "Give one advantage and one disadvantage of writing in a high-level language instead of a low-level one.",
+      "answers": [["An advantage is that high-level code is usually faster and easier to read, write, and debug. A disadvantage is that it can provide less direct hardware control and may be less efficient than carefully written low-level code."]]
+    }
+  ]
+}

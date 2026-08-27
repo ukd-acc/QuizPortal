@@ -42,7 +42,14 @@ async function initQuiz() {
   // If the selected quiz folder has its own settings.json, prefer it (e.g., Survey 1)
   const quizLevelSettings = await loadJSON(`${quizFolder}/settings.json`);
   if (quizLevelSettings) {
-    state.settings = quizLevelSettings;
+    // Quiz settings override quiz metadata, while course settings provide shared services.
+    state.settings = {
+      ...state.settings,
+      ...quizLevelSettings,
+      emailRecipients: quizLevelSettings.emailRecipients || state.settings.emailRecipients,
+      emailProvider: quizLevelSettings.emailProvider || state.settings.emailProvider,
+      emailConfig: quizLevelSettings.emailConfig || state.settings.emailConfig
+    };
   }
 
   for (const secMeta of state.settings.sections) {

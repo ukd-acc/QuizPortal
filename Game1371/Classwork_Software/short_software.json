@@ -1,0 +1,15 @@
+{
+  "type": "short_answer",
+  "title": "Software: System vs. Application",
+  "instructions": "Reminder: system software runs the computer itself and helps other programs run. Application software is what a user opens to do a task.",
+  "questions": [
+    {
+      "prompt": "In your own words, what is the difference between system software and application software?",
+      "answers": [["System software runs the computer and supports other programs, such as the operating system, drivers, and firmware. Application software is what a user opens to do a specific task, such as using a game, browser, or photo editor."]]
+    },
+    {
+      "prompt": "Give one reason a computer with no operating system would be difficult to use, even if the hardware works perfectly.",
+      "answers": [["Without an operating system there is nothing to manage the hardware, load programs, or handle input and output, so the user has no practical way to run or interact with programs."]]
+    }
+  ]
+}

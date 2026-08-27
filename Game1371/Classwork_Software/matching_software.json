@@ -1,0 +1,24 @@
+{
+  "type": "matching",
+  "title": "Software: System vs. Application",
+  "instructions": "Select System or Application for each item.",
+  "points_per_question": 1,
+  "prompts": [
+    { "question": "Windows 11", "answer": "System" },
+    { "question": "A web browser (Chrome, Firefox)", "answer": "Application" },
+    { "question": "A graphics card device driver", "answer": "System" },
+    { "question": "Your Unity game", "answer": "Application" },
+    { "question": "macOS", "answer": "System" },
+    { "question": "The BIOS / UEFI firmware", "answer": "System" },
+    { "question": "A calculator app", "answer": "Application" },
+    { "question": "Spotify", "answer": "Application" },
+    { "question": "Linux", "answer": "System" },
+    { "question": "A printer driver", "answer": "System" },
+    { "question": "A photo editor (Photoshop)", "answer": "Application" },
+    { "question": "The operating system's file manager", "answer": "System" }
+  ],
+  "word_bank": [
+    { "text": "System" },
+    { "text": "Application" }
+  ]
+}

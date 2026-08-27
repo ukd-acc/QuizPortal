@@ -1,0 +1,11 @@
+{
+  "type": "short_answer",
+  "title": "Binary and Number Bases: Short Answer",
+  "instructions": "Reminder: each binary place is a power of two. Add the places that have a 1. One byte contains 8 bits.",
+  "questions": [
+    {
+      "prompt": "How many bits are in one byte, and what is the largest decimal number one byte can hold?",
+      "answers": [["One byte contains 8 bits, and the largest unsigned decimal value it can hold is 255 (1111 1111 in binary)."]]
+    }
+  ]
+}

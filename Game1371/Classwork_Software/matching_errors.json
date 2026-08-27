@@ -1,0 +1,19 @@
+{
+  "type": "matching",
+  "title": "Errors",
+  "instructions": "Reminder: a syntax error prevents the game from building. A logic error builds and runs but does the wrong thing. A runtime error crashes while the game is running.",
+  "points_per_question": 1,
+  "prompts": [
+    { "question": "You forgot a semicolon and the game will not build.", "answer": "Syntax" },
+    { "question": "The player's health goes up when they take damage.", "answer": "Logic" },
+    { "question": "The game crashes when it tries to divide the score by zero.", "answer": "Runtime" },
+    { "question": "A door opens at 2 keys instead of 3, but the game does not crash.", "answer": "Logic" },
+    { "question": "The compiler reports an error for if (health = 0) before the game builds.", "answer": "Syntax" },
+    { "question": "The game crashes when code reads inventory slot 8 even though there are only 5 slots.", "answer": "Runtime" }
+  ],
+  "word_bank": [
+    { "text": "Syntax" },
+    { "text": "Logic" },
+    { "text": "Runtime" }
+  ]
+}

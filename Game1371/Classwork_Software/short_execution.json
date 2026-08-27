@@ -1,0 +1,11 @@
+{
+  "type": "short_answer",
+  "title": "Compiled vs. Interpreted: Short Answer",
+  "instructions": "Reminder: compiled code is translated ahead of time; interpreted code is translated while it runs. C# is a hybrid because it uses intermediate bytecode and just-in-time compilation.",
+  "questions": [
+    {
+      "prompt": "In your own words, what is the difference between a COMPILED language and an INTERPRETED language?",
+      "answers": [["A compiled language is translated ahead of time into machine code before it runs. An interpreted language is translated while the program runs."]]
+    }
+  ]
+}

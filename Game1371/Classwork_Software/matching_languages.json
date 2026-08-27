@@ -1,0 +1,17 @@
+{
+  "type": "matching",
+  "title": "Programming Languages",
+  "instructions": "Select High-level or Low-level for each language.",
+  "points_per_question": 1,
+  "prompts": [
+    { "question": "Machine code", "answer": "Low-level" },
+    { "question": "Python", "answer": "High-level" },
+    { "question": "Assembly", "answer": "Low-level" },
+    { "question": "C#", "answer": "High-level" },
+    { "question": "JavaScript", "answer": "High-level" }
+  ],
+  "word_bank": [
+    { "text": "High-level" },
+    { "text": "Low-level" }
+  ]
+}

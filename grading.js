@@ -30,10 +30,13 @@ function gradeFillInTheBlank(section) {
       const userAnswer = input.value.trim().toLowerCase(); // Normalize input
       const rawAnswers = Array.isArray(q.answers[blankIdx]) ? q.answers[blankIdx] : q.answers;
       const possibleAnswers = (Array.isArray(rawAnswers) ? rawAnswers : [rawAnswers]).map(a => a.toLowerCase()); // Normalize all answers to lowercase
+      const matchesPattern = q.answer_patterns && q.answer_patterns[blankIdx]
+        ? new RegExp(q.answer_patterns[blankIdx], "i").test(input.value.trim())
+        : false;
 
       studentAnswers.push(userAnswer || "(no answer)");
 
-      if (possibleAnswers.includes(userAnswer) && !usedAnswers.has(userAnswer)) {
+      if ((possibleAnswers.includes(userAnswer) || matchesPattern) && !usedAnswers.has(userAnswer)) {
         correct++;
         usedAnswers.add(userAnswer); // Prevent duplicate credit for the same answer
       } else {

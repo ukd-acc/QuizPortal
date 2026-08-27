@@ -1,0 +1,11 @@
+{
+  "type": "short_answer",
+  "title": "Game Size and Assets",
+  "instructions": "Reminder: a game's executable contains its logic and instructions, while separate asset files contain the large media used by the game.",
+  "questions": [
+    {
+      "prompt": "A game's download is 60 GB, but the .exe file is only about 40 MB. What takes up the vast majority of that 60 GB? Give at least two examples of the kinds of files responsible, and explain in one sentence why the executable itself is so small.",
+      "answers": [["The assets take up most of the space, including textures, art, 3D models, audio, and video. The executable is mainly the machine-code instructions for the game's logic, while the much larger art, sound, and other data are stored in separate asset files."]]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "matching",
+  "title": "Compiled vs. Interpreted",
+  "instructions": "Reminder: compiled code is translated ahead of time, interpreted code is translated while it runs, and hybrid languages such as C# use intermediate bytecode and just-in-time compilation.",
+  "points_per_question": 1,
+  "prompts": [
+    { "question": "C++", "answer": "Compiled" },
+    { "question": "Python", "answer": "Interpreted" },
+    { "question": "JavaScript", "answer": "Interpreted" },
+    { "question": "C#", "answer": "Hybrid" }
+  ],
+  "word_bank": [
+    { "text": "Compiled" },
+    { "text": "Interpreted" },
+    { "text": "Hybrid" }
+  ]
+}

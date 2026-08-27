@@ -1,0 +1,19 @@
+{
+  "quizId": "GAME1371-Classwork-Software",
+  "title": "Classwork: Software, Binary, and How Programs Run",
+  "course": "Coding Basics for Designers",
+  "randomize": false,
+  "sections": [
+    { "file": "matching_software.json" },
+    { "file": "short_software.json" },
+    { "file": "fill_in_the_blank.json" },
+    { "file": "short_binary.json" },
+    { "file": "multiple_choice.json" },
+    { "file": "matching_languages.json" },
+    { "file": "short_languages.json" },
+    { "file": "matching_execution.json" },
+    { "file": "short_execution.json" },
+    { "file": "short_game_size.json" },
+    { "file": "matching_errors.json" }
+  ]
+}
