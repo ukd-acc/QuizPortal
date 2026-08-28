@@ -47,7 +47,7 @@ function renderCodeBlocksFITBSection(section) {
           // Add padding for visual breathing room
           const widthPx = Math.max(maxAnswerLength * 8.5 + 20, 50);
           
-          html += `<input type="text" class="cbfitb-input cbfitb-input-inline" data-question="${idx}" data-blank="${i - 1}" style="width: ${widthPx}px;" placeholder=""/>`;
+          html += `<input type="text" class="cbfitb-input cbfitb-input-inline" data-section="${section._sectionIndex}" data-question="${idx}" data-blank="${i - 1}" style="width: ${widthPx}px;" placeholder=""/>`;
           html += escapeHtml(codeParts[i]);
         }
         
@@ -71,6 +71,7 @@ function renderCodeBlocksFITBSection(section) {
       const answerInput = document.createElement("input");
       answerInput.type = "text";
       answerInput.className = "cbfitb-input cbfitb-input-after";
+      answerInput.dataset.section = section._sectionIndex;
       answerInput.dataset.question = idx;
       answerInput.placeholder = "Enter answer";
       

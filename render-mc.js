@@ -40,7 +40,7 @@ function renderMCSection(section) {
         option.classList.add("selected");
 
         // save answer
-        state.answers[`mc-${idx}`] = ans;
+        state.answers[`mc-${section._sectionIndex}-${idx}`] = ans;
       };
 
       div.appendChild(option);

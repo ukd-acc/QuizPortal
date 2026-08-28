@@ -11,7 +11,7 @@ function renderFillInTheBlankListSection(section) {
     row.className = "fibl-row";
 
     const prompt = document.createElement("p");
-    prompt.innerHTML = q.prompt.replace(/___/g, `<div><input type="text" class="fibl-input" data-question="${idx}"/></div>`);
+    prompt.innerHTML = q.prompt.replace(/___/g, `<div><input type="text" class="fibl-input" data-section="${section._sectionIndex}" data-question="${idx}"/></div>`);
     row.appendChild(prompt);
 
     questionBox.appendChild(row); // Wrap question in box

@@ -18,6 +18,7 @@ function renderShortAnswerSection(section) {
     const textarea = document.createElement("textarea");
     textarea.className = "sa-input";
     textarea.dataset.question = idx; // Associate input with question index
+    textarea.dataset.section = section._sectionIndex;
     
     // Allow Tab/Shift+Tab key in textarea
     textarea.addEventListener("keydown", (e) => {

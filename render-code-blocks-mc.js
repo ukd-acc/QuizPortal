@@ -54,9 +54,9 @@ function renderCodeBlocksMCSection(section) {
 
         // Save answer - store the display value for grading
         if (typeof ans === "object" && ans.code) {
-          state.answers[`cbmc-${idx}`] = ans.code;
+          state.answers[`cbmc-${section._sectionIndex}-${idx}`] = ans.code;
         } else {
-          state.answers[`cbmc-${idx}`] = ans;
+          state.answers[`cbmc-${section._sectionIndex}-${idx}`] = ans;
         }
       };
 

@@ -25,7 +25,7 @@ function renderMatchingPicturesSection(section) {
         section.word_bank.map(opt => `<option value="${opt.text}">${opt.text}</option>`).join("");
   
       select.addEventListener("change", () => {
-        state.answers[`matching_pictures-${idx}`] = select.value;
+        state.answers[`matching_pictures-${section._sectionIndex}-${idx}`] = select.value;
       });
   
       selectWrapper.appendChild(select);

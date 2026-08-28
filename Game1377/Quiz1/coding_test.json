@@ -1,6 +1,7 @@
 {
   "type": "coding_test",
   "id": "csharp-1",
+  "points_per_question": 1,
   "title": "C# Coding Challenge: Sum Two Numbers (1 point)",
   "instructions": "Write a C# method that takes two integers and returns their sum.",
   "problem": "Create a public class called 'Solution' with a public method 'Execute(string input)' that:\n1. Parses the input string (two numbers separated by comma)\n2. Returns the sum of the two numbers\n3. Return type should be int",

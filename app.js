@@ -28,6 +28,12 @@ async function initQuiz() {
   // Load course-specific settings from the course folder
   state.settings = await loadJSON(`${courseFolder}/settings.json`);
   
+  state.answers = {};
+  if (state.timerInterval) {
+    clearInterval(state.timerInterval);
+    state.timerInterval = null;
+  }
+  
   if (!state.settings) {
     console.error(`Failed to load settings from ${courseFolder}/settings.json`);
     alert("Error: Could not load quiz settings. Please try again.");
@@ -52,11 +58,16 @@ async function initQuiz() {
     };
   }
 
+  state.quiz.title = state.settings.title;
+  initEmail();
+
   for (const secMeta of state.settings.sections) {
     const loaded = await loadJSON(`${quizFolder}/${secMeta.file}`);
     if (!loaded) {
-      console.warn(`Skipping section: ${secMeta.file} not found in ${quizFolder}`);
-      continue;
+      console.error(`Required section could not be loaded: ${quizFolder}/${secMeta.file}`);
+      alert(`Error: Could not load quiz section "${secMeta.file}". The quiz was not started.`);
+      renderLogin();
+      return;
     }
 
     // A file can export a single section object or an array of section objects.
@@ -67,6 +78,14 @@ async function initQuiz() {
     const shuffleEnabled = typeof state.settings.randomize === 'undefined' ? true : Boolean(state.settings.randomize);
 
     for (const sec of secs) {
+      const supportedTypes = ["matching", "true_false", "matching_pictures", "multiple_choice", "likert", "code_blocks_mc", "fill_in_the_blank", "code_blocks_fitb", "fill_in_the_blank_list", "short_answer", "coding_test"];
+      if (!supportedTypes.includes(sec.type)) {
+        console.error(`Unsupported quiz section type: ${sec.type}`);
+        alert(`Error: Unsupported quiz section type "${sec.type}".`);
+        renderLogin();
+        return;
+      }
+
       if (shuffleEnabled) {
         if (sec.type === "matching") {
           sec.prompts = shuffleArray(sec.prompts);

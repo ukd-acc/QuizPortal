@@ -29,7 +29,7 @@ function renderTFSection(section) {
         opt.classList.remove("selected")
       );
       trueDiv.classList.add("selected");
-      state.answers[`tf-${idx}`] = true;
+      state.answers[`tf-${section._sectionIndex}-${idx}`] = true;
     };
 
     // False option
@@ -41,7 +41,7 @@ function renderTFSection(section) {
         opt.classList.remove("selected")
       );
       falseDiv.classList.add("selected");
-      state.answers[`tf-${idx}`] = false;
+      state.answers[`tf-${section._sectionIndex}-${idx}`] = false;
     };
 
     answers.appendChild(trueDiv);

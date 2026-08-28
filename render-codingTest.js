@@ -2,6 +2,7 @@
 function renderCodingTestSection(section) {
   const wrapper = document.createElement("div");
   wrapper.className = "coding-section";
+  const sectionKey = section._sectionIndex;
   
   wrapper.innerHTML = `
     <h2>${section.title}</h2>
@@ -14,30 +15,30 @@ function renderCodingTestSection(section) {
       </div>
       <div class="code-editor-container">
         <label>Write your C# code:</label>
-        <textarea id="codeInput-${section.id || 0}" class="code-editor" placeholder="Write your C# code here...">${section.startingCode || ""}</textarea>
+        <textarea id="codeInput-${sectionKey}" class="code-editor" placeholder="Write your C# code here...">${section.startingCode || ""}</textarea>
       </div>
       <div class="code-actions">
-        <button class="runCodeBtn" data-section-id="${section.id || 0}">Run Code</button>
-        <button class="clearCodeBtn" data-section-id="${section.id || 0}">Clear</button>
+        <button class="runCodeBtn" data-section-id="${sectionKey}">Run Code</button>
+        <button class="clearCodeBtn" data-section-id="${sectionKey}">Clear</button>
       </div>
-      <div class="output-panel" id="codeOutput-${section.id || 0}"></div>
+      <div class="output-panel" id="codeOutput-${sectionKey}"></div>
     </div>
   `;
 
   const runBtn = wrapper.querySelector(".runCodeBtn");
   const clearBtn = wrapper.querySelector(".clearCodeBtn");
-  const codeInput = wrapper.querySelector(`#codeInput-${section.id || 0}`);
+  const codeInput = wrapper.querySelector(`#codeInput-${sectionKey}`);
 
   runBtn.addEventListener("click", async () => {
     const code = codeInput.value;
-    const outputPanel = wrapper.querySelector(`#codeOutput-${section.id || 0}`);
+    const outputPanel = wrapper.querySelector(`#codeOutput-${sectionKey}`);
     outputPanel.innerHTML = "<p class='loading'>Compiling and running...</p>";
     
     const result = await compileAndRunCode(code, section.testCases, section);
     displayResults(result, outputPanel);
     
     // Store answer for grading
-    state.answers[`coding_test-${section.id || 0}`] = {
+    state.answers[`coding_test-${sectionKey}`] = {
       code: code,
       passed: result.allPassed || false,
       output: result.output || ""
@@ -46,9 +47,9 @@ function renderCodingTestSection(section) {
 
   clearBtn.addEventListener("click", () => {
     codeInput.value = section.startingCode || "";
-    const outputPanel = wrapper.querySelector(`#codeOutput-${section.id || 0}`);
+    const outputPanel = wrapper.querySelector(`#codeOutput-${sectionKey}`);
     outputPanel.innerHTML = "";
-    delete state.answers[`coding_test-${section.id || 0}`];
+    delete state.answers[`coding_test-${sectionKey}`];
   });
 
   return wrapper;

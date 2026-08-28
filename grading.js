@@ -3,10 +3,11 @@ function gradeShortAnswer(section) {
   const responses = [];
 
   section.questions.forEach((q, idx) => {
-    const textarea = qs(`.sa-input[data-question="${idx}"]`);
+    const textarea = qs(`.sa-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`);
     const userAnswer = textarea ? textarea.value.trim() : "";
     const referenceAnswers = Array.isArray(q.answers) ? q.answers.flat() : [];
     responses.push({
+      sectionTitle: section.title,
       question: q.prompt,
       answer: userAnswer || "(no answer)",
       correctAnswer: referenceAnswers.join(" or ") || "(no answer provided)"
@@ -21,7 +22,7 @@ function gradeFillInTheBlank(section) {
   const wrongAnswers = [];
 
   section.questions.forEach((q, idx) => {
-    const inputs = qsa(`.fib-input[data-question="${idx}"]`); // Select inputs for the current question
+    const inputs = qsa(`.fib-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`); // Select inputs for the current question
     const usedAnswers = new Set();
     let questionCorrect = true; // Track if the entire question is correct
     const studentAnswers = []; // Collect all user answers for the question
@@ -63,7 +64,7 @@ function gradeFillInTheBlankList(section) {
   const wrongAnswers = [];
 
   section.questions.forEach((q, idx) => {
-    const inputs = qsa(`.fibl-input[data-question="${idx}"]`); // Select inputs for the current question
+    const inputs = qsa(`.fibl-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`); // Select inputs for the current question
     const usedAnswers = new Set();
     let questionCorrectCount = 0; // Track correct answers for this question
     const studentAnswers = []; // Collect all user answers for the question
@@ -90,61 +91,6 @@ function gradeFillInTheBlankList(section) {
         question: q.prompt,
         student: `${questionCorrectCount}/${inputs.length} correct: ${studentAnswers.join(", ")}`,
         correct: possibleAnswers.join(", ")
-      });
-    }
-  });
-
-  return { correct, wrongAnswers };
-}
-
-function gradeCodeBlocksFITB(section) {
-  let correct = 0;
-  const wrongAnswers = [];
-
-  section.questions.forEach((q, idx) => {
-    total += section.points_per_question;
-    
-    // Get all inputs for this question (both inline and after-code)
-    const inlineInputs = qsa(`.cbfitb-input-inline[data-question="${idx}"]`);
-    const afterInputs = qsa(`.cbfitb-input-after[data-question="${idx}"]`);
-    const allInputs = [...inlineInputs, ...afterInputs];
-    
-    if (allInputs.length === 0) {
-      // No input found, count as wrong
-      wrongAnswers.push({
-        type: "Code Analysis - Fill in Blank",
-        question: q.prompt,
-        student: "(no answer)",
-        correct: Array.isArray(q.answer) ? q.answer.join(" or ") : q.answer
-      });
-      return;
-    }
-
-    // Normalize accepted answers to lowercase
-    const acceptedAnswers = Array.isArray(q.answer) ? 
-      q.answer.map(a => a.toLowerCase()) : 
-      [q.answer.toLowerCase()];
-
-    let questionCorrect = true;
-    const studentAnswers = [];
-
-    allInputs.forEach((input) => {
-      const userAnswer = input.value.trim().toLowerCase();
-      studentAnswers.push(userAnswer || "(no answer)");
-
-      if (!acceptedAnswers.includes(userAnswer)) {
-        questionCorrect = false;
-      }
-    });
-
-    if (questionCorrect) {
-      correct += section.points_per_question;
-    } else {
-      wrongAnswers.push({
-        type: "Code Analysis - Fill in Blank",
-        question: q.prompt,
-        student: studentAnswers.join(", "),
-        correct: Array.isArray(q.answer) ? q.answer.join(" or ") : q.answer
       });
     }
   });
@@ -180,7 +126,7 @@ function gradeQuiz() {
     else if (section.type === "true_false") {
       section.questions.forEach((q, idx) => {
         total += section.points_per_question;
-        const studentAnswer = state.answers[`tf-${idx}`];
+        const studentAnswer = state.answers[`tf-${section._sectionIndex}-${idx}`];
 
         if (typeof studentAnswer !== "undefined" && studentAnswer === q.answer) {
           points += section.points_per_question;
@@ -198,7 +144,7 @@ function gradeQuiz() {
     else if (section.type === "multiple_choice") {
       section.prompts.forEach((q, idx) => {
         total += section.points_per_question;
-        const studentAnswer = state.answers[`mc-${idx}`];
+        const studentAnswer = state.answers[`mc-${section._sectionIndex}-${idx}`];
 
         if (studentAnswer && studentAnswer === q.correct_answer) {
           points += section.points_per_question;
@@ -213,10 +159,28 @@ function gradeQuiz() {
       });
     }
 
+    else if (section.type === "matching_pictures") {
+      section.prompts.forEach((q, idx) => {
+        total += section.points_per_question;
+        const studentAnswer = state.answers[`matching_pictures-${section._sectionIndex}-${idx}`];
+
+        if (studentAnswer && studentAnswer.toLowerCase() === q.answer.toLowerCase()) {
+          points += section.points_per_question;
+        } else {
+          wrongAnswers.push({
+            type: "Matching Pictures",
+            question: q.question,
+            student: studentAnswer || "(no answer)",
+            correct: q.answer
+          });
+        }
+      });
+    }
+
     else if (section.type === "code_blocks_mc") {
       section.prompts.forEach((q, idx) => {
         total += section.points_per_question;
-        const studentAnswer = state.answers[`cbmc-${idx}`];
+        const studentAnswer = state.answers[`cbmc-${section._sectionIndex}-${idx}`];
 
         if (studentAnswer && studentAnswer === q.correct_answer) {
           points += section.points_per_question;
@@ -249,8 +213,8 @@ function gradeQuiz() {
         total += section.points_per_question;
         
         // Get all inputs for this question (both inline and after-code)
-        const inlineInputs = qsa(`.cbfitb-input-inline[data-question="${idx}"]`);
-        const afterInputs = qsa(`.cbfitb-input-after[data-question="${idx}"]`);
+        const inlineInputs = qsa(`.cbfitb-input-inline[data-section="${section._sectionIndex}"][data-question="${idx}"]`);
+        const afterInputs = qsa(`.cbfitb-input-after[data-section="${section._sectionIndex}"][data-question="${idx}"]`);
         const allInputs = [...inlineInputs, ...afterInputs];
         
         if (allInputs.length === 0) {
@@ -307,6 +271,21 @@ function gradeQuiz() {
     else if (section.type === "short_answer") {
       shortAnswerResponses.push(...gradeShortAnswer(section));
     }
+    else if (section.type === "coding_test") {
+      total += section.points_per_question || 0;
+      const submission = state.answers[`coding_test-${section._sectionIndex}`];
+
+      if (submission && submission.passed) {
+        points += section.points_per_question || 0;
+      } else {
+        wrongAnswers.push({
+          type: "Coding Test",
+          question: section.title,
+          student: submission ? "Submission did not pass all tests" : "(no submission)",
+          correct: "A submission that passes all test cases"
+        });
+      }
+    }
     else if (section.type === "likert") {
       // Collect likert responses (survey) but do not affect scoring
       section.prompts.forEach((q, idx) => {
@@ -334,7 +313,7 @@ function showSummary(res) {
         <h3>Short Answer Responses:</h3>
         <ul class="short-answer-list">
           ${res.shortAnswerResponses.map((r, i) =>
-            `<li><strong>${r.question}</strong><br/>
+            `<li>${r.sectionTitle ? `<em>${escapeHtml(r.sectionTitle)}</em><br/>` : ""}<strong>${escapeHtml(r.question)}</strong><br/>
              <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre>
              <span class="correct">Reference answer:</span><pre class="correct-answer" data-sa-correct="${i}"></pre></li>`
           ).join("")}
