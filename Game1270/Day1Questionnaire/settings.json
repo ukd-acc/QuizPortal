@@ -1,0 +1,8 @@
+{
+  "quizId": "GAME1270-Day1Questionnaire",
+  "title": "GAME 1270: First Day Questionnaire",
+  "randomize": false,
+  "sections": [
+    { "file": "short_answer.json" }
+  ]
+}
