@@ -16,6 +16,7 @@
     { "file": "matching_pictures.json" },
     { "file": "fill_in_the_blank.json" },
     { "file": "fill_in_the_blank_list.json" },
+    { "file": "code_blocks_fitb.json" },
     { "file": "short_answer.json" }
   ],
 

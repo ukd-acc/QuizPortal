@@ -12,6 +12,14 @@
       ]
     },
     {
+      "prompt": "What does RAM stand for and what is its function? ___",
+      "answers": [
+        [
+          "Random Access Memory. Work area of the computer. Stores a program while the program is running, as well as data that the program is working with."
+        ]
+      ]
+    },
+    {
       "prompt": "What does CPU stand for and what is its function? ___",
       "answers": [
         [
@@ -19,7 +27,6 @@
         ]
       ]
     },
-
     {
       "prompt": "What is the purpose of the build process that uses a compiler, assembler, and linker? ___",
       "answers": [
@@ -29,34 +36,10 @@
       ]
     },
     {
-      "prompt": "What are the 5 steps (focus) in the program development cycle (in creating code/programs), which is repeated until no errors can be found in the program? ___",
-      "answers": [
-        [
-          "1. Design the Program",
-          "2. Write Code",
-          "3. Correct Syntax Error",
-          "4. Test the Executable Code (find logic errors/bugs)",
-          "5. Debug the Code"
-        ]
-      ]
+      "prompt": "Water Pouring Puzzle: You have an unlimited supply of water and a 3-gallon jug and a 5-gallon jug. Neither jug has measurement markings. Measure exactly 4 gallons. Write out your thought process and every step, including which jug you fill, empty, or pour into the other jug. (5 pts)"
     },
     {
-      "prompt": "What are the three lessons and approach of problem-solving techniques we learned via the following exercises in class? The Fox, the Goose and the Corn; Sliding Eight; Sudoku. ___",
-      "answers": [
-        [
-          "The Fox, the Goose and the Corn: Solution-based or process of elimination problem-solving. (Restriction and Rules/Constraints based.)",
-          "Sliding Eight: Strategies or employing techniques to systematically solve the problem. Planning and systematic approach.",
-          "Sudoku: Constraints- (most constrained variable) and Pattern-based problem-solving. (Algorithmic)"
-        ]
-      ]
-    },
-    {
-      "prompt": "What does RAM stand for and what is its function? ___",
-      "answers": [
-        [
-          "Random Access Memory. Work area of the computer. Stores a program while the program is running, as well as data that the program is working with."
-        ]
-      ]
+      "prompt": "Explain how the eight strategies (always have a plan, restate the problem, divide the problem, start with what you know, reduce the problem, look for analogies, experiment, don't get frustrated) relate to the four pillars of computational thinking (decomposition, pattern recognition, abstraction, and algorithmic thinking). You may use each strategy more than once, but justify the relationships with examples. (10 pts)"
     }
   ]
 }

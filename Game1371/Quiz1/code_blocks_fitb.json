@@ -1,0 +1,28 @@
+{
+  "type": "code_blocks_fitb",
+  "title": "Pseudocode Output (2 points each)",
+  "instructions": "Read each pseudocode block and write exactly what the print statement outputs.",
+  "points_per_question": 2,
+  "questions": [
+    {
+      "prompt": "What does this pseudocode print?",
+      "code": "number = 3\nnumber = number + 4\nprint(number)",
+      "answer": "7"
+    },
+    {
+      "prompt": "What does this pseudocode print?",
+      "code": "total = 0\nFOR value IN [2, 4, 6]\n    total = total + value\nEND FOR\nprint(total)",
+      "answer": "12"
+    },
+    {
+      "prompt": "What does this pseudocode print?",
+      "code": "temperature = 72\nIF temperature > 80\n    print(\"hot\")\nELSE\n    print(\"comfortable\")\nEND IF",
+      "answer": "comfortable"
+    },
+    {
+      "prompt": "What does this pseudocode print?",
+      "code": "count = 1\nWHILE count < 4\n    print(count)\n    count = count + 1\nEND WHILE",
+      "answer": "1\n2\n3"
+    }
+  ]
+}

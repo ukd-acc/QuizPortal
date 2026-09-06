@@ -22,7 +22,7 @@
     },
     {
       "prompt": "What are the two tools programmers use to create models of programs during the program design process (prior to actually writing code)? ___ ___",
-      "answers": [[ "Pseudo Code","Flowcharts"]]
+      "answers": [[ "Pseudocode","Flowcharts"]]
     }
   ]
 }

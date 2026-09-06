@@ -38,10 +38,49 @@
       ]
     },
     {
+      "prompt": "What is the fastest form of memory? ___",
+      "answers": [
+        [
+          "Registers", "Register"
+        ]
+      ]
+    },{
+      "prompt": "What is the notation for data sizes of approximately 1000000000 (10^9) Bytes? ___",
+      "answers": [
+        [
+          "Gigabyte", "GB"
+        ]
+      ]
+    },
+    {
+      "prompt": "What is 10110 in decimal? ___",
+      "answers": [
+        [
+          "22"
+        ]
+      ]
+    },
+    {
+      "prompt": "What type of programming language is translated as it runs? ___",
+      "answers": [
+        [
+          "Interpreted Language", "Interpreted Languages", "Interpreted"
+        ]
+      ]
+    },
+    {
       "prompt": "In the early days of computing as an alternative to binary numbers for instructions it used short words also known as mnemonics (which was more practical for people to write a program and also known as a low-level language)? ___",
       "answers": [
         [
-          "Assembly/Assembler"
+          "Assembly", "Assembler"
+        ]
+      ]
+    },
+    {
+      "prompt": "An error in code that compiles but does the wrong thing is what type of error? ___",
+      "answers": [
+        [
+          "Logical Error", "Logic Error", "Logic", "Logical", "Semantic", "Semantic Error"
         ]
       ]
     },
@@ -50,30 +89,6 @@
       "answers": [
         [
           "High-level Languages", "high level languages"
-        ]
-      ]
-    },
-    {
-      "prompt": "Game Development primarily uses a certain kind (category) of programming language? ___",
-      "answers": [
-        [
-          "Object Oriented Programming (OOP) of the C-Language"
-        ]
-      ]
-    },
-    {
-      "prompt": "What is the programming language being taught in this class (embedded in Unity as a scripting language)? ___",
-      "answers": [
-        [
-          "C#"
-        ]
-      ]
-    },
-    {
-      "prompt": "What does IDE stand for (example is Microsoft Visual Studio)? ___",
-      "answers": [
-        [
-          "Integrated Development Environments"
         ]
       ]
     },
