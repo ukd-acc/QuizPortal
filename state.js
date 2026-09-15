@@ -6,6 +6,12 @@ const state = {
     answers: {},      // dictionary of answers { "matching-1": "A", "tf-2": true }
     startTime: null,  // Date object when quiz started
     endTime: null,    // Date object when quiz ended
+    deadline: null,   // Date object when a timed quiz ends
+    submitted: false, // prevents duplicate submissions
+    timerWarnings: new Set(),
+    timerWarningTimeout: null,
+    timerWarningFlashTimeout: null,
+    timerWarningAutoHideCancelled: false,
     settings: null,   // loaded from settings.json
     selectedCourse: null, // selected course (e.g., "Game1270" or "Game1377")
     selectedTerm: null, // roster/term folder the logged-in account matched (e.g., "Fall2026")

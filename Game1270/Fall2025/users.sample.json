@@ -2,16 +2,19 @@
   {
     "username": "alice",
     "password": "alpaca-42",
-    "fullName": "Alice Example"
+    "fullName": "Alice Example",
+    "accommodation": "standard"
   },
   {
     "username": "bob",
     "password": "bamboo-73",
-    "fullName": "Bob Example"
+    "fullName": "Bob Example",
+    "accommodation": "standard"
   },
   {
     "username": "carol",
     "password": "cobalt-19",
-    "fullName": "Carol Example"
+    "fullName": "Carol Example",
+    "accommodation": "standard"
   }
 ]

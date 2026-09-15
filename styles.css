@@ -548,6 +548,15 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
   display: block;           /* ✅ force block (not inline) */
 }
 
+.timer-warning {
+  animation: timer-warning 5s ease-in-out;
+}
+
+@keyframes timer-warning {
+  0%, 100% { background: #1a244a; color: #fff; }
+  20%, 60% { background: var(--err); color: #fff; }
+}
+
 #toggleTimerBtn {
   background: #33406e;
   color: #fff;

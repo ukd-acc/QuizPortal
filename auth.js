@@ -149,7 +149,8 @@ async function onLogin() {
     return;
   }
 
-  state.user = { username: matches[0].account.username, fullName: matches[0].account.fullName || matches[0].account.username };
+  state.user = { ...matches[0].account };
+  state.user.fullName = state.user.fullName || state.user.username;
 
   if (matches.length === 1) {
     selectCourse(matches[0], matches);
@@ -192,6 +193,8 @@ function renderCourseSelect(matches) {
 function selectCourse(match, matches) {
   state.selectedCourse = match.courseFolder;
   state.selectedTerm = match.termFolder;
+  state.user = { ...match.account };
+  state.user.fullName = state.user.fullName || state.user.username;
   renderQuizSelect(match, matches);
 }
 

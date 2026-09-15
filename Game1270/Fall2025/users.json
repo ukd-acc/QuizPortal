@@ -2,87 +2,104 @@
   {
     "username": "nweerbrouck",
     "password": "alpaca-42",
-    "fullName": "Nicole"
+    "fullName": "Nicole",
+    "accommodation": "standard"
   },
   {
     "username": "smasek",
     "password": "bamboo-73",
-    "fullName": "Sara"
+    "fullName": "Sara",
+    "accommodation": "standard"
   },
   {
     "username": "udas",
     "password": "cobalt-19",
-    "fullName": "Utsab"
+    "fullName": "Utsab",
+    "accommodation": "standard"
   },
   {
     "username": "n2439347",
     "password": "rozdsh-82",
-    "fullName": "Nabih"
+    "fullName": "Nabih",
+    "accommodation": "standard"
   },
   {
     "username": "k2490665",
     "password": "lhfwon-49",
-    "fullName": "Kabo"
+    "fullName": "Kabo",
+    "accommodation": "standard"
   },
   {
     "username": "b2472565",
     "password": "riuoib-91",
-    "fullName": "Billy"
+    "fullName": "Billy",
+    "accommodation": "standard"
   },
   {
     "username": "j2311322",
     "password": "zikrlx-37",
-    "fullName": "Jacob"
+    "fullName": "Jacob",
+    "accommodation": "standard"
   },
   {
     "username": "l2347701",
     "password": "awjvla-33",
-    "fullName": "Long"
+    "fullName": "Long",
+    "accommodation": "standard"
   },
   {
     "username": "t1459755",
     "password": "hhfbjk-15",
-    "fullName": "Taylor"
+    "fullName": "Taylor",
+    "accommodation": "standard"
   },
   {
     "username": "n2478675",
     "password": "tzzvxc-62",
-    "fullName": "Nick"
+    "fullName": "Nick",
+    "accommodation": "standard"
   },
   {
     "username": "g2411344",
     "password": "wtoyou-88",
-    "fullName": "Gabby"
+    "fullName": "Gabby",
+    "accommodation": "standard"
   },
   {
     "username": "x2466998",
     "password": "yomwap-57",
-    "fullName": "Xavier"
+    "fullName": "Xavier",
+    "accommodation": "standard"
   },
   {
     "username": "n2495025",
     "password": "clxxla-92",
-    "fullName": "Natasha"
+    "fullName": "Natasha",
+    "accommodation": "standard"
   },
   {
     "username": "m2366753",
     "password": "mbrvin-19",
-    "fullName": "Michelle"
+    "fullName": "Michelle",
+    "accommodation": "standard"
   },
   {
     "username": "n2211244",
     "password": "bjeeiw-72",
-    "fullName": "Novie"
+    "fullName": "Novie",
+    "accommodation": "standard"
   },
   {
     "username": "m2372804",
     "password": "lwtexc-49",
-    "fullName": "Mark"
+    "fullName": "Mark",
+    "accommodation": "standard"
   },
   {
     "username": "kstreicher",
     "password": "bjlkse-54",
-    "fullName": "Kalani"
+    "fullName": "Kalani",
+    "accommodation": "standard"
   }
   
 ]

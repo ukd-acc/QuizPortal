@@ -2,77 +2,92 @@
   {
     "username": "nweerbrouck",
     "password": "alpaca-42",
-    "fullName": "Nicole"
+    "fullName": "Nicole",
+    "accommodation": "standard"
   },
   {
     "username": "smasek",
     "password": "bamboo-73",
-    "fullName": "Sara"
+    "fullName": "Sara",
+    "accommodation": "standard"
   },
   {
     "username": "udas",
     "password": "cobalt-19",
-    "fullName": "Utsab"
+    "fullName": "Utsab",
+    "accommodation": "standard"
   },
   {
     "username": "jaguilar",
     "password": "j2336452",
-    "fullName": "Joe Aguilar"
+    "fullName": "Joe Aguilar",
+    "accommodation": "standard"
   },
   {
     "username": "zbeard",
     "password": "z2556560",
-    "fullName": "Zackary Beard"
+    "fullName": "Zackary Beard",
+    "accommodation": "standard"
   },
   {
     "username": "rbedard",
     "password": "r2283186",
-    "fullName": "Ryen Bedard"
+    "fullName": "Ryen Bedard",
+    "accommodation": "standard"
   },
   {
     "username": "jcasso",
     "password": "j1627153",
-    "fullName": "Joanna Casso"
+    "fullName": "Joanna Casso",
+    "accommodation": "standard"
   },
   {
     "username": "alewis",
     "password": "a2419114",
-    "fullName": "Austin Lewis"
+    "fullName": "Austin Lewis",
+    "accommodation": "standard"
   },
   {
     "username": "jmartinez",
     "password": "j2506188",
-    "fullName": "Jaden Martinez"
+    "fullName": "Jaden Martinez",
+    "accommodation": "standard"
   },
   {
     "username": "fmayberry",
     "password": "f2480024",
-    "fullName": "Frankie Mayberry"
+    "fullName": "Frankie Mayberry",
+    "accommodation": "standard"
   },
   {
     "username": "cmorrison",
     "password": "c2482663",
-    "fullName": "Christian Morrison"
+    "fullName": "Christian Morrison",
+    "accommodation": "standard"
   },
   {
     "username": "wrice",
     "password": "w2394254",
-    "fullName": "Wintyr Rice"
+    "fullName": "Wintyr Rice",
+    "accommodation": "standard"
   },
   {
     "username": "arochaarce",
     "password": "a2438522",
-    "fullName": "Angel Rocha Arce"
+    "fullName": "Angel Rocha Arce",
+    "accommodation": "standard"
   },
   {
     "username": "trosen",
     "password": "t2409586",
-    "fullName": "Terran Rosen"
+    "fullName": "Terran Rosen",
+    "accommodation": "timeAndHalf"
   },
   {
     "username": "wvanbuskirk",
     "password": "w1551840",
-    "fullName": "West Vanbuskirk"
+    "fullName": "West Vanbuskirk",
+    "accommodation": "standard"
   }
   
 ]

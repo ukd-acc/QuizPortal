@@ -29,6 +29,12 @@ async function initQuiz() {
   state.settings = await loadJSON(`${courseFolder}/settings.json`);
   
   state.answers = {};
+  state.submitted = false;
+  state.deadline = null;
+  state.timerWarnings = new Set();
+  state.timerWarningTimeout = null;
+  state.timerWarningFlashTimeout = null;
+  state.timerWarningAutoHideCancelled = false;
   if (state.timerInterval) {
     clearInterval(state.timerInterval);
     state.timerInterval = null;
@@ -196,6 +202,16 @@ function renderQuiz() {
     } else {
       timerEl.style.display = "none";
       qs("#toggleTimerBtn").textContent = "Show Timer";
+      if (state.timerWarningTimeout) {
+        clearTimeout(state.timerWarningTimeout);
+        state.timerWarningTimeout = null;
+        state.timerWarningAutoHideCancelled = true;
+      }
+      if (state.timerWarningFlashTimeout) {
+        clearTimeout(state.timerWarningFlashTimeout);
+        state.timerWarningFlashTimeout = null;
+        timerEl.classList.remove("timer-warning");
+      }
     }
   });
 
@@ -216,18 +232,98 @@ function renderQuiz() {
 
 function startTimer() {
   const timerEl = qs("#timer");
+  const timed = Boolean(state.settings.timed);
+  const baseDurationSeconds = Number(state.settings.durationMinutes) * 60;
+  const accommodation = String(state.user?.accommodation || "standard").toLowerCase();
+  const timeMultiplier = accommodation === "timeandhalf" || accommodation === "time_and_a_half" || accommodation === "time-and-a-half"
+    ? 1.5
+    : accommodation === "doubletime" || accommodation === "double_time" || accommodation === "double"
+      ? 2
+      : 1;
+  const durationSeconds = timed && Number.isFinite(baseDurationSeconds) && baseDurationSeconds > 0
+    ? Math.round(baseDurationSeconds * timeMultiplier)
+    : null;
+
+  if (durationSeconds) {
+    state.deadline = new Date(state.startTime.getTime() + durationSeconds * 1000);
+    timerEl.setAttribute("aria-label", "Time remaining");
+  }
+
   function update() {
     const now = new Date();
-    const elapsed = Math.floor((now - state.startTime) / 1000);
-    const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
-    const seconds = String(elapsed % 60).padStart(2, "0");
+    if (!durationSeconds) {
+      const elapsed = Math.floor((now - state.startTime) / 1000);
+      const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
+      const seconds = String(elapsed % 60).padStart(2, "0");
+      timerEl.textContent = `${minutes}:${seconds}`;
+      return;
+    }
+
+    const remaining = Math.max(0, Math.ceil((state.deadline - now) / 1000));
+    const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
+    const seconds = String(remaining % 60).padStart(2, "0");
     timerEl.textContent = `${minutes}:${seconds}`;
+
+    const warningThresholds = [durationSeconds / 2, 15 * 60, 5 * 60]
+      .filter(secondsAtWarning => secondsAtWarning > 0 && secondsAtWarning <= durationSeconds);
+    for (const threshold of new Set(warningThresholds)) {
+      if (remaining <= threshold && !state.timerWarnings.has(threshold)) {
+        state.timerWarnings.add(threshold);
+        const wasHidden = timerEl.style.display === "none";
+        const shouldAutoHide = wasHidden || Boolean(state.timerWarningTimeout);
+        if (state.timerWarningTimeout) {
+          clearTimeout(state.timerWarningTimeout);
+          state.timerWarningTimeout = null;
+        }
+        if (shouldAutoHide) {
+          timerEl.style.display = "block";
+          qs("#toggleTimerBtn").textContent = "Hide Timer";
+          state.timerWarningAutoHideCancelled = false;
+          state.timerWarningTimeout = setTimeout(() => {
+            if (!state.timerWarningAutoHideCancelled && timerEl.style.display !== "none") {
+              timerEl.style.display = "none";
+              qs("#toggleTimerBtn").textContent = "Show Timer";
+            }
+            state.timerWarningTimeout = null;
+          }, 5000);
+        }
+        if (state.timerWarningFlashTimeout) {
+          clearTimeout(state.timerWarningFlashTimeout);
+          state.timerWarningFlashTimeout = null;
+        }
+        timerEl.classList.remove("timer-warning");
+        requestAnimationFrame(() => {
+          if (state.submitted || timerEl.style.display === "none") return;
+          void timerEl.offsetWidth;
+          timerEl.classList.add("timer-warning");
+          state.timerWarningFlashTimeout = setTimeout(() => {
+            timerEl.classList.remove("timer-warning");
+            state.timerWarningFlashTimeout = null;
+          }, 5000);
+        });
+      }
+    }
+
+    if (remaining === 0) {
+      onSubmit(true);
+    }
   }
   update();
   state.timerInterval = setInterval(update, 1000);
 }
 
-function onSubmit() {
+function onSubmit(timedOut = false) {
+  if (state.submitted) return;
+  state.submitted = true;
+  clearInterval(state.timerInterval);
+  state.timerInterval = null;
+  clearTimeout(state.timerWarningTimeout);
+  clearTimeout(state.timerWarningFlashTimeout);
+  state.timerWarningTimeout = null;
+  state.timerWarningFlashTimeout = null;
+  const submitButton = qs("#submitBtn");
+  if (submitButton) submitButton.disabled = true;
+  if (timedOut) alert("You are out of time. Your quiz will be submitted now.");
   state.endTime = new Date();
   const res = gradeQuiz();
   showSummary(res);

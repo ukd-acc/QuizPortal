@@ -1,4 +1,6 @@
 {
+  "timed": true,
+  "durationMinutes": 30,
   "sections": [
     { "file": "matching.json" },
     { "file": "multiple_choice.json" },
