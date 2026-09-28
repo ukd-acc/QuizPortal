@@ -19,7 +19,6 @@
     { "question": "Comparison operators (>, <, ==, !=, >=, <=)" },
     { "question": "Logical operators (&&, ||, !)" },
     { "question": "Conditional statements (if, else if, else)" },
-    { "question": "Breaking a problem into steps before coding (top-down design)" },
     { "question": "While loops" },
     { "question": "For loops" }
   ]
