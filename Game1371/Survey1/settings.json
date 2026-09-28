@@ -1,0 +1,11 @@
+{
+  "randomize": false,
+  "sections": [
+    { "file": "likert_confidence.json" },
+    { "file": "likert_pace.json" },
+    { "file": "likert_homework.json" },
+    { "file": "likert_difficulty.json" },
+    { "file": "likert_experience.json" },
+    { "file": "short_answer.json" }
+  ]
+}

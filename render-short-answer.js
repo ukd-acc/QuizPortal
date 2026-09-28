@@ -15,6 +15,14 @@ function renderShortAnswerSection(section) {
     prompt.textContent = `${idx + 1}. ${q.prompt}`;
     row.appendChild(prompt);
 
+    if (q.image) {
+      const image = document.createElement("img");
+      image.className = "sa-question-image";
+      image.src = `${state.selectedCourse}/${q.image}`;
+      image.alt = q.image_alt || `Illustration for question ${idx + 1}`;
+      row.appendChild(image);
+    }
+
     const textarea = document.createElement("textarea");
     textarea.className = "sa-input";
     textarea.dataset.question = idx; // Associate input with question index

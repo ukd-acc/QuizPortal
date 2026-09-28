@@ -1,0 +1,19 @@
+{
+  "type": "likert",
+  "title": "Part 3 — Homework & Classwork",
+  "instructions": "Tell me how the workload feels. \"Just right\" is the middle option. (Right now, homework is due about 1 week after it's assigned, and classwork is due about 1 day after it's assigned.)",
+  "points_per_question": 0,
+  "scale_labels": [
+    "Far too little",
+    "A little too little",
+    "Just right",
+    "A little too much",
+    "Far too much"
+  ],
+  "prompts": [
+    { "question": "The amount of homework assigned" },
+    { "question": "The amount of classwork assigned" },
+    { "question": "The amount of time given to complete each homework assignment (currently about 1 week)" },
+    { "question": "The amount of time given to complete each classwork assignment (currently about 1 day)" }
+  ]
+}

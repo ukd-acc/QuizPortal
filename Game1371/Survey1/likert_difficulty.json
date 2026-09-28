@@ -1,0 +1,18 @@
+{
+  "type": "likert",
+  "title": "Part 4 — Difficulty",
+  "instructions": "Tell me how hard things feel. \"Just right\" is the middle option.",
+  "points_per_question": 0,
+  "scale_labels": [
+    "Much too easy",
+    "A little too easy",
+    "Just right",
+    "A little too hard",
+    "Much too hard"
+  ],
+  "prompts": [
+    { "question": "The difficulty of the homework problems" },
+    { "question": "The difficulty of the classwork" },
+    { "question": "The difficulty of the topics themselves" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "short_answer",
+  "title": "Part 6 — In Your Own Words",
+  "instructions": "Answer as honestly as you can. There are no wrong answers here, and this is just to help me support you better. The last question is optional.",
+  "questions": [
+    { "prompt": "Overall, how are you feeling about the class so far?" },
+    { "prompt": "Which topic so far has been the hardest for you, and what specifically is confusing about it? (It's fine to say \"none.\")" },
+    { "prompt": "Which topic do you feel most confident about?" },
+    { "prompt": "Is there anything about the pace, the homework, or the classwork you would change? If so, what?" },
+    { "prompt": "What is one thing that would help you learn better in this class?" },
+    { "prompt": "Anything else you'd like me to know? (optional)" }
+  ]
+}

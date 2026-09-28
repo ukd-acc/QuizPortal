@@ -1,0 +1,26 @@
+{
+  "type": "likert",
+  "title": "Part 1 — Confidence in Coding Topics",
+  "instructions": "For each topic we've covered so far, select how confident you feel about understanding it and writing code that uses it. Be honest — this helps me know what to review.",
+  "points_per_question": 0,
+  "scale_labels": [
+    "Not at all confident",
+    "Slightly confident",
+    "Somewhat confident",
+    "Very confident",
+    "Completely confident"
+  ],
+  "prompts": [
+    { "question": "Printing text to the console with Debug.Log" },
+    { "question": "Declaring variables and choosing data types (int, string, bool)" },
+    { "question": "Arithmetic operators (+, -, *, /)" },
+    { "question": "Modulo / remainder (%)" },
+    { "question": "Increment, decrement, and compound assignment (++, --, +=)" },
+    { "question": "Comparison operators (>, <, ==, !=, >=, <=)" },
+    { "question": "Logical operators (&&, ||, !)" },
+    { "question": "Conditional statements (if, else if, else)" },
+    { "question": "Breaking a problem into steps before coding (top-down design)" },
+    { "question": "While loops" },
+    { "question": "For loops" }
+  ]
+}

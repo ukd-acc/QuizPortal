@@ -1,0 +1,21 @@
+{
+  "type": "likert",
+  "title": "Part 5 — How It's Going",
+  "instructions": "Select how much you agree with each statement.",
+  "points_per_question": 0,
+  "scale_labels": [
+    "Strongly disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly agree"
+  ],
+  "prompts": [
+    { "question": "I feel like I'm keeping up with the class." },
+    { "question": "I can follow along during the live coding in class." },
+    { "question": "The classwork helps me understand the day's topic." },
+    { "question": "The homework helps me practice what we learned in class." },
+    { "question": "The Sunless Keep examples make the topics easier to understand." },
+    { "question": "I feel comfortable asking questions when I'm stuck." }
+  ]
+}

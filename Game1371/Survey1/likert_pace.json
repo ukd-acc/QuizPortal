@@ -1,0 +1,18 @@
+{
+  "type": "likert",
+  "title": "Part 2 — How's the Pace?",
+  "instructions": "Tell me how the speed of the class feels to you right now. \"Just right\" is the middle option.",
+  "points_per_question": 0,
+  "scale_labels": [
+    "Much too slow",
+    "A little too slow",
+    "Just right",
+    "A little too fast",
+    "Much too fast"
+  ],
+  "prompts": [
+    { "question": "The overall pace of the class so far" },
+    { "question": "The speed at which we move on to new topics" },
+    { "question": "The pace of the live coding demos in class" }
+  ]
+}

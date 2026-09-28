@@ -668,6 +668,21 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
   margin-bottom: 8px; /* small bottom gap */
 }
 
+.sa-row > p {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.sa-question-image {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  margin: 12px 0 16px;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
 .sa-input {
   background-color: #1a244a; /* Dark blue background */
   color: #ffffff; /* White text */
