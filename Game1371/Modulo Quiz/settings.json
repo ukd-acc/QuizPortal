@@ -1,0 +1,22 @@
+{
+  "quizId": "GAME1377-ModuloQuiz",
+  "title": "GAME 1377: Modulo Quiz",
+  "course": "Game Development",
+  "logo": "../../acc_logo.png",
+
+  "userFolder": "Summer2026",
+
+  "sections": [
+    { "file": "fill_in_the_blank.json" }
+  ],
+
+  "randomize": false,
+
+  "emailRecipients": ["instructor@austincc.edu"],
+  "emailProvider": "emailjs",
+  "emailConfig": {
+    "serviceID": "service_l412vd9",
+    "templateID": "template_6ftojqe",
+    "publicKey": "YoOVqMfQaR_h1LIj6"
+  }
+}

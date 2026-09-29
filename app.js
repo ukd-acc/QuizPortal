@@ -227,7 +227,7 @@ function renderQuiz() {
     }
   });
 
-  qs("#submitBtn").addEventListener("click", onSubmit);
+  qs("#submitBtn").addEventListener("click", () => onSubmit(false));
 }
 
 function startTimer() {
