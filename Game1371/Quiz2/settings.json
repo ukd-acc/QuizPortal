@@ -1,5 +1,12 @@
 {
+  "timed": true,
+  "durationMinutes": 50,
   "sections": [
-    { "file": "fill_in_the_blank.json" }
+    { "file": "fill_in_the_blank.json" },
+    { "file": "code_blocks_fitb.json" },
+    { "file": "multiple_choice.json" },
+    { "file": "code_blocks_mc.json" },
+    { "file": "true_false.json" },
+    { "file": "short_answer.json" }
   ]
 }

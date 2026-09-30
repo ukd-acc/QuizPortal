@@ -1,0 +1,15 @@
+{
+  "type": "short_answer",
+  "title": "Coding Problems ",
+  "instructions": "Write your C# code in each box. You may use Debug.Log, variables, comparisons (<  >  ==  >=  <=), logical operators (&&  ||  !), and if / else if / else. Press Tab to indent.",
+  "questions": [
+    {
+      "prompt": "MIDDLE PLAYER\n\nThree players just finished a round. Declare three int variables named scoreA, scoreB, and scoreC for Player A, Player B, and Player C, giving each one a different value.\n\nThen, using Debug.Log, print the name of the player with the MIDDLE score, exactly one of: Player A, Player B, or Player C. The middle score is the one that is neither the highest nor the lowest.\n\nExample 1: scoreA = 70, scoreB = 40, scoreC = 90. In order that is 40, 70, 90, so the middle score is 70 and the code should print:   Player A\n\nExample 2: scoreA = 90, scoreB = 55, scoreC = 20. In order that is 20, 55, 90, so the middle score is 55 and the code should print:   Player B\n\n(5 pts)\n\n"
+    },
+    {
+      "image": "Quiz2/rectangle_collision.svg",
+      "image_alt": "Two rectangle collision examples: the first pair overlaps, while the second pair is separated and does not overlap.",
+      "prompt": "RECTANGLE COLLISION\n\nTwo rectangular hitboxes sit on the map. Declare four int variables for Rectangle A (aLeft, aRight, aTop, aBottom) and four int variables for Rectangle B (bLeft, bRight, bTop, bBottom), giving each one a value. For every rectangle, Right must be greater than Left and Top must be greater than Bottom.\n\nThen, using Debug.Log, print Overlap if the two rectangles share any area, or print No Overlap if they do not. Two rectangles that only touch along an edge do NOT count as overlapping.\n\nExample 1: A = (aLeft 0, aRight 4, aTop 5, aBottom 1) and B = (bLeft 2, bRight 6, bTop 3, bBottom 0). They share the region from x 2 to 4 and y 1 to 3, so the code should print:   Overlap\n\nExample 2: A = (aLeft 0, aRight 3, aTop 4, aBottom 0) and B = (bLeft 5, bRight 8, bTop 4, bBottom 0). Rectangle B sits entirely to the right, so the code should print:   No Overlap\n\n(10 pts)\n\n"
+    }
+  ]
+}

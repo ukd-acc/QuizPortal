@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 490" role="img" aria-labelledby="title desc">
+  <title id="title">Rectangle collision examples</title>
+  <desc id="desc">Coordinate grids show the exact example points from the question. On the left, rectangle A spans x 0 to 4 and y 1 to 5, while B spans x 2 to 6 and y 0 to 3, so they overlap. On the right, A spans x 0 to 3 and y 0 to 4, while B spans x 5 to 8 and y 0 to 4, so they do not overlap.</desc>
+  <rect width="1000" height="490" rx="18" fill="#f4f6fb"/>
+  <g font-family="Arial, sans-serif" fill="#172033">
+    <text x="244" y="48" text-anchor="middle" font-size="25" font-weight="700">OVERLAP</text>
+    <text x="734" y="48" text-anchor="middle" font-size="25" font-weight="700">NO OVERLAP</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="15" fill="#172033">
+    <text x="105" y="82">aLeft = 0</text><text x="105" y="104">aRight = 4</text><text x="105" y="126">aTop = 5</text><text x="105" y="148">aBottom = 1</text>
+    <text x="275" y="82">bLeft = 2</text><text x="275" y="104">bRight = 6</text><text x="275" y="126">bTop = 3</text><text x="275" y="148">bBottom = 0</text>
+    <text x="595" y="82">aLeft = 0</text><text x="595" y="104">aRight = 3</text><text x="595" y="126">aTop = 4</text><text x="595" y="148">aBottom = 0</text>
+    <text x="765" y="82">bLeft = 5</text><text x="765" y="104">bRight = 8</text><text x="765" y="126">bTop = 4</text><text x="765" y="148">bBottom = 0</text>
+  </g>
+  <g stroke="#cbd2df" stroke-width="1">
+    <path d="M100 184V400 M136 184V400 M172 184V400 M208 184V400 M244 184V400 M280 184V400 M316 184V400 M352 184V400 M388 184V400 M100 184H388 M100 220H388 M100 256H388 M100 292H388 M100 328H388 M100 364H388 M100 400H388"/>
+    <path d="M590 184V400 M626 184V400 M662 184V400 M698 184V400 M734 184V400 M770 184V400 M806 184V400 M842 184V400 M878 184V400 M590 184H878 M590 220H878 M590 256H878 M590 292H878 M590 328H878 M590 364H878 M590 400H878"/>
+  </g>
+  <g stroke-width="4">
+    <rect x="100" y="220" width="144" height="144" fill="#3678d4" fill-opacity="0.48" stroke="#2056a6"/>
+    <rect x="172" y="292" width="144" height="108" fill="#e36c5c" fill-opacity="0.58" stroke="#b54438"/>
+    <rect x="590" y="256" width="108" height="144" fill="#3678d4" fill-opacity="0.58" stroke="#2056a6"/>
+    <rect x="770" y="256" width="108" height="144" fill="#e36c5c" fill-opacity="0.58" stroke="#b54438"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="17" fill="#43506b" text-anchor="middle">
+    <text x="100" y="423">0</text><text x="136" y="423">1</text><text x="172" y="423">2</text><text x="208" y="423">3</text><text x="244" y="423">4</text><text x="280" y="423">5</text><text x="316" y="423">6</text><text x="352" y="423">7</text><text x="388" y="423">8</text>
+    <text x="590" y="423">0</text><text x="626" y="423">1</text><text x="662" y="423">2</text><text x="698" y="423">3</text><text x="734" y="423">4</text><text x="770" y="423">5</text><text x="806" y="423">6</text><text x="842" y="423">7</text><text x="878" y="423">8</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="17" fill="#43506b" text-anchor="end">
+    <text x="88" y="406">0</text><text x="88" y="370">1</text><text x="88" y="334">2</text><text x="88" y="298">3</text><text x="88" y="262">4</text><text x="88" y="226">5</text><text x="88" y="190">6</text>
+    <text x="578" y="406">0</text><text x="578" y="370">1</text><text x="578" y="334">2</text><text x="578" y="298">3</text><text x="578" y="262">4</text><text x="578" y="226">5</text><text x="578" y="190">6</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#43506b" text-anchor="middle">
+    <text x="244" y="458">x</text><text x="734" y="458">x</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#43506b" text-anchor="middle">
+    <text x="56" y="292" transform="rotate(-90 56 292)">y</text><text x="546" y="292" transform="rotate(-90 546 292)">y</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">
+    <text x="154" y="247" fill="#123c7d">A</text><text x="280" y="320" fill="#8e2d25">B</text>
+    <text x="644" y="283" fill="#123c7d">A</text><text x="824" y="283" fill="#8e2d25">B</text>
+  </g>
+  <line x1="500" y1="70" x2="500" y2="465" stroke="#c7cede" stroke-width="2" stroke-dasharray="7 8"/>
+</svg>

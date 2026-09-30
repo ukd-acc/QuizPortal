@@ -5,85 +5,44 @@
   "points_per_question": 1,
   "questions": [
     {
-      "prompt": "It is essential to a computer. Without it, the physical computer can do nothing. ___",
-      "answers": [
-        [
-          "Software"
-        ]
-      ]
+      "prompt": "What is the <strong>programming language</strong> taught in this class (embedded in Unity as a scripting language)? ___",
+      "answers": [["C#", "CSharp", "C Sharp"]]
     },
     {
-      "prompt": "How many bits are in a byte? ___",
-      "answers": [
-        [
-          "8"
-        ]
-      ]
+      "prompt": "Game development is built mostly on a <strong>style of programming</strong> organized around objects, known by the <strong>three-letter acronym</strong> ___",
+      "answers": [["OOP", "Object Oriented Programming", "Object-Oriented Programming"]]
     },
     {
-      "prompt": "Each position in the binary system (e.g. 10101010) is known as a ? ___",
-      "answers": [
-        [
-          "bit"
-        ]
-      ]
-    },
-    
-    {
-      "prompt": "A CPU only understands binary numbers that are written in what language? ___",
-      "answers": [
-        [
-          "Machine Language", "Machine Code"
-        ]
-      ]
+      "prompt": "A named container that <strong>stores a value</strong> your program can use and change is called a ___",
+      "answers": [["variable"]]
     },
     {
-      "prompt": "In the early days of computing as an alternative to binary numbers for instructions it used short words also known as mnemonics (which was more practical for people to write a program and also known as a low-level language)? ___",
-      "answers": [
-        [
-          "Assembly/Assembler"
-        ]
-      ]
+      "prompt": "What symbol begins a <strong>single-line comment</strong> in C#? ___",
+      "answers": [["//", "double slash", "two slashes"]]
     },
     {
-      "prompt": "What type of programming language allows you to create powerful and complex programs without knowing how the CPU works or using machine code? ___",
-      "answers": [
-        [
-          "High-level Languages", "high level languages"
-        ]
-      ]
+      "prompt": "The keyword that runs a block of code <strong>only when a condition is true</strong> is the ___ statement (not a loop).",
+      "answers": [["if"]]
     },
     {
-      "prompt": "Game Development primarily uses a certain kind (category) of programming language? ___",
-      "answers": [
-        [
-          "Object Oriented Programming (OOP) of the C-Language"
-        ]
-      ]
+      "prompt": "Which <strong>C# data type</strong> is commonly used to store a whole-number score or coin count? ___",
+      "answers": [["int", "integer"]]
     },
     {
-      "prompt": "What is the programming language being taught in this class (embedded in Unity as a scripting language)? ___",
-      "answers": [
-        [
-          "C#"
-        ]
-      ]
+      "prompt": "Which <strong>C# data type</strong> stores text, such as the player's name? ___",
+      "answers": [["string"]]
     },
     {
-      "prompt": "What does IDE stand for (example is Microsoft Visual Studio)? ___",
-      "answers": [
-        [
-          "Integrated Development Environments"
-        ]
-      ]
+      "prompt": "Which <strong>C# data type</strong> stores a true-or-false value, such as whether a door is open? ___",
+      "answers": [["bool", "boolean"]]
     },
     {
-      "prompt": "Each language has a set of rules / grammar that must be strictly followed when writing a program. What is this set of rules called? ___",
-      "answers": [
-        [
-          "Syntax"
-        ]
-      ]
+      "prompt": "Which <strong>C# data type</strong> is commonly used for a number that can have a fractional part, such as movement speed? ___",
+      "answers": [["float", "floating point", "floating point number", "double", "double precision"]]
+    },
+    {
+      "prompt": "Which <strong>C# data type</strong> stores one character, such as the letter 'A'? ___",
+      "answers": [["char"]]
     }
   ]
 }

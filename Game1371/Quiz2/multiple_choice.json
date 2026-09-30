@@ -1,0 +1,38 @@
+{
+  "type": "multiple_choice",
+  "title": "Multiple Choice (1 point each)",
+  "instructions": "Select the best answer for each question.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "Which line correctly declares a variable that tracks whether the player is holding the torch?",
+      "answers": ["bool hasTorch = false;", "int hasTorch = false;", "hasTorch bool = false;", "bool hasTorch = 0;"],
+      "correct_answer": "bool hasTorch = false;"
+    },
+    {
+      "question": "In C#, which line prints a message to the Unity console?",
+      "answers": ["print(\"Welcome\");", "Console.Write(Welcome);", "Debug.Log(\"Welcome\");", "Log.Debug(\"Welcome\");"],
+      "correct_answer": "Debug.Log(\"Welcome\");"
+    },
+    {
+      "question": "The player can open the vault only if they are still alive and have a key. Which operator combines those two conditions?",
+      "answers": ["|| (OR)", "&& (AND)", "! (NOT)", "== (equals)"],
+      "correct_answer": "&& (AND)"
+    },
+    {
+      "question": "What is the difference between = and == in C#?",
+      "answers": [
+        "They are identical and interchangeable",
+        "= assigns a value; == compares two values",
+        "= compares two values; == assigns a value",
+        "== is only used with strings"
+      ],
+      "correct_answer": "= assigns a value; == compares two values"
+    },
+    {
+      "question": "The player takes 8 damage from the goblin. Which line correctly reduces the health variable by 8?",
+      "answers": ["health = 8;", "health - 8;", "health -= 8;", "health = health - 8;"],
+      "correct_answer": "health -= 8;"
+    }
+  ]
+}

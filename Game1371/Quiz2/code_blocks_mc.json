@@ -1,0 +1,38 @@
+{
+  "type": "code_blocks_mc",
+  "title": "Code Analysis (1 point each)",
+  "instructions": "Analyze each C# snippet and select the best answer.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What is the process of <strong>setting a variable to a value</strong> referred to as?",
+      "code": "Ex: int health = 100;",
+      "answers": ["Initialization", "Declaration", "Assignment", "Instantiation"],
+      "correct_answer": "Assignment"
+    },
+    {
+      "question": "What is the process of <strong>creating a variable</strong> referred to as?",
+      "code": "Ex: int gold;",
+      "answers": ["Initialization", "Declaration", "Assignment", "Instantiation"],
+      "correct_answer": "Declaration"
+    },
+    {
+      "question": "Which condition is true only when the player does <strong>NOT</strong> have a potion?",
+      "code": "bool hasPotion = false;",
+      "answers": ["hasPotion", "!hasPotion", "hasPotion == true", "hasPotion && true"],
+      "correct_answer": "!hasPotion"
+    },
+    {
+      "question": "What value is assigned to canEnter?",
+      "code": "int keys = 1;\nint doors = 2;\nbool canEnter = keys > 0 && doors > 0;",
+      "answers": ["true", "false", "1", "Type error"],
+      "correct_answer": "true"
+    },
+    {
+      "question": "Which message is printed when health is exactly 0?",
+      "code": "int health = 0;\nif (health < 0)\n{\n    Debug.Log(\"Below zero\");\n}\nelse\n{\n    Debug.Log(\"Not below zero\");\n}",
+      "answers": ["Below zero", "Not below zero", "Both messages", "Nothing"],
+      "correct_answer": "Not below zero"
+    }
+  ]
+}

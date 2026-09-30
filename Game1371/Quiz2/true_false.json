@@ -1,0 +1,28 @@
+{
+  "type": "true_false",
+  "title": "True or False (1 point each)",
+  "instructions": "Select True or False for each statement.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "question": "In C#, curly braces can group multiple statements into the body of an if statement.",
+      "answer": true
+    },
+    {
+      "question": "The string literal \"42\" and the integer literal 42 have the same data type in C#.",
+      "answer": false
+    },
+    {
+      "question": "A variable declared as int can store a whole-number value such as -3.",
+      "answer": true
+    },
+    {
+      "question": "The condition score >= 10 can be true when score is exactly 10.",
+      "answer": true
+    },
+    {
+      "question": "An else block runs when the condition of its matching if statement is true.",
+      "answer": false
+    }
+  ]
+}

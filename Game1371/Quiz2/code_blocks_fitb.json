@@ -1,0 +1,33 @@
+{
+  "type": "code_blocks_fitb",
+  "title": "Code Tracing & Completion (2 points each)",
+  "instructions": "Read each C# snippet and follow the prompt: some ask for a final value or printed message, while others ask you to fill in missing code. Write the requested answer only.",
+  "points_per_question": 2,
+  "questions": [
+    {
+      "prompt": "What is the final value of health after the damage and healing condition are applied?",
+      "code": "int health = 60;\nint damage = 18;\nhealth = health - damage;\nif (health < 50)\n{\n    health = health + 7;\n}",
+      "answer": "49"
+    },
+    {
+      "prompt": "Which exact message is printed?",
+      "code": "bool hasKey = false;\nint health = 65;\nif (hasKey || health >= 60)\n{\n    Debug.Log(\"Vault unlocked\");\n}\nelse\n{\n    Debug.Log(\"Find another way\");\n}",
+      "answer": ["Vault unlocked"]
+    },
+    {
+      "prompt": "Fill in the comparison operator so the bonus is awarded when the score meets or exceeds the target.",
+      "code": "int score = 10;\nint target = 10;\nif (score __ target)\n{\n    Debug.Log(\"Bonus!\");\n}",
+      "answer": [">=", "greater than or equal to"]
+    },
+    {
+      "prompt": "What is the final value of reward?",
+      "code": "int score = 7;\nint reward = 0;\nif (score >= 10)\n{\n    reward = 5;\n}\nelse if (score >= 5)\n{\n    reward = 3;\n}\nelse\n{\n    reward = 1;\n}",
+      "answer": "3"
+    },
+    {
+      "prompt": "What is the final value of health?",
+      "code": "int health = 20;\nbool hasPotion = true;\nif (health <= 20 && hasPotion)\n{\n    health = health + 15;\n    hasPotion = false;\n}\nif (health > 30)\n{\n    health = health - 5;\n}",
+      "answer": ["30"]
+    }
+  ]
+}
