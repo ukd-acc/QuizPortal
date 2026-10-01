@@ -1,6 +1,6 @@
 {
   "timed": true,
-  "durationMinutes": 50,
+  "durationMinutes": 60,
   "sections": [
     { "file": "fill_in_the_blank.json" },
     { "file": "code_blocks_fitb.json" },
