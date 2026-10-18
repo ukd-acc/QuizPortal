@@ -1,4 +1,6 @@
 {
+  "timed": true,
+  "durationMinutes": 60,
   "sections": [
     { "file": "matching.json" },
     { "file": "truefalse.json" },

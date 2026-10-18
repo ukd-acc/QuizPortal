@@ -231,27 +231,6 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
 }
 .kpi strong { font-size:1.4rem; }
 
-.short-answer-list,
-.wrong-list {
-  min-width: 0;
-  padding-left: 20px;
-}
-
-.short-answer-list li,
-.wrong-list li {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.student-answer,
-.correct-answer {
-  max-width: 100%;
-  margin: 6px 0 12px;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
 /* Give overall page breathing room */
 .container {
   max-width: 1000px;
@@ -548,15 +527,6 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
   display: block;           /* ✅ force block (not inline) */
 }
 
-.timer-warning {
-  animation: timer-warning 5s ease-in-out;
-}
-
-@keyframes timer-warning {
-  0%, 100% { background: #1a244a; color: #fff; }
-  20%, 60% { background: var(--err); color: #fff; }
-}
-
 #toggleTimerBtn {
   background: #33406e;
   color: #fff;
@@ -666,21 +636,6 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
 .section .question-box > p {
   margin-top: 0;    /* remove top gap */
   margin-bottom: 8px; /* small bottom gap */
-}
-
-.sa-row > p {
-  white-space: pre-wrap;
-  line-height: 1.6;
-}
-
-.sa-question-image {
-  display: block;
-  width: 100%;
-  max-width: 760px;
-  height: auto;
-  margin: 12px 0 16px;
-  border-radius: 8px;
-  background: #ffffff;
 }
 
 .sa-input {
