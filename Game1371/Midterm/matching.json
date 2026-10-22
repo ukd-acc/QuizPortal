@@ -1,0 +1,101 @@
+{
+  "type": "matching",
+  "title": "Matching (1 point each, 10 total)",
+  "instructions": "Select the correct term for each description from the dropdown. Read all options carefully.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "Stores a whole number such as 5 or -12, with no fractional part.",
+      "answer": "int"
+    },
+    {
+      "question": "Stores a number that can include decimals, such as 4.5.",
+      "answer": "float"
+    },
+    {
+      "question": "Stores text, such as a word or sentence.",
+      "answer": "string"
+    },
+    {
+      "question": "Stores only one of two values: true or false.",
+      "answer": "bool"
+    },
+    {
+      "question": "Chooses whether to run a block of code based on a true/false test.",
+      "answer": "if"
+    },
+    {
+      "question": "The symbol that puts a value into a variable (initializes/assigns a variable).",
+      "answer": "="
+    },
+    {
+      "question": "The symbol that gives the remainder left over after a division.",
+      "answer": "%"
+    },
+    {
+      "question": "The method Unity runs a single time when the script first begins.",
+      "answer": "Start"
+    },
+    {
+      "question": "Breaking a large problem down into smaller, easier pieces.",
+      "answer": "decomposition"
+    },
+    {
+      "question": "Focusing on the essential details of a problem and ignoring the rest.",
+      "answer": "abstraction"
+    }
+  ],
+  "word_bank": [
+    {
+      "text": "int"
+    },
+    {
+      "text": "float"
+    },
+    {
+      "text": "string"
+    },
+    {
+      "text": "bool"
+    },
+    {
+      "text": "char"
+    },
+    {
+      "text": "if"
+    },
+    {
+      "text": "else"
+    },
+    {
+      "text": "for"
+    },
+    {
+      "text": "="
+    },
+    {
+      "text": "=="
+    },
+    {
+      "text": "%"
+    },
+    {
+      "text": "/"
+    },
+    {
+      "text": "Start"
+    },
+    {
+      "text": "Update"
+    },
+    {
+      "text": "decomposition"
+    },
+    {
+      "text": "abstraction"
+    },
+    {
+      "text": "pattern recognition"
+    }
+  ]
+}

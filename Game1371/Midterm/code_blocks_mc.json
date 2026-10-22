@@ -1,0 +1,68 @@
+{
+  "type": "code_blocks_mc",
+  "title": "Spot the Error (1 point each, 5 total)",
+  "instructions": "Read each code snippet and select which kind of error (if any) it would produce.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What kind of error (if any) does this snippet have?",
+      "code": "int lives = 3",
+      "answers": [
+        "No error",
+        "Syntax error (an error in the structure of the code)",
+        "Type error (an error in the type of data being used)",
+        "Logic error (an error in the logic of the code)",
+        "Index out of range error (an error when accessing outside of bounds)"
+      ],
+      "correct_answer": "Syntax error (an error in the structure of the code)"
+    },
+    {
+      "question": "What kind of error (if any) does this snippet have?",
+      "code": "bool isDead = 5;",
+      "answers": [
+        "No error",
+        "Syntax error (an error in the structure of the code)",
+        "Type error (an error in the type of data being used)",
+        "Logic error (an error in the logic of the code)",
+        "Index out of range error (an error when accessing outside of bounds)"
+      ],
+      "correct_answer": "Type error (an error in the type of data being used)"
+    },
+    {
+      "question": "This snippet is supposed to print the numbers 1 through 5, but it runs forever. What kind of error is this?",
+      "code": "int i = 1;\nwhile (i <= 5)\n{\n    Debug.Log(i);\n}",
+      "answers": [
+        "No error",
+        "Syntax error (an error in the structure of the code)",
+        "Type error (an error in the type of data being used)",
+        "Logic error (an error in the logic of the code)",
+        "Index out of range error (an error when accessing outside of bounds)"
+      ],
+      "correct_answer": "Logic error (an error in the logic of the code)"
+    },
+    {
+      "question": "What kind of error (if any) does this snippet have?",
+      "code": "int[] nums = new int[3];\nnums[5] = 99;",
+      "answers": [
+        "No error",
+        "Syntax error (an error in the structure of the code)",
+        "Type error (an error in the type of data being used)",
+        "Logic error (an error in the logic of the code)",
+        "Index out of range error (an error when accessing outside of bounds)"
+      ],
+      "correct_answer": "Index out of range error (an error when accessing outside of bounds)"
+    },
+    {
+      "question": "What kind of error (if any) does this snippet have?",
+      "code": "string title = \"Boss Fight\";\nDebug.Log(title);",
+      "answers": [
+        "No error",
+        "Syntax error (an error in the structure of the code)",
+        "Type error (an error in the type of data being used)",
+        "Logic error (an error in the logic of the code)",
+        "Index out of range error (an error when accessing outside of bounds)"
+      ],
+      "correct_answer": "No error"
+    }
+  ]
+}

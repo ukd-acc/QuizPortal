@@ -3,11 +3,13 @@ function gradeShortAnswer(section) {
   const responses = [];
 
   section.questions.forEach((q, idx) => {
-    const textarea = qs(`.sa-input[data-question="${idx}"]`);
-    const userAnswer = textarea.value.trim();
+    const textarea = qs(`.sa-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`);
+    const userAnswer = textarea ? textarea.value.trim() : "";
     responses.push({
+      sectionTitle: section.title,
       question: q.prompt,
-      answer: userAnswer || "(no answer)"
+      answer: userAnswer || "(no answer)",
+      correctAnswer: Array.isArray(q.answers) ? q.answers.flat().join(" or ") || "(no answer provided)" : "(no answer provided)"
     });
   });
 
@@ -19,7 +21,7 @@ function gradeFillInTheBlank(section) {
   const wrongAnswers = [];
 
   section.questions.forEach((q, idx) => {
-    const inputs = qsa(`.fib-input[data-question="${idx}"]`); // Select inputs for the current question
+    const inputs = qsa(`.fib-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`); // Select inputs for this section and question
     const usedAnswers = new Set();
     let questionCorrect = true; // Track if the entire question is correct
     const studentAnswers = []; // Collect all user answers for the question
@@ -64,33 +66,80 @@ function gradeFillInTheBlankList(section) {
   const wrongAnswers = [];
 
   section.questions.forEach((q, idx) => {
-    const inputs = qsa(`.fibl-input[data-question="${idx}"]`); // Select inputs for the current question
+    const inputs = qsa(`.fibl-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`); // Select inputs for this section and question
     const usedAnswers = new Set();
     let questionCorrectCount = 0; // Track correct answers for this question
     const studentAnswers = []; // Collect all user answers for the question
+    const normalizedStudentAnswers = [];
 
-    // Flatten possible answers once for the entire question
-    const possibleAnswers = q.answers.flat().map(a => a.toLowerCase()); // Normalize all answers to lowercase
+    // `answer_groups` contains one synonym group per accepted answer category.
+    // Matching is one-to-one and order-independent. Legacy `answers` remains a
+    // shared pool, preserving the behavior of existing quizzes.
+    const hasAnswerGroups = Array.isArray(q.answer_groups);
+    const normalizedAnswerGroups = hasAnswerGroups
+      ? q.answer_groups.map(group => new Set(
+        (Array.isArray(group) ? group : [])
+          .filter(answer => typeof answer === "string")
+          .map(answer => answer.trim().toLowerCase())
+      ))
+      : [];
+    const possibleAnswers = hasAnswerGroups
+      ? []
+      : q.answers.flat().map(answer => answer.toLowerCase());
 
-    inputs.forEach((input) => {
-      const userAnswer = input.value.trim().toLowerCase(); // Normalize input
-
+    inputs.forEach(input => {
+      const userAnswer = input.value.trim().toLowerCase();
+      normalizedStudentAnswers.push(userAnswer);
       studentAnswers.push(userAnswer || "(no answer)");
-
-      if (possibleAnswers.includes(userAnswer) && !usedAnswers.has(userAnswer)) {
-        questionCorrectCount++;
-        correct++;
-        usedAnswers.add(userAnswer); // Prevent duplicate credit for the same answer
-      }
     });
+
+    if (hasAnswerGroups) {
+      // Find a maximum one-to-one matching so aliases from the same group
+      // cannot earn multiple points, even when groups have overlapping aliases.
+      const inputForGroup = new Array(normalizedAnswerGroups.length).fill(-1);
+      const assignInputToGroup = (inputIndex, visitedGroups) => {
+        const answer = normalizedStudentAnswers[inputIndex];
+        if (!answer) return false;
+
+        for (let groupIndex = 0; groupIndex < normalizedAnswerGroups.length; groupIndex++) {
+          if (visitedGroups.has(groupIndex) || !normalizedAnswerGroups[groupIndex].has(answer)) continue;
+          visitedGroups.add(groupIndex);
+
+          if (inputForGroup[groupIndex] === -1 ||
+              assignInputToGroup(inputForGroup[groupIndex], visitedGroups)) {
+            inputForGroup[groupIndex] = inputIndex;
+            return true;
+          }
+        }
+
+        return false;
+      };
+
+      studentAnswers.forEach((_, inputIndex) => {
+        if (assignInputToGroup(inputIndex, new Set())) questionCorrectCount++;
+      });
+      correct += questionCorrectCount;
+    } else {
+      // Flatten legacy answers once for the entire question.
+      normalizedStudentAnswers.forEach(answer => {
+        if (possibleAnswers.includes(answer) && !usedAnswers.has(answer)) {
+          questionCorrectCount++;
+          correct++;
+          usedAnswers.add(answer); // Prevent duplicate credit for the same answer
+        }
+      });
+    }
 
     // Add a single entry to wrongAnswers for the entire question
     if (questionCorrectCount < inputs.length) {
+      const correctAnswers = hasAnswerGroups
+        ? q.answer_groups.map(group => Array.isArray(group) ? group.join(" / ") : "").join(" | ")
+        : possibleAnswers.join(", ");
       wrongAnswers.push({
         type: "Fill in the Blank List",
         question: q.prompt,
         student: `${questionCorrectCount}/${inputs.length} correct: ${studentAnswers.join(", ")}`,
-        correct: possibleAnswers.join(", ")
+        correct: correctAnswers
       });
     }
   });
@@ -178,10 +227,28 @@ function gradeQuiz() {
       });
     }
 
+    else if (section.type === "matching_pictures") {
+      section.prompts.forEach((q, idx) => {
+        total += section.points_per_question;
+        const studentAnswer = state.answers[`matching_pictures-${section._sectionIndex}-${idx}`];
+
+        if (studentAnswer && studentAnswer.toLowerCase() === q.answer.toLowerCase()) {
+          points += section.points_per_question;
+        } else {
+          wrongAnswers.push({
+            type: "Matching Pictures",
+            question: q.question,
+            student: studentAnswer || "(no answer)",
+            correct: q.answer
+          });
+        }
+      });
+    }
+
     else if (section.type === "true_false") {
       section.questions.forEach((q, idx) => {
         total += section.points_per_question;
-        const studentAnswer = state.answers[`tf-${idx}`];
+        const studentAnswer = state.answers[`tf-${section._sectionIndex}-${idx}`];
 
         if (typeof studentAnswer !== "undefined" && studentAnswer === q.answer) {
           points += section.points_per_question;
@@ -199,7 +266,7 @@ function gradeQuiz() {
     else if (section.type === "multiple_choice") {
       section.prompts.forEach((q, idx) => {
         total += section.points_per_question;
-        const studentAnswer = state.answers[`mc-${idx}`];
+        const studentAnswer = state.answers[`mc-${section._sectionIndex}-${idx}`];
 
         if (studentAnswer && studentAnswer === q.correct_answer) {
           points += section.points_per_question;
@@ -217,7 +284,7 @@ function gradeQuiz() {
     else if (section.type === "code_blocks_mc") {
       section.prompts.forEach((q, idx) => {
         total += section.points_per_question;
-        const studentAnswer = state.answers[`cbmc-${idx}`];
+        const studentAnswer = state.answers[`cbmc-${section._sectionIndex}-${idx}`];
 
         if (studentAnswer && studentAnswer === q.correct_answer) {
           points += section.points_per_question;
@@ -250,8 +317,8 @@ function gradeQuiz() {
         total += section.points_per_question;
         
         // Get all inputs for this question (both inline and after-code)
-        const inlineInputs = qsa(`.cbfitb-input-inline[data-question="${idx}"]`);
-        const afterInputs = qsa(`.cbfitb-input-after[data-question="${idx}"]`);
+        const inlineInputs = qsa(`.cbfitb-input-inline[data-section="${section._sectionIndex}"][data-question="${idx}"]`);
+        const afterInputs = qsa(`.cbfitb-input-after[data-section="${section._sectionIndex}"][data-question="${idx}"]`);
         const allInputs = [...inlineInputs, ...afterInputs];
         
         if (allInputs.length === 0) {
@@ -327,26 +394,29 @@ function gradeQuiz() {
 /* ---------- SUMMARY ---------- */
 function showSummary(res) {
   const app = qs("#app");
+  const shortAnswerOnly = state.quiz.sections.length > 0 &&
+    state.quiz.sections.every(section => section.type === "short_answer");
   app.innerHTML = `
     <div class="container">
       <div class="card">
         <h2>Quiz Summary</h2>
-  ${res.total > 0 ? `<p>You scored <strong>${res.points}/${res.total}</strong> (${res.percent}%).</p>` : `<p><em>No score for survey-only quizzes.</em></p>`}
+        ${shortAnswerOnly ? "" : (res.total > 0 ? `<p>You scored <strong>${res.points}/${res.total}</strong> (${res.percent}%).</p>` : `<p><em>No score for survey-only quizzes.</em></p>`)}
         <h3>Short Answer Responses:</h3>
         <ul class="short-answer-list">
           ${res.shortAnswerResponses.map((r, i) =>
-            `<li><strong>${r.question}</strong><br/>
-             <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre></li>`
+            `<li><strong>${escapeHtml(r.question)}</strong><br/>
+             <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre>
+             ${shortAnswerOnly ? "" : `<span class="correct">Reference answer:</span><pre class="correct-answer" data-sa-correct="${i}"></pre>`}</li>`
           ).join("")}
         </ul>
-        ${res.likertResponses && res.likertResponses.length ? `
+        ${!shortAnswerOnly && res.likertResponses && res.likertResponses.length ? `
         <h3>Survey Responses:</h3>
         <ul class="short-answer-list">
           ${res.likertResponses.map(l =>
             `<li><strong>${l.question}</strong><br/><span class="student">Selected: ${l.label !== null ? l.label : '(no response)'}</span></li>`
           ).join("")}
         </ul>` : ''}
-        <h3>Incorrect Answers:</h3>
+        ${shortAnswerOnly ? "" : `<h3>Incorrect Answers:</h3>
         ${res.wrongAnswers.length === 0 ? "<p>All answers correct 🎉</p>" :
           `<ul class="wrong-list">
             ${res.wrongAnswers.map(w =>
@@ -354,7 +424,7 @@ function showSummary(res) {
                <span class="student">Your answer: ${escapeHtml(w.student)}</span><br/>
                <span class="correct">Correct answer: ${escapeHtml(w.correct)}</span></li>`
             ).join("")}
-           </ul>`}
+           </ul>`}`}
         <button id="logoutBtn" class="secondary">Log Out</button>
       </div>
     </div>
@@ -362,6 +432,10 @@ function showSummary(res) {
 
   res.shortAnswerResponses.forEach((r, i) => {
     app.querySelector(`pre[data-sa="${i}"]`).textContent = r.answer || "(no answer)";
+    const correctAnswerElement = app.querySelector(`pre[data-sa-correct="${i}"]`);
+    if (correctAnswerElement) {
+      correctAnswerElement.textContent = r.correctAnswer || "(no answer provided)";
+    }
   });
 
   qs("#logoutBtn").addEventListener("click", logout);

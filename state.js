@@ -13,6 +13,7 @@ const state = {
     timerWarningFlashTimeout: null,
     timerWarningAutoHideCancelled: false,
     settings: null,   // loaded from settings.json
+    courseTitle: null, // course name before quiz-level settings override it
     selectedCourse: null, // selected course (e.g., "Game1270" or "Game1377")
     selectedTerm: null, // roster/term folder the logged-in account matched (e.g., "Fall2026")
     selectedQuizFolder: null // folder for the selected quiz

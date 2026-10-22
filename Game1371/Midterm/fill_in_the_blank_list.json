@@ -1,0 +1,34 @@
+{
+  "type": "fill_in_the_blank_list",
+  "title": "Fill in the List (1 point per blank, 10 total)",
+  "instructions": "Type a correct answer in each blank. Order does not matter.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "Name four arithmetic operators used for math in C#. ___ ___ ___ ___",
+      "answer_groups": [
+        ["+", "addition", "plus"],
+        ["-", "subtraction", "minus"],
+        ["*", "multiplication", "times"],
+        ["/", "division"],
+        ["%", "modulo", "modulus"]
+      ]
+    },
+    {
+      "prompt": "A method header is made of three parts. Name them. ___ ___ ___",
+      "answer_groups": [
+        ["return type", "type"],
+        ["name", "method name"],
+        ["parameter list", "parameters", "parameter"]
+      ]
+    },
+    {
+      "prompt": "A for-loop header has three parts inside its parentheses. Name them. ___ ___ ___",
+      "answer_groups": [
+        ["initialization", "initializer", "start"],
+        ["condition", "test"],
+        ["increment", "update", "iterator", "step"]
+      ]
+    }
+  ]
+}

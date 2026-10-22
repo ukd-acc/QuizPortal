@@ -19,6 +19,11 @@ function sendResultsByEmail(result) {
 
   const durationMs = state.endTime - state.startTime;
   const durationMin = Math.round(durationMs / 60000);
+  const courseTitle = state.courseTitle || state.selectedCourse;
+  const quizTitle = state.selectedQuizFolder || state.quiz.title || state.settings.title;
+  const studentName = state.user.fullName || state.user.username;
+  const shortAnswerOnly = state.quiz.sections.length > 0 &&
+    state.quiz.sections.every(section => section.type === "short_answer");
 
   // 🔹 Build wrong answers section
   let wrongDetails = "All answers correct 🎉";
@@ -30,7 +35,7 @@ function sendResultsByEmail(result) {
   let shortAnswerDetails = "No short answers";
   if(result.shortAnswerResponses.length > 0) {
     shortAnswerDetails = result.shortAnswerResponses.map(r => 
-      `${r.sectionTitle ? `[${r.sectionTitle}] ` : ""}${r.question}:\nStudent: ${r.answer || "(no answer)"}\nReference answer: ${r.correctAnswer || "(no answer provided)"}`
+      `${r.question}:\nStudent: ${r.answer || "(no answer)"}${shortAnswerOnly ? "" : `\nReference answer: ${r.correctAnswer || "(no answer provided)"}`}`
     ).join("\n\n");
   }
   let likertDetails = "No survey responses";
@@ -42,15 +47,16 @@ function sendResultsByEmail(result) {
   const templateParams = {
     to_email: state.settings.emailRecipients.join(", "),
     name: state.user.fullName || state.user.username,
-    title: state.settings.title,
+    title: `${courseTitle} - ${quizTitle}`,
     time: new Date().toLocaleString(),
-    message:
-      `${state.settings.title} results for ${state.user.fullName}:\n\n` +
-      `Score: ${result.points}/${result.total} (${result.percent}%).\n` +
-      `Duration: ${durationMin} minute${durationMin !== 1 ? "s" : ""}.\n\n` +
-  `Incorrect answers:\n${wrongDetails}\n` +
-  `Short answers:\n${shortAnswerDetails}\n\n` +
-  `Survey responses:\n${likertDetails}`
+    message: shortAnswerOnly
+      ? `Course: ${courseTitle}\nQuiz/Exam: ${quizTitle}\n\n${studentName}'s responses:\n\n${shortAnswerDetails}`
+      : `Course: ${courseTitle}\nQuiz/Exam: ${quizTitle}\n\nResults for ${studentName}:\n\n` +
+        `Score: ${result.points}/${result.total} (${result.percent}%).\n` +
+        `Duration: ${durationMin} minute${durationMin !== 1 ? "s" : ""}.\n\n` +
+        `Incorrect answers:\n${wrongDetails}\n` +
+        `Short answers:\n${shortAnswerDetails}\n\n` +
+        `Survey responses:\n${likertDetails}`
 
   };
   

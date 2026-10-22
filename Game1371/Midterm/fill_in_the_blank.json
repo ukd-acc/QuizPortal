@@ -1,0 +1,97 @@
+{
+  "type": "fill_in_the_blank",
+  "title": "Fill in the Blank (1 point per blank, 10 total)",
+  "instructions": "Type the correct answer in each blank. Do NOT use periods to end your answers.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "The component often called the \"brain\" of the computer, which carries out the program's instructions, is the ___.",
+      "answers": [
+        [
+          "CPU",
+          "Central Processing Unit",
+          "processor"
+        ]
+      ]
+    },
+    {
+      "prompt": "The physical parts of a computer that you can actually touch are called ___.",
+      "answers": [
+        [
+          "hardware"
+        ]
+      ]
+    },
+    {
+      "prompt": "An error that breaks the language's grammar rules and stops the code from compiling is a ___ error.",
+      "answers": [
+        [
+          "syntax"
+        ]
+      ]
+    },
+    {
+      "prompt": "In Unity, the window where you read the messages printed by Debug.Log is the ___.",
+      "answers": [
+        [
+          "Console",
+          "Console window",
+          "Console panel"
+        ]
+      ]
+    },
+    {
+      "prompt": "A variable declared inside a method is a ___ variable.",
+      "answers": [
+        [
+          "local"
+        ]
+      ]
+    },
+    {
+      "prompt": "A ___ is a named container that stores a single value your program can use and change later.",
+      "answers": [
+        [
+          "variable"
+        ]
+      ]
+    },
+    {
+      "prompt": "Writing out a program's logic as plain-English steps before you actually code it is called ___.",
+      "answers": [
+        [
+          "pseudocode",
+          "psuedocode"
+        ]
+      ]
+    },
+    {
+      "prompt": "A float literal in C# ends with the letter ___ (for example, 4.99 followed by that letter).",
+      "answers": [
+        [
+          "f",
+          "F"
+        ]
+      ]
+    },
+    {
+      "prompt": "A program a user runs to do a specific task, like a game or a web browser, is an example of ___ software.",
+      "answers": [
+        [
+          "application"
+        ]
+      ]
+    },
+    {
+      "prompt": "In a for loop, the counter variable (commonly named i) that tracks the current repetition is called the ___.",
+      "answers": [
+        [
+          "iterator",
+          "counter",
+          "loop counter",
+          "index"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "timed": true,
+  "durationMinutes": 90,
+  "sections": [
+    { "file": "code_blocks_fitb.json" },
+    { "file": "code_blocks_mc.json" },
+    { "file": "fill_in_the_blank_list.json" },
+    { "file": "fill_in_the_blank.json" },
+    { "file": "matching.json" },
+    { "file": "multiple_choice.json" },
+    { "file": "truefalse.json" }
+  ]
+}

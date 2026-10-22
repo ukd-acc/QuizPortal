@@ -1,0 +1,58 @@
+{
+  "type": "multiple_choice",
+  "title": "Multiple Choice (1 point each, 5 total)",
+  "instructions": "Select the best answer for each question.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What does it mean when a method's return type is void?",
+      "answers": [
+        "It returns an int",
+        "It does not return any value",
+        "It returns true or false",
+        "It can only be called once"
+      ],
+      "correct_answer": "It does not return any value"
+    },
+    {
+      "question": "Given the method header void Cast(int mana = 10), what happens if you call Cast() with no argument?",
+      "answers": [
+        "It causes an error",
+        "mana uses the value 10",
+        "mana is 0",
+        "The method is skipped"
+      ],
+      "correct_answer": "mana uses the value 10"
+    },
+    {
+      "question": "Which operator is true ONLY when both conditions are true?",
+      "answers": [
+        "||",
+        "&&",
+        "!",
+        "%"
+      ],
+      "correct_answer": "&&"
+    },
+    {
+      "question": "What is the index of the FIRST element in a C# array?",
+      "answers": [
+        "0",
+        "1",
+        "-1",
+        "The array's length"
+      ],
+      "correct_answer": "0"
+    },
+    {
+      "question": "Which line correctly prints a message to the Unity Console?",
+      "answers": [
+        "Console.Write(\"Hi\");",
+        "Print(\"Hi\");",
+        "Debug.Log(\"Hi\");",
+        "Output(\"Hi\");"
+      ],
+      "correct_answer": "Debug.Log(\"Hi\");"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "type": "true_false",
+  "title": "True or False (1 point each, 10 total)",
+  "instructions": "Select True or False for each statement. Read CAREFULLY.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "question": "In C#, every statement must end with a semicolon.",
+      "answer": true
+    },
+    {
+      "question": "C# is case-sensitive, so the names score and Score are treated as two different variables.",
+      "answer": true
+    },
+    {
+      "question": "A do-while loop always runs its body at least once.",
+      "answer": true
+    },
+    {
+      "question": "The break keyword only skips the rest of the current loop iteration and then keeps looping.",
+      "answer": false
+    },
+    {
+      "question": "Comments in your code are ignored by the computer when the program runs.",
+      "answer": true
+    },
+    {
+      "question": "If you pass an int variable into a method and change the parameter inside that method, the original variable outside the method stays the same.",
+      "answer": true
+    },
+    {
+      "question": "Two methods can share the same name as long as their parameter lists are different.",
+      "answer": true
+    },
+    {
+      "question": "A variable declared inside one method can be used freely inside a different method of the same class.",
+      "answer": false
+    },
+    {
+      "question": "RAM keeps all of its contents even after the computer is powered off.",
+      "answer": false
+    },
+    {
+      "question": "One method is allowed to call another method.",
+      "answer": true
+    }
+  ]
+}

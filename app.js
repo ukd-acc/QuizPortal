@@ -46,6 +46,8 @@ async function initQuiz() {
     renderLogin();
     return;
   }
+
+  state.courseTitle = state.settings.title || state.selectedCourse;
   
   state.quiz = { title: state.settings.title, sections: [] };
 
@@ -64,7 +66,7 @@ async function initQuiz() {
     };
   }
 
-  state.quiz.title = state.settings.title;
+  state.quiz.title = state.selectedQuizFolder;
   initEmail();
 
   for (const secMeta of state.settings.sections) {

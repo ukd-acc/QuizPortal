@@ -1,0 +1,58 @@
+{
+  "type": "code_blocks_fitb",
+  "title": "Predict the Output (1 points each, 10 total)",
+  "instructions": "Read each code block and write exactly what it prints.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "What does this code print?",
+      "code": "int gold = 10;\ngold = gold * 3;\nDebug.Log(gold);",
+      "answer": "30"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "int a = 17;\nDebug.Log(a / 5);",
+      "answer": "3"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "string name = \"Dragon\";\nDebug.Log(\"The \" + name + \" roars!\");",
+      "answer": "The Dragon roars!"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "int health = 60;\nif (health >= 30)\n{\n    Debug.Log(\"Healthy\");\n}\nelse if (health >= 75)\n{\n    Debug.Log(\"Hurt\");\n}\nelse\n{\n    Debug.Log(\"Critical\");\n}",
+      "answer": "Healthy"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "int sum = 0;\nfor (int i = 1; i <= 5; i++)\n{\n    sum += i;\n}\nDebug.Log(sum);",
+      "answer": "15"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "int n = 1;\nwhile (n < 20)\n{\n    n *= 2;\n}\nDebug.Log(n);",
+      "answer": "32"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "int count = 0;\nfor (int i = 1; i <= 6; i++)\n{\n    if (i % 2 == 0)\n    {\n        count++;\n    }\n}\nDebug.Log(count);",
+      "answer": "3"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "int[] scores = { 5, 10, 15, 20 };\nDebug.Log(scores[3]);",
+      "answer": "20"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "int result = Triple(4);\nDebug.Log(result);\n\nint Triple(int x)\n{\n    return x * 3;\n}",
+      "answer": "12"
+    },
+    {
+      "prompt": "What does this code print?",
+      "code": "Attack(10);\n\nvoid Attack(int damage, int bonus = 5)\n{\n    Debug.Log(damage + bonus);\n}",
+      "answer": "15"
+    }
+  ]
+}
