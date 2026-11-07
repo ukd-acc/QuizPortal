@@ -311,11 +311,34 @@ function startTimer() {
     }
   }
   update();
-  state.timerInterval = setInterval(update, 1000);
+  if (!state.submitted) {
+    state.timerInterval = setInterval(update, 1000);
+  }
 }
 
 function onSubmit(timedOut = false) {
   if (state.submitted) return;
+  const submitButton = qs("#submitBtn");
+  state.endTime = new Date();
+
+  let res;
+  try {
+    res = gradeQuiz();
+  } catch (error) {
+    console.error("Quiz grading failed:", error);
+    if (timedOut) {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+      clearTimeout(state.timerWarningTimeout);
+      clearTimeout(state.timerWarningFlashTimeout);
+      state.timerWarningTimeout = null;
+      state.timerWarningFlashTimeout = null;
+    }
+    if (submitButton) submitButton.disabled = false;
+    alert("Your quiz could not be graded. Your answers are still on this page; please try again or contact your instructor.");
+    return;
+  }
+
   state.submitted = true;
   clearInterval(state.timerInterval);
   state.timerInterval = null;
@@ -323,13 +346,22 @@ function onSubmit(timedOut = false) {
   clearTimeout(state.timerWarningFlashTimeout);
   state.timerWarningTimeout = null;
   state.timerWarningFlashTimeout = null;
-  const submitButton = qs("#submitBtn");
   if (submitButton) submitButton.disabled = true;
-  if (timedOut) alert("You are out of time. Your quiz will be submitted now.");
-  state.endTime = new Date();
-  const res = gradeQuiz();
-  showSummary(res);
+
+  // Send first: the attempt must not depend on the summary rendering or on the
+  // student dismissing an alert, which blocks this script until they do.
   sendResultsByEmail(res);
+
+  try {
+    showSummary(res);
+  } catch (error) {
+    console.error("Quiz summary failed:", error);
+    alert("Your quiz was graded, but your results page could not be displayed. Please keep this page open and contact your instructor.");
+  }
+
+  if (timedOut) alert("You are out of time. Your quiz has been submitted.");
 }
 
-window.addEventListener("DOMContentLoaded", initApp);
+if (!window.__QUIZ_PORTAL_TEST_MODE__) {
+  window.addEventListener("DOMContentLoaded", initApp);
+}

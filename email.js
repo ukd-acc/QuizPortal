@@ -7,14 +7,30 @@ function initEmail() {
   emailjs.init(state.settings.emailConfig.publicKey);
 }
 
-function sendResultsByEmail(result) {
+const EMAIL_TIMEOUT_MS = 30000;
+
+function reportEmailFailure(error) {
+  console.error("❌ Email failed:", error);
+  alert("Error sending email. Please keep this page open and notify your instructor.");
+  return { sent: false, error };
+}
+
+// Always resolves to { sent, error? } and never throws, so a caller cannot be
+// interrupted by an email problem and the student always hears about a failure.
+function sendResultsByEmail(result, timeoutMs = EMAIL_TIMEOUT_MS) {
+  try {
+    return deliverResults(result, timeoutMs).catch(reportEmailFailure);
+  } catch (error) {
+    return Promise.resolve(reportEmailFailure(error));
+  }
+}
+
+function deliverResults(result, timeoutMs) {
   if (!state.user) {
-    console.error("No user logged in, cannot send email.");
-    return;
+    throw new Error("No user logged in, cannot send email.");
   }
   if (!state.settings || !state.settings.emailConfig) {
-    console.error("No email configuration found, cannot send email.");
-    return;
+    throw new Error("No email configuration found, cannot send email.");
   }
 
   const durationMs = state.endTime - state.startTime;
@@ -60,17 +76,22 @@ function sendResultsByEmail(result) {
 
   };
   
-  emailjs.send(
-    state.settings.emailConfig.serviceID,
-    state.settings.emailConfig.templateID,
-    templateParams
-  )
-  .then(() => {
-    alert("✅ Results emailed successfully!")
-//    logout();
-  })
-  .catch(err => {
-    console.error("❌ Email failed:", err);
-    alert("Error sending email. Please notify your instructor.");
+  let timeoutId;
+  const timeout = new Promise((_resolve, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(`No email response after ${timeoutMs / 1000} seconds.`)), timeoutMs);
   });
+
+  return Promise.race([
+    emailjs.send(
+      state.settings.emailConfig.serviceID,
+      state.settings.emailConfig.templateID,
+      templateParams
+    ),
+    timeout
+  ])
+  .then(() => {
+    alert("✅ Results emailed successfully!");
+    return { sent: true };
+  })
+  .finally(() => clearTimeout(timeoutId));
 }

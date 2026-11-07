@@ -134,6 +134,15 @@ async function renderLogin() {
   }
 }
 
+// Only the fields the app needs; the roster password stays out of state.
+function userFromAccount(account) {
+  return {
+    username: account.username,
+    fullName: account.fullName || account.username,
+    accommodation: account.accommodation
+  };
+}
+
 async function onLogin() {
   const u = qs("#username").value.trim();
   const p = qs("#password").value;
@@ -149,7 +158,7 @@ async function onLogin() {
     return;
   }
 
-  state.user = { username: matches[0].account.username, fullName: matches[0].account.fullName || matches[0].account.username };
+  state.user = userFromAccount(matches[0].account);
 
   if (matches.length === 1) {
     selectCourse(matches[0], matches);
@@ -190,6 +199,8 @@ function renderCourseSelect(matches) {
 }
 
 function selectCourse(match, matches) {
+  // Accommodations are per roster, so use the account from the chosen course.
+  state.user = userFromAccount(match.account);
   state.selectedCourse = match.courseFolder;
   state.selectedTerm = match.termFolder;
   renderQuizSelect(match, matches);

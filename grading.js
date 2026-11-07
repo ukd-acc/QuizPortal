@@ -61,39 +61,63 @@ function gradeFillInTheBlank(section) {
   return { correct, wrongAnswers };
 }
 
+// Each group is one accepted idea; its entries are spellings of that idea.
+// `answer_groups`, or `answers` with several nested lists, are groups as written.
+// A single flat list is a pool in which every entry is its own idea.
+function getListAnswerGroups(question) {
+  const source = question.answer_groups || question.answers || [];
+  const isGrouped = question.answer_groups || (source.length > 1 && source.every(Array.isArray));
+  const groups = isGrouped ? source : source.flat().map(answer => [answer]);
+
+  return groups.map(group => (Array.isArray(group) ? group : [group])
+    .filter(answer => typeof answer === "string")
+    .map(answer => answer.trim().toLowerCase()));
+}
+
+// Largest one-to-one pairing of student answers to groups, so one idea earns one
+// point however it is spelled, and groups that share a spelling cannot cost credit.
+function countMatchedAnswerGroups(studentAnswers, groups) {
+  const inputForGroup = new Array(groups.length).fill(-1);
+
+  const assignToGroup = (inputIndex, visitedGroups) => {
+    for (let groupIndex = 0; groupIndex < groups.length; groupIndex++) {
+      if (visitedGroups.has(groupIndex) || !groups[groupIndex].includes(studentAnswers[inputIndex])) continue;
+      visitedGroups.add(groupIndex);
+
+      if (inputForGroup[groupIndex] === -1 || assignToGroup(inputForGroup[groupIndex], visitedGroups)) {
+        inputForGroup[groupIndex] = inputIndex;
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const usedAnswers = new Set();
+  return studentAnswers.filter((answer, inputIndex) => {
+    if (!answer || usedAnswers.has(answer)) return false; // Prevent duplicate credit for the same answer
+    usedAnswers.add(answer);
+    return assignToGroup(inputIndex, new Set());
+  }).length;
+}
+
 function gradeFillInTheBlankList(section) {
   let correct = 0;
   const wrongAnswers = [];
 
   section.questions.forEach((q, idx) => {
     const inputs = qsa(`.fibl-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`); // Select inputs for this section and question
-    const usedAnswers = new Set();
-    let questionCorrectCount = 0; // Track correct answers for this question
-    const studentAnswers = []; // Collect all user answers for the question
-
-    // Accept either schema name for the groups of valid answers.
-    const answerGroups = q.answer_groups || q.answers || [];
-    const possibleAnswers = answerGroups.flat().map(a => a.toLowerCase()); // Normalize all answers to lowercase
-
-    inputs.forEach((input) => {
-      const userAnswer = input.value.trim().toLowerCase(); // Normalize input
-
-      studentAnswers.push(userAnswer || "(no answer)");
-
-      if (possibleAnswers.includes(userAnswer) && !usedAnswers.has(userAnswer)) {
-        questionCorrectCount++;
-        correct++;
-        usedAnswers.add(userAnswer); // Prevent duplicate credit for the same answer
-      }
-    });
+    const studentAnswers = inputs.map(input => input.value.trim().toLowerCase()); // Normalize input
+    const answerGroups = getListAnswerGroups(q);
+    const questionCorrectCount = countMatchedAnswerGroups(studentAnswers, answerGroups);
+    correct += questionCorrectCount;
 
     // Add a single entry to wrongAnswers for the entire question
     if (questionCorrectCount < inputs.length) {
       wrongAnswers.push({
         type: "Fill in the Blank List",
         question: q.prompt,
-        student: `${questionCorrectCount}/${inputs.length} correct: ${studentAnswers.join(", ")}`,
-        correct: possibleAnswers.join(", ")
+        student: `${questionCorrectCount}/${inputs.length} correct: ${studentAnswers.map(answer => answer || "(no answer)").join(", ")}`,
+        correct: answerGroups.map(group => group.join(" / ")).join(", ")
       });
     }
   });
@@ -328,6 +352,21 @@ function gradeQuiz() {
 
     else if (section.type === "short_answer") {
       shortAnswerResponses.push(...gradeShortAnswer(section));
+    }
+    else if (section.type === "coding_test") {
+      total += section.points_per_question;
+      const studentResult = state.answers[`coding_test-${section._sectionIndex}`];
+
+      if (studentResult && studentResult.passed === true) {
+        points += section.points_per_question;
+      } else {
+        wrongAnswers.push({
+          type: "Coding Test",
+          question: section.title || section.problem || "Coding challenge",
+          student: studentResult?.output || "(not completed)",
+          correct: "All test cases must pass"
+        });
+      }
     }
     else if (section.type === "likert") {
       // Collect likert responses (survey) but do not affect scoring

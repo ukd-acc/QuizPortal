@@ -32,14 +32,21 @@ function stripJsonComments(text) {
 }
 
 // Load JSON file asynchronously.
-// If the file doesn't exist, return null instead of throwing an error.
-async function loadJSON(path) {
+// If the file doesn't exist or takes too long, return null instead of throwing.
+const JSON_REQUEST_TIMEOUT_MS = 15000;
+
+async function loadJSON(path, timeoutMs = JSON_REQUEST_TIMEOUT_MS) {
+  let timeoutId;
   try {
-    const res = await fetch(path, { cache: "no-store" });
+    const controller = new AbortController();
+    timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    const res = await fetch(path, { cache: "no-store", signal: controller.signal });
     if (!res.ok) throw new Error("Failed to load " + path);
     return JSON.parse(stripJsonComments(await res.text()));
   } catch (error) {
     console.warn(`Warning: ${error.message}`);
     return null; // Return null if the file doesn't exist or fails to load
+  } finally {
+    if (typeof timeoutId !== "undefined") clearTimeout(timeoutId);
   }
 }
