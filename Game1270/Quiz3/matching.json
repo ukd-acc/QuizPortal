@@ -13,7 +13,7 @@
         "answer": "Production"
       },
       {
-        "question": "A document that is created in pre-production that details how the game and its elements will be implemented.",
+        "question": "A document that is created in pre-production that details what tools and technology is needed and how they will be used.",
         "answer": "TDD"
       },
       {

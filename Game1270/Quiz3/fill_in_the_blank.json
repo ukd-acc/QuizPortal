@@ -1,28 +1,28 @@
 {
   "type": "fill_in_the_blank",
-  "title": "Fill in the Blank (1 point per blank, 15 total)",
+  "title": "Fill in the Blank (1 point per blank, 5 total)",
   "instructions": "Type the correct answer(s) in the blank(s). Do NOT use periods to end your answers.",
   "points_per_question": 1,
   "questions": [
     {
       "prompt": "The most important skill in game development is ___.",
-      "answers": [["communication", "comms", "communicate", "communicating", "talking"]]
+      "answers": [["communication", "communicate", "communicating"]]
     },
     {
       "prompt": "What is an example of a software development methodology commonly used in producing games? ___.",
       "answers": [["waterfall","scrum","kanban","agile"]]
     },
     {
-      "prompt": "___ is an interactive proof of concept that includes as many game mechanics (usually not feature complete) as possible to let players understand what the final game will be like.",
-      "answers": [["vertical slice","verticals","slice"]]
+      "prompt": "A polished, playable sample of a representative part of the game that demonstrates how its systems and presentation work together is a ___.",
+      "answers": [["vertical slice"]]
     },
     {
       "prompt": "___ is a sub-team in development that finds and reports bugs.",
-      "answers": [["quality assurance", "QA", "testing", "qa", "Quality Assurance"]]
+      "answers": [["quality assurance", "QA"]]
     },
     {
-      "prompt": "Scope, cost, and time make up the ___ triangle of quality.",
-      "answers": [["iron", "Fe"]]
+      "prompt": "The project-management constraint triangle, also called the ___ triangle, consists of scope, cost, and time.",
+      "answers": [["iron"]]
     }
   ]
 }

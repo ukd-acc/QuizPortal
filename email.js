@@ -2,18 +2,33 @@
 function initEmail() {
   if (!state.settings || !state.settings.emailConfig) {
     console.warn("⚠️ Email configuration missing in settings.json");
-    return;
+    return false;
+  }
+  if (typeof emailjs === "undefined") {
+    console.error("EmailJS SDK is unavailable; quiz submission will continue without email.");
+    return false;
   }
   emailjs.init(state.settings.emailConfig.publicKey);
+  return true;
 }
 
-function sendResultsByEmail(result) {
+async function sendResultsByEmail(result) {
   if (!state.user) {
     console.error("No user logged in, cannot send email.");
+    updateEmailStatus("Results could not be emailed: no user is signed in.");
     return;
   }
   if (!state.settings || !state.settings.emailConfig) {
     console.error("No email configuration found, cannot send email.");
+    updateEmailStatus("Results could not be emailed: email is not configured.");
+    return;
+  }
+  if (typeof emailjs === "undefined") {
+    updateEmailStatus("Results were graded, but email is unavailable. Please notify your instructor.");
+    return;
+  }
+  if (!Array.isArray(state.settings.emailRecipients) || state.settings.emailRecipients.length === 0) {
+    updateEmailStatus("Results were graded, but no email recipient is configured.");
     return;
   }
 
@@ -44,6 +59,11 @@ function sendResultsByEmail(result) {
       `${l.question}: ${l.label !== null ? l.label : '(no response)'} (${l.value !== null ? l.value : 'n/a'})`
     ).join("\n");
   }
+  const codingTestDetails = result.codingTestResponses?.length
+    ? result.codingTestResponses.map(r =>
+      `${r.sectionTitle}: ${r.status}\nProblem: ${r.question}\nCode:\n${r.code}\nOutput:\n${r.output || "(no output)"}`
+    ).join("\n\n")
+    : "No coding-test responses";
   const templateParams = {
     to_email: state.settings.emailRecipients.join(", "),
     name: state.user.fullName || state.user.username,
@@ -55,22 +75,27 @@ function sendResultsByEmail(result) {
         `Score: ${result.points}/${result.total} (${result.percent}%).\n` +
         `Duration: ${durationMin} minute${durationMin !== 1 ? "s" : ""}.\n\n` +
         `Incorrect answers:\n${wrongDetails}\n` +
-        `Short answers:\n${shortAnswerDetails}\n\n` +
+        `Short answers (instructor review; not auto-scored):\n${shortAnswerDetails}\n\n` +
+        `Coding tests:\n${codingTestDetails}\n\n` +
         `Survey responses:\n${likertDetails}`
 
   };
   
-  emailjs.send(
-    state.settings.emailConfig.serviceID,
-    state.settings.emailConfig.templateID,
-    templateParams
-  )
-  .then(() => {
-    alert("✅ Results emailed successfully!")
-//    logout();
-  })
-  .catch(err => {
+  try {
+    await emailjs.send(
+      state.settings.emailConfig.serviceID,
+      state.settings.emailConfig.templateID,
+      templateParams
+    );
+    updateEmailStatus("Results emailed successfully.");
+  } catch (err) {
     console.error("❌ Email failed:", err);
-    alert("Error sending email. Please notify your instructor.");
-  });
+    updateEmailStatus("Results were graded, but email failed. Please notify your instructor.");
+  }
+}
+
+function updateEmailStatus(message) {
+  state.emailStatus = message;
+  const status = qs("#emailStatus");
+  if (status) status.textContent = message;
 }

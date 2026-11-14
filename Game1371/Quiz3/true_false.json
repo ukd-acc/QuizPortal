@@ -1,0 +1,20 @@
+{
+  "type": "true_false",
+  "title": "True or False (1 point each)",
+  "instructions": "Select True or False for each statement.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "question": "Once a C# array is created, it automatically grows when you need to store more items.",
+      "answer": false
+    },
+    {
+      "question": "Inside a foreach loop, assigning a new value to the loop variable changes that slot in the array.",
+      "answer": false
+    },
+    {
+      "question": "Optional parameters must come after all of the required parameters in a method's parameter list.",
+      "answer": true
+    }
+  ]
+}

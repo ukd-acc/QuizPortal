@@ -1,0 +1,52 @@
+{
+  "type": "code_blocks_mc",
+  "title": "Code Analysis (1 point each)",
+  "instructions": "Analyze each C# snippet and select the best answer.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What is printed?",
+      "code": "int[] slots = { 1, 2, 3 };\nint[] backup = slots;\nbackup[0] = 9;\nDebug.Log(slots[0]);",
+      "answers": [
+        "9",
+        "1",
+        "0",
+        "Compile error"
+      ],
+      "correct_answer": "9"
+    },
+    {
+      "question": "This method will <strong>not compile</strong>. Why?",
+      "code": "int GetBonus(int level)\n{\n    if (level > 3)\n    {\n        return 10;\n    }\n}",
+      "answers": [
+        "Not every path through the method returns a value",
+        "if statements are not allowed inside a method",
+        "A method that returns int cannot take parameters",
+        "return must be the first line of a method"
+      ],
+      "correct_answer": "Not every path through the method returns a value"
+    },
+    {
+      "question": "The <strong>100</strong> in this line is a magic number. Which change fixes that best?",
+      "code": "playerHealth = Mathf.Min(playerHealth + healAmount, 100);",
+      "answers": [
+        "Store 100 in a named constant such as maxHealth and use that name instead",
+        "Add a comment at the end of the line that says // 100",
+        "Rename playerHealth to ph so the line is shorter",
+        "Replace 100 with 50 + 50"
+      ],
+      "correct_answer": "Store 100 in a named constant such as maxHealth and use that name instead"
+    },
+    {
+      "question": "What is wrong with this code?",
+      "code": "public class Item\n{\n    public string name;\n}\n\nItem sword;\nsword.name = \"Rusty Sword\";",
+      "answers": [
+        "sword was never created with new, so there is no object to set a name on",
+        "name must be private",
+        "A class cannot have a string field",
+        "The dot operator only works on methods"
+      ],
+      "correct_answer": "sword was never created with new, so there is no object to set a name on"
+    }
+  ]
+}

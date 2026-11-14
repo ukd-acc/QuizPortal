@@ -1,0 +1,33 @@
+{
+  "type": "code_blocks_fitb",
+  "title": "Code Tracing & Completion (2 points each)",
+  "instructions": "Read each C# snippet and follow the prompt: some ask for a printed value, while others ask you to fill in missing code. Write the requested answer only.",
+  "points_per_question": 2,
+  "questions": [
+    {
+      "prompt": "What value is printed?",
+      "code": "int[] gold = { 4, 9, 2, 7 };\nint total = 0;\nfor (int i = 1; i < gold.Length; i += 2)\n{\n    total += gold[i];\n}\nDebug.Log(total);",
+      "answer": "16"
+    },
+    {
+      "prompt": "Fill in the blank so the loop prints every room without going past the end of the array.",
+      "code": "string[] rooms = { \"Entrance Hall\", \"Guard Room\", \"Flooded Passage\", \"Vault\" };\nfor (int i = 0; i < rooms.__; i++)\n{\n    Debug.Log(rooms[i]);\n}",
+      "answer": ["Length"]
+    },
+    {
+      "prompt": "What value is printed?",
+      "code": "int Damage(int power, bool hasSword)\n{\n    if (hasSword)\n    {\n        return power + 5;\n    }\n    return power;\n}\n\nint goblinHealth = 30;\ngoblinHealth -= Damage(6, true);\ngoblinHealth -= Damage(6, false);\nDebug.Log(goblinHealth);",
+      "answer": "13"
+    },
+    {
+      "prompt": "What value is printed? (Watch the scope.)",
+      "code": "int gold = 50;\n\nvoid FindGold(int amount)\n{\n    int gold = 0;\n    gold += amount;\n    amount = 0;\n}\n\nint pile = 20;\nFindGold(pile);\ngold += pile;\nDebug.Log(gold);",
+      "answer": "70"
+    },
+    {
+      "prompt": "What value is printed?",
+      "code": "public class Room\n{\n    public string name;\n    public int visits = 0;\n\n    public void Enter()\n    {\n        visits++;\n    }\n}\n\nRoom hall = new Room();\nRoom vault = new Room();\nhall.Enter();\nhall.Enter();\nvault.Enter();\nhall.Enter();\nDebug.Log(hall.visits - vault.visits);",
+      "answer": "2"
+    }
+  ]
+}

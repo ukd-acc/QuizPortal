@@ -30,19 +30,35 @@ function renderCodingTestSection(section) {
   const codeInput = wrapper.querySelector(`#codeInput-${sectionKey}`);
 
   runBtn.addEventListener("click", async () => {
+    if (state.submitted || runBtn.disabled) return;
     const code = codeInput.value;
     const outputPanel = wrapper.querySelector(`#codeOutput-${sectionKey}`);
-    outputPanel.innerHTML = "<p class='loading'>Compiling and running...</p>";
-    
-    const result = await compileAndRunCode(code, section.testCases, section);
-    displayResults(result, outputPanel);
-    
-    // Store answer for grading
     state.answers[`coding_test-${sectionKey}`] = {
-      code: code,
-      passed: result.allPassed || false,
-      output: result.output || ""
+      code,
+      passed: false,
+      output: "Execution is still in progress.",
+      testResults: []
     };
+    runBtn.disabled = true;
+    clearBtn.disabled = true;
+    outputPanel.innerHTML = "<p class='loading'>Compiling and running...</p>";
+
+    try {
+      const result = await compileAndRunCode(code, section.testCases, section);
+      if (state.submitted) return;
+      displayResults(result, outputPanel);
+
+      // Store answer and per-test results for grading.
+      state.answers[`coding_test-${sectionKey}`] = {
+        code,
+        passed: result.allPassed || false,
+        output: result.output || result.error || result.compilation?.errors || "",
+        testResults: result.testResults || []
+      };
+    } finally {
+      runBtn.disabled = false;
+      clearBtn.disabled = false;
+    }
   });
 
   clearBtn.addEventListener("click", () => {

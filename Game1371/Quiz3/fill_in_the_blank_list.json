@@ -1,0 +1,109 @@
+{
+  "type": "fill_in_the_blank_list",
+  "title": "Fill in the List (1 point per blank)",
+  "instructions": "Type the correct answer(s) in the blank(s). Answers may be given in any order.",
+  "points_per_question": 1,
+  "questions": [
+    {
+      "prompt": "When you create an array with new (for example, new int[4]), every slot starts with a default value. Give the default value for an int array, a bool array, and a string array. ___ ___ ___",
+      "answers": [
+        [
+          "0",
+          "zero"
+        ],
+        [
+          "false"
+        ],
+        [
+          "null"
+        ]
+      ]
+    },
+    {
+      "prompt": "Name the four casing styles for names covered in Writing Good Code. ___ ___ ___ ___",
+      "answers": [
+        [
+          "camelCase",
+          "camel case",
+          "camel"
+        ],
+        [
+          "PascalCase",
+          "pascal case",
+          "pascal"
+        ],
+        [
+          "snake_case",
+          "snake case",
+          "snake"
+        ],
+        [
+          "kebab-case",
+          "kebab case",
+          "kebab"
+        ]
+      ]
+    },
+    {
+      "prompt": "Name the three types of comments covered in Writing Good Code. ___ ___ ___",
+      "answers": [
+        [
+          "single-line",
+          "single line",
+          "single-line comment",
+          "single line comment"
+        ],
+        [
+          "multi-line",
+          "multi line",
+          "multiline",
+          "multi-line comment",
+          "multi line comment"
+        ],
+        [
+          "summary",
+          "summary comment",
+          "xml",
+          "xml comment",
+          "documentation",
+          "doc comment"
+        ]
+      ]
+    },
+    {
+      "prompt": "Name three benefits of writing readable code. ___ ___ ___",
+      "answers": [
+        [
+          "comprehensibility",
+          "comprehension",
+          "understandability"
+        ],
+        [
+          "reviewability",
+          "easier to review",
+          "easier reviews"
+        ],
+        [
+          "error rate",
+          "lower error rate",
+          "fewer errors"
+        ],
+        [
+          "debugging",
+          "easier debugging",
+          "easier to debug"
+        ],
+        [
+          "modifiability",
+          "easier to modify",
+          "maintainability"
+        ],
+        [
+          "development time",
+          "faster development",
+          "less development time"
+        ]
+      ]
+    }
+  ]
+}

@@ -30,6 +30,8 @@ async function initQuiz() {
   
   state.answers = {};
   state.submitted = false;
+  state.submissionResult = null;
+  state.emailStatus = "";
   state.deadline = null;
   state.timerWarnings = new Set();
   state.timerWarningTimeout = null;
@@ -316,6 +318,7 @@ function startTimer() {
 
 function onSubmit(timedOut = false) {
   if (state.submitted) return;
+  timedOut = timedOut || Boolean(state.deadline && Date.now() >= state.deadline.getTime());
   state.submitted = true;
   clearInterval(state.timerInterval);
   state.timerInterval = null;
@@ -325,11 +328,33 @@ function onSubmit(timedOut = false) {
   state.timerWarningFlashTimeout = null;
   const submitButton = qs("#submitBtn");
   if (submitButton) submitButton.disabled = true;
-  if (timedOut) alert("You are out of time. Your quiz will be submitted now.");
   state.endTime = new Date();
-  const res = gradeQuiz();
-  showSummary(res);
-  sendResultsByEmail(res);
+  state.submissionResult = gradeQuiz();
+  state.emailStatus = "Sending results by email…";
+  sendResultsByEmail(state.submissionResult);
+
+  if (timedOut) {
+    showTimeoutContinue();
+  } else {
+    showSummary(state.submissionResult);
+  }
+}
+
+function showTimeoutContinue() {
+  const app = qs("#app");
+  app.innerHTML = `
+    <div class="container">
+      <div class="card">
+        <h2>Time is up</h2>
+        <p>Your quiz has been automatically submitted and graded.</p>
+        <button id="continueToResultsBtn">Continue to Results</button>
+      </div>
+    </div>
+  `;
+
+  qs("#continueToResultsBtn").addEventListener("click", () => {
+    showSummary(state.submissionResult);
+  }, { once: true });
 }
 
 window.addEventListener("DOMContentLoaded", initApp);

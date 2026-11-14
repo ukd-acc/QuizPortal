@@ -16,6 +16,69 @@ function gradeShortAnswer(section) {
   return responses;
 }
 
+function normalizeBlankAnswer(answer) {
+  return String(answer ?? "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ");
+}
+
+function blankAnswerEditDistance(left, right, maxDistance) {
+  if (Math.abs(left.length - right.length) > maxDistance) return maxDistance + 1;
+
+  const rows = Array.from({ length: left.length + 1 }, () => Array(right.length + 1).fill(0));
+  for (let i = 0; i <= left.length; i++) rows[i][0] = i;
+  for (let j = 0; j <= right.length; j++) rows[0][j] = j;
+
+  for (let i = 1; i <= left.length; i++) {
+    let rowMinimum = maxDistance + 1;
+    for (let j = 1; j <= right.length; j++) {
+      const substitutionCost = left[i - 1] === right[j - 1] ? 0 : 1;
+      rows[i][j] = Math.min(
+        rows[i - 1][j] + 1,
+        rows[i][j - 1] + 1,
+        rows[i - 1][j - 1] + substitutionCost
+      );
+
+      // Treat an adjacent letter transposition as one typo (e.g. "teh").
+      if (i > 1 && j > 1 && left[i - 1] === right[j - 2] && left[i - 2] === right[j - 1]) {
+        rows[i][j] = Math.min(rows[i][j], rows[i - 2][j - 2] + 1);
+      }
+      rowMinimum = Math.min(rowMinimum, rows[i][j]);
+    }
+    if (rowMinimum > maxDistance) return maxDistance + 1;
+  }
+
+  return rows[left.length][right.length];
+}
+
+function blankAnswerMatches(userAnswer, acceptedAnswers) {
+  const normalizedUserAnswer = normalizeBlankAnswer(userAnswer);
+  if (!normalizedUserAnswer) return false;
+
+  const answerOptions = Array.isArray(acceptedAnswers) ? acceptedAnswers : [acceptedAnswers];
+  const normalizedAcceptedAnswers = answerOptions
+    .filter(answer => typeof answer === "string")
+    .map(normalizeBlankAnswer)
+    .filter(Boolean);
+  if (normalizedAcceptedAnswers.includes(normalizedUserAnswer)) return true;
+
+  // Avoid expensive work on unusually long input. Short answers are exact-only
+  // because one edit could turn them into an entirely different answer.
+  if (normalizedUserAnswer.length > 128 || normalizedUserAnswer.length < 4) return false;
+
+  return normalizedAcceptedAnswers.some(acceptedAnswer => {
+    if (acceptedAnswer.length < 4 || acceptedAnswer.length > 128) return false;
+    const maxDistance = Math.max(normalizedUserAnswer.length, acceptedAnswer.length) >= 8 ? 2 : 1;
+    const distance = blankAnswerEditDistance(normalizedUserAnswer, acceptedAnswer, maxDistance);
+    return distance <= maxDistance && distance / Math.max(normalizedUserAnswer.length, acceptedAnswer.length) <= 0.2;
+  });
+}
+
 function gradeFillInTheBlank(section) {
   let correct = 0;
   const wrongAnswers = [];
@@ -25,21 +88,19 @@ function gradeFillInTheBlank(section) {
     const usedAnswers = new Set();
     let questionCorrect = true; // Track if the entire question is correct
     const studentAnswers = []; // Collect all user answers for the question
+    const hasAnswersPerBlank = q.answers.length === inputs.length && q.answers.every(Array.isArray);
 
     inputs.forEach((input, blankIdx) => {
-      const userAnswer = input.value.trim().toLowerCase(); // Normalize input
+      const userAnswer = input.value.trim();
       // One nested list per blank is positional; otherwise all answers form a shared pool.
-      const hasAnswersPerBlank = q.answers.length === inputs.length && q.answers.every(Array.isArray);
       const rawAnswers = hasAnswersPerBlank ? q.answers[blankIdx] : q.answers.flat();
-      const possibleAnswers = rawAnswers
-        .filter(answer => typeof answer === "string")
-        .map(answer => answer.toLowerCase()); // Normalize all answers to lowercase
-
       studentAnswers.push(userAnswer || "(no answer)");
 
-      if (possibleAnswers.includes(userAnswer) && !usedAnswers.has(userAnswer)) {
+      const isCorrect = blankAnswerMatches(userAnswer, rawAnswers);
+      const normalizedAnswer = normalizeBlankAnswer(userAnswer);
+      if (isCorrect && (hasAnswersPerBlank || !usedAnswers.has(normalizedAnswer))) {
         correct++;
-        usedAnswers.add(userAnswer); // Prevent duplicate credit for the same answer
+        usedAnswers.add(normalizedAnswer); // Prevent duplicate credit for a shared answer pool
       } else {
         questionCorrect = false; // Mark the question as incorrect
       }
@@ -67,25 +128,44 @@ function gradeFillInTheBlankList(section) {
 
   section.questions.forEach((q, idx) => {
     const inputs = qsa(`.fibl-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`); // Select inputs for this section and question
-    const usedAnswers = new Set();
-    let questionCorrectCount = 0; // Track correct answers for this question
     const studentAnswers = []; // Collect all user answers for the question
 
     // Accept either schema name for the groups of valid answers.
     const answerGroups = q.answer_groups || q.answers || [];
-    const possibleAnswers = answerGroups.flat().map(a => a.toLowerCase()); // Normalize all answers to lowercase
+    const normalizedGroups = answerGroups.map(group =>
+      (Array.isArray(group) ? group : [group])
+        .filter(answer => typeof answer === "string")
+        .map(normalizeBlankAnswer)
+    );
+    const matchedInputByGroup = Array(normalizedGroups.length).fill(-1);
+
+    // Match each response to a distinct answer group. This allows any subset of
+    // a larger answer bank while preventing two synonyms for one idea earning
+    // credit as two separate list entries.
+    const assignAnswerGroup = (inputIdx, visitedGroups) => {
+      for (let groupIdx = 0; groupIdx < normalizedGroups.length; groupIdx++) {
+        if (visitedGroups.has(groupIdx) || !blankAnswerMatches(studentAnswers[inputIdx], answerGroups[groupIdx] || [])) continue;
+        visitedGroups.add(groupIdx);
+        if (matchedInputByGroup[groupIdx] === -1 || assignAnswerGroup(matchedInputByGroup[groupIdx], visitedGroups)) {
+          matchedInputByGroup[groupIdx] = inputIdx;
+          return true;
+        }
+      }
+      return false;
+    };
 
     inputs.forEach((input) => {
       const userAnswer = input.value.trim().toLowerCase(); // Normalize input
 
       studentAnswers.push(userAnswer || "(no answer)");
-
-      if (possibleAnswers.includes(userAnswer) && !usedAnswers.has(userAnswer)) {
-        questionCorrectCount++;
-        correct++;
-        usedAnswers.add(userAnswer); // Prevent duplicate credit for the same answer
-      }
     });
+
+    let questionCorrectCount = 0;
+    studentAnswers.forEach((answer, inputIdx) => {
+      if (answer !== "(no answer)" && assignAnswerGroup(inputIdx, new Set())) questionCorrectCount++;
+    });
+    correct += questionCorrectCount;
+    const possibleAnswers = normalizedGroups.flat();
 
     // Add a single entry to wrongAnswers for the entire question
     if (questionCorrectCount < inputs.length) {
@@ -160,6 +240,7 @@ function gradeQuiz() {
   let points = 0, total = 0;
   const wrongAnswers = [];
   const shortAnswerResponses = [];
+  const codingTestResponses = [];
   const likertResponses = [];
 
   state.quiz.sections.forEach(section => {
@@ -326,6 +407,38 @@ function gradeQuiz() {
       wrongAnswers.push(...result.wrongAnswers);
     }
 
+    else if (section.type === "coding_test") {
+      const score = Number(section.points_per_question) || 0;
+      const studentAnswer = state.answers[`coding_test-${section._sectionIndex}`];
+      const testCases = Array.isArray(section.testCases) ? section.testCases : [];
+      const passedCount = Array.isArray(studentAnswer?.testResults)
+        ? studentAnswer.testResults.filter(test => test.Passed || test.passed).length
+        : 0;
+      const passed = testCases.length > 0 && Boolean(studentAnswer?.passed) && passedCount === testCases.length;
+
+      total += score;
+      if (passed) points += score;
+
+      codingTestResponses.push({
+        sectionTitle: section.title,
+        question: section.problem || section.title,
+        code: studentAnswer?.code || "(not submitted)",
+        status: studentAnswer
+          ? `${passedCount}/${testCases.length} test cases passed${passed ? " — full credit" : " — no credit"}`
+          : `Not run — 0/${testCases.length} test cases passed`,
+        output: studentAnswer?.output || ""
+      });
+
+      if (!passed) {
+        wrongAnswers.push({
+          type: "Coding Test",
+          question: section.title,
+          student: studentAnswer ? `${passedCount}/${testCases.length} test cases passed` : "(not run)",
+          correct: testCases.length > 0 ? `Pass all ${testCases.length} test cases` : "No test cases are configured"
+        });
+      }
+    }
+
     else if (section.type === "short_answer") {
       shortAnswerResponses.push(...gradeShortAnswer(section));
     }
@@ -342,7 +455,7 @@ function gradeQuiz() {
 
   const percent = total > 0 ? Math.round((points / total) * 100) : 0;
 
-  return { points, total, percent, wrongAnswers, shortAnswerResponses, likertResponses };
+  return { points, total, percent, wrongAnswers, shortAnswerResponses, codingTestResponses, likertResponses };
 }
 
 /* ---------- SUMMARY ---------- */
@@ -353,14 +466,23 @@ function showSummary(res) {
       <div class="card">
         <h2>Quiz Summary</h2>
   ${res.total > 0 ? `<p>You scored <strong>${res.points}/${res.total}</strong> (${res.percent}%).</p>` : `<p><em>No score for survey-only quizzes.</em></p>`}
-        <h3>Short Answer Responses:</h3>
+        ${res.shortAnswerResponses.length ? `<h3>Short Answer Responses (instructor review)</h3>
+        <p>Free-response answers are included for instructor review and are not auto-scored.</p>
         <ul class="short-answer-list">
           ${res.shortAnswerResponses.map((r, i) =>
             `<li>${r.sectionTitle ? `<em>${escapeHtml(r.sectionTitle)}</em><br/>` : ""}<strong>${escapeHtml(r.question)}</strong><br/>
              <span class="student">Your answer:</span><pre class="student-answer" data-sa="${i}"></pre>
              <span class="correct">Reference answer:</span><pre class="correct-answer" data-sa-correct="${i}"></pre></li>`
           ).join("")}
-        </ul>
+        </ul>` : ""}
+        ${res.codingTestResponses?.length ? `<h3>Coding Test Results</h3>
+        <ul class="short-answer-list">
+          ${res.codingTestResponses.map((r, i) =>
+            `<li>${r.sectionTitle ? `<em>${escapeHtml(r.sectionTitle)}</em><br/>` : ""}<strong>${escapeHtml(r.question)}</strong><br/>
+             <span class="student">${escapeHtml(r.status)}</span><pre class="coding-answer" data-coding="${i}"></pre>
+             ${r.output ? '<span>Run output:</span><pre class="coding-output" data-coding-output="' + i + '"></pre>' : ""}</li>`
+          ).join("")}
+        </ul>` : ""}
         ${res.likertResponses && res.likertResponses.length ? `
         <h3>Survey Responses:</h3>
         <ul class="short-answer-list">
@@ -377,6 +499,7 @@ function showSummary(res) {
                <span class="correct">Correct answer: ${escapeHtml(w.correct)}</span></li>`
             ).join("")}
            </ul>`}
+          <p id="emailStatus" role="status" aria-live="polite">${escapeHtml(state.emailStatus || "Sending results by email…")}</p>
         <button id="logoutBtn" class="secondary">Log Out</button>
       </div>
     </div>
@@ -385,6 +508,11 @@ function showSummary(res) {
   res.shortAnswerResponses.forEach((r, i) => {
     app.querySelector(`pre[data-sa="${i}"]`).textContent = r.answer || "(no answer)";
     app.querySelector(`pre[data-sa-correct="${i}"]`).textContent = r.correctAnswer || "(no answer provided)";
+  });
+
+  (res.codingTestResponses || []).forEach((r, i) => {
+    app.querySelector(`pre[data-coding="${i}"]`).textContent = r.code;
+    if (r.output) app.querySelector(`pre[data-coding-output="${i}"]`).textContent = r.output;
   });
 
   qs("#logoutBtn").addEventListener("click", logout);

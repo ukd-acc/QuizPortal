@@ -1,0 +1,13 @@
+{
+  "type": "short_answer",
+  "title": "Coding Problems",
+  "instructions": "Write your C# code in each box. Press Tab to indent.<br><br>You may use:<br>&bull; Debug.Log, variables, and operators<br>&bull; if / else if / else<br>&bull; loops, arrays, and foreach<br>&bull; methods (parameters, return values, overloads, optional parameters)<br>&bull; classes (new and the dot operator)<br><br>Use clear names and no magic numbers.",
+  "questions": [
+    {
+      "prompt": "COUNT THE ITEM   (5 pts)\n\nGoal: Write a method that counts how many times an item shows up in an inventory array.\n\nWhat to write:\n   • A method named CountItem\n   • It takes 2 parameters:\n        – a string array named inventory\n        – a string named itemName\n   • It RETURNS how many slots in inventory exactly match itemName\n\nThen:\n   • Declare a string array\n   • Call CountItem on it\n   • Use Debug.Log to print the number it returns\n\n\nExample 1\n   inventory = { \"torch\", \"rusty key\", \"torch\", \"rusty sword\" }\n   itemName  = \"torch\"\n   Prints:   2\n   (Two slots hold \"torch\".)\n\nExample 2\n   inventory = { \"rusty key\", \"rusty sword\" }\n   itemName  = \"torch\"\n   Prints:   0\n   (No slot holds \"torch\".)"
+    },
+    {
+      "prompt": "FIGHTER CLASS   (10 pts)\n\nGoal: Build a Fighter class, then use two Fighter objects to run a hero-vs-goblin fight and print who wins.\n\nStep 1: Write a class named Fighter\n   Member variables (all public):\n      • string name\n      • int health\n      • int attack\n\n   Methods:\n      • TakeDamage(int amount)\n           Lowers health by amount.\n           Health never goes below 0.\n      • IsDefeated()\n           Returns a bool: true when health is 0.\n      • Attack(Fighter target)\n           The target takes damage equal to this fighter's attack.\n\nStep 2: In Start, create two fighters with new\n      • a hero and a goblin\n      • set each one's name, health, and attack\n\nStep 3: Run the fight in rounds\n      • The hero attacks first.\n      • Then the goblin attacks, only if it is not defeated.\n      • Repeat until one fighter is defeated.\n\nStep 4: Print the winner\n      • Use Debug.Log to print the winner's name, then the word wins\n           (for example:  Hero wins)\n\n\nExample 1\n   Hero:     name \"Hero\",   health 100,   attack 6\n   Goblin:   name \"Goblin\", health 30,    attack 8\n   Prints:   Hero wins\n   (The goblin reaches 0 on the hero's 5th attack. The hero still has 68 health.)\n\nExample 2\n   Hero:     name \"Hero\",   health 20,    attack 6\n   Goblin:   name \"Goblin\", health 30,    attack 8\n   Prints:   Goblin wins\n   (After 3 rounds the hero has 0 health. The goblin still has 12.)"
+    }
+  ]
+}

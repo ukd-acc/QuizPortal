@@ -1,0 +1,48 @@
+{
+  "type": "multiple_choice",
+  "title": "Multiple Choice (1 point each)",
+  "instructions": "Select the best answer for each question.",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "Which line correctly creates an array that can hold 5 item names when you don't know the names yet?",
+      "answers": ["string[] items = new string[5];", "string items = new string[5];", "string[5] items = new string[];", "string[] items = string[5];"],
+      "correct_answer": "string[] items = new string[5];"
+    },
+    {
+      "question": "In the line  Item torch = new Item();  what is torch?",
+      "answers": [
+        "An object (an instance of the Item class)",
+        "The Item class itself (the blueprint)",
+        "A method that belongs to Item",
+        "An array of Items"
+      ],
+      "correct_answer": "An object (an instance of the Item class)"
+    },
+    {
+      "question": "Which pair of method headers is NOT a valid overload (the two cannot exist together in the same class)?",
+      "answers": [
+        "void Heal() and void Heal(int amount)",
+        "void Heal(int amount) and void Heal(int amount, bool full)",
+        "void Heal(int amount) and int Heal(int hp)",
+        "void Heal(int amount) and void Heal(string potionName)"
+      ],
+      "correct_answer": "void Heal(int amount) and int Heal(int hp)"
+    },
+    {
+      "question": "Following the method-naming guidance from Writing Good Code, which is the best name for a method that returns whether the Vault door is locked?",
+      "answers": ["IsLocked()", "Lock()", "vaultCheck2()", "DoDoorStuff()"],
+      "correct_answer": "IsLocked()"
+    },
+    {
+      "question": "A class makes its health field private but its TakeDamage method public. What is the main reason?",
+      "answers": [
+        "Other scripts can only change health through a safe action (encapsulation)",
+        "Private variables run faster than public ones",
+        "Private variables cannot be changed at all, even by the class's own methods",
+        "So every object of the class shares one health value"
+      ],
+      "correct_answer": "Other scripts can only change health through a safe action (encapsulation)"
+    }
+  ]
+}

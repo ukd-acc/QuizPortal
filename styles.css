@@ -638,6 +638,11 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
   margin-bottom: 8px; /* small bottom gap */
 }
 
+/* Keep line breaks, bullets, and indentation in short-answer prompts */
+.sa-row > p {
+  white-space: pre-wrap;
+}
+
 .sa-input {
   background-color: #1a244a; /* Dark blue background */
   color: #ffffff; /* White text */
