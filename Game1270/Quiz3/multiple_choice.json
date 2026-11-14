@@ -10,7 +10,7 @@
       "correct_answer": "Executive Director"
     },
     {
-      "question": "What is the role of Operations Management?",
+      "question": "What is the role of Operation Management?",
       "answers": ["Defines the vision of the company", "Turn the vision into reality", "Day-to-day specifics of getting the job done"],
       "correct_answer": "Day-to-day specifics of getting the job done"
     },
@@ -25,7 +25,7 @@
       "correct_answer": "Prototype, Content Lock, Cert, Roll-off" 
     },
     {
-      "question": "Which item is typically managed separately from a Game Design Document (GDD) as part of project management?",
+      "question": "Which of the following likely would NOT be found in a Game Design Document (GDD)?",
       "answers": ["Game Mechanics", "Story and Narrative", "Development Schedule", "Interactable Items"],
       "correct_answer": "Development Schedule"
     }  

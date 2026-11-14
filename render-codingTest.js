@@ -48,7 +48,7 @@ function renderCodingTestSection(section) {
       if (state.submitted) return;
       displayResults(result, outputPanel);
 
-      // Store answer and per-test results for grading.
+      // Preserve individual outcomes for grading and the submitted email.
       state.answers[`coding_test-${sectionKey}`] = {
         code,
         passed: result.allPassed || false,
