@@ -14,7 +14,7 @@
     },
     {
       "prompt": "What are Bartle's Player Types? \n___ \n___ \n___ \n___",
-      "answers": [["killers","achievers","explorers","socializers","killer","achiever","explorer","socializer"]]
+      "answer_groups": [["killers","killer"],["achievers","achiever"],["explorers","explorer"],["socializers","socializer"]]
     },
     {
       "prompt": "List Quantic Foundry's Gamer Types: ___ ___ ___ ___ ___ ___ ___ ___ ___",
@@ -30,11 +30,11 @@
     },
     {
       "prompt": "What are the three parts of the MDA framework? \n___ \n___ \n___",
-      "answers": [["mechanics","dynamics","aesthetics", "mechanic","dynamic","aesthetic"]]
+      "answer_groups": [["mechanics","mechanic"],["dynamics","dynamic"],["aesthetics","aesthetic"]]
     },
     {
       "prompt": "List six major genres of video games (super-genres, not sub-genres): ___ ___ ___ ___ ___ ___",
-      "answers": [["action","adventure","role-playing", "rpg", "simulation","sim","sports","sport","strategy","puzzle","idle","racing","race", "fighting", "horror", "educational", "social deduction", "visual novel"]]
+      "answer_groups": [["action"],["adventure"],["role-playing","rpg"],["simulation","sim"],["sports","sport"],["strategy"],["puzzle"],["idle"],["racing","race"],["fighting"],["horror"],["educational"],["social deduction"],["visual novel"]]
     },
     {
       "prompt": "Name four of the eight types of fun: ___ ___ ___ ___",
@@ -42,7 +42,7 @@
     },
     {
       "prompt": "Name the major 9th generation consoles: ___ ___ ___",
-      "answers": [["playstation 5","xbox series x","xbox series", "xbox series s", "xbox series x/s", "xbox series s/x", "nintendo switch","ps5","xbox","switch","nintendo switch 2","switch 2","switch2", "steamdeck", "steam deck"]]
+      "answer_groups": [["playstation 5","ps5"],["xbox series x","xbox series","xbox series s","xbox series x/s","xbox series s/x","xbox"],["nintendo switch","switch","nintendo switch 2","switch 2","switch2"],["steamdeck","steam deck"]]
     }
   ]
 }

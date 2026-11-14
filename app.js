@@ -331,7 +331,10 @@ function onSubmit(timedOut = false) {
   state.endTime = new Date();
   state.submissionResult = gradeQuiz();
   state.emailStatus = "Sending results by email…";
-  sendResultsByEmail(state.submissionResult);
+  sendResultsByEmail(state.submissionResult).catch(error => {
+    console.error("Unexpected error while sending quiz results:", error);
+    updateEmailStatus("Results were graded, but email failed. Please notify your instructor.");
+  });
 
   if (timedOut) {
     showTimeoutContinue();

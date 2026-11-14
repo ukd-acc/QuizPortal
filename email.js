@@ -8,8 +8,13 @@ function initEmail() {
     console.error("EmailJS SDK is unavailable; quiz submission will continue without email.");
     return false;
   }
-  emailjs.init(state.settings.emailConfig.publicKey);
-  return true;
+  try {
+    emailjs.init(state.settings.emailConfig.publicKey);
+    return true;
+  } catch (error) {
+    console.error("EmailJS initialization failed; quiz submission will continue without email.", error);
+    return false;
+  }
 }
 
 async function sendResultsByEmail(result) {
@@ -60,8 +65,8 @@ async function sendResultsByEmail(result) {
     ).join("\n");
   }
   const codingTestDetails = result.codingTestResponses?.length
-    ? result.codingTestResponses.map(r =>
-      `${r.sectionTitle}: ${r.status}\nProblem: ${r.question}\nCode:\n${r.code}\nOutput:\n${r.output || "(no output)"}`
+    ? result.codingTestResponses.map(response =>
+      `${response.sectionTitle}: ${response.status}\nProblem: ${response.question}\nCode:\n${response.code}\nOutput:\n${response.output || "(no output)"}`
     ).join("\n\n")
     : "No coding-test responses";
   const templateParams = {

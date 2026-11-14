@@ -14,7 +14,7 @@
     },
     {
       "prompt": "What are Bartle's Player Types? ___ ___ ___ ___",
-      "answers": [["killers","achievers","explorers","socializers","killer","achiever","explorer","socializer"]]
+      "answer_groups": [["killers","killer"],["achievers","achiever"],["explorers","explorer"],["socializers","socializer"]]
     },
     {
       "prompt": "List Quantic Foundry's Gamer Types: ___ ___ ___ ___ ___ ___ ___ ___ ___",
@@ -30,11 +30,11 @@
     },
     {
       "prompt": "What are the three parts of the MDA framework? ___ ___ ___",
-      "answers": [["mechanics","dynamics","aesthetics", "mechanic","dynamic","aesthetic"]]
+      "answer_groups": [["mechanics","mechanic"],["dynamics","dynamic"],["aesthetics","aesthetic"]]
     },
     {
       "prompt": "List six major genres of video games (super-genres, not sub-genres): ___ ___ ___ ___ ___ ___",
-      "answers": [["action","adventure","role-playing", "rpg", "simulation","sim","sports","sport","strategy","puzzle","idle","racing","race", "fighting", "horror", "educational", "social deduction", "visual novel"]]
+      "answer_groups": [["action"],["adventure"],["role-playing","rpg"],["simulation","sim"],["sports","sport"],["strategy"],["puzzle"],["idle"],["racing","race"],["fighting"],["horror"],["educational"],["social deduction"],["visual novel"]]
     },
     {
       "prompt": "Name 5 of the eight types of fun: ___ ___ ___ ___ ___",
@@ -46,11 +46,11 @@
     },
     {
       "prompt": "What are the constraints in the Iron Triangle of Quality? ___ ___ ___",
-      "answers": [["scope","content","time","money", "cost", "budget", "hours"]]
+      "answer_groups": [["scope","content"],["time","hours"],["money","cost","budget"]]
     },
     {
       "prompt": "Name 5 major milestones of game development cycle: ___ ___ ___ ___ ___",
-      "answers": [["early concept", "vertical slice", "greenlight", "first playable", "alpha","beta","gold", "gold master", "code lock", "content lock"]]
+      "answer_groups": [["early concept"],["vertical slice"],["greenlight"],["first playable"],["alpha"],["beta"],["gold","gold master"],["code lock"],["content lock"]]
     },
     {
       "prompt": "Name the 4 managers/supervisors of the Functional Management in large companies responsible for turning the corporate vision into reality. ___ ___ ___ ___",
@@ -58,11 +58,11 @@
     },
     {
       "prompt": "List 3 software tools game designers use most frequently during development according to our lectures: ___ ___ ___",
-      "answers": [["map editor", "level editor","scripting language", "scripting", "databases", "database", "spreadsheet", "spreadsheets", "prototyping tools", "flowchart software", "word processor", "word"]]
+      "answer_groups": [["map editor"],["level editor"],["scripting language","scripting"],["databases","database"],["spreadsheet","spreadsheets"],["prototyping tools"],["flowchart software"],["word processor","word"]]
     },
     {
       "prompt": "List 4 game engine components ___ ___ ___ ___",
-      "answers": [["graphics","rendering", "physics","audio","scripting","animation","networking","input","ai", "ui", "scene graph", "scripting", "scripting language"]]
+      "answer_groups": [["graphics"],["rendering"],["physics"],["audio"],["scripting","scripting language"],["animation"],["networking"],["input"],["ai"],["ui"],["scene graph"]]
     }   
   ]
 }

@@ -71,7 +71,14 @@ function renderCodingTestSection(section) {
   return wrapper;
 }
 
-async function compileAndRunCode(code, testCases, section) {
+async function compileAndRunCode(code, testCases, section, timeoutMs = 30000) {
+  const controller = new AbortController();
+  let timedOut = false;
+  const timeoutId = setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, timeoutMs);
+
   try {
     console.log("Compiling C# code with OnlineGDB");
     console.log("Code:", code.substring(0, 100) + "...");
@@ -83,6 +90,7 @@ async function compileAndRunCode(code, testCases, section) {
     const response = await fetch("https://api.onlinegdb.com/v1/languages/csharp/execute", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
       body: JSON.stringify({
         script: wrappedCode,
         stdin: "",
@@ -106,9 +114,13 @@ async function compileAndRunCode(code, testCases, section) {
     console.error("Compilation error:", error);
     return {
       success: false,
-      error: "Compilation failed: " + error.message,
+      error: timedOut
+        ? `Compilation timed out after ${timeoutMs / 1000} seconds.`
+        : "Compilation failed: " + error.message,
       allPassed: false
     };
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 

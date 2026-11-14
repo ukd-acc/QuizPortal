@@ -122,58 +122,69 @@ function gradeFillInTheBlank(section) {
   return { correct, wrongAnswers };
 }
 
+// Each group is one accepted idea; its entries are spellings of that idea.
+// `answer_groups`, or `answers` with several nested lists, are groups as written.
+// A single flat list is a pool in which every entry is its own idea.
+function getListAnswerGroups(question) {
+  const source = question.answer_groups || question.answers || [];
+  const isGrouped = Boolean(question.answer_groups) || (source.length > 0 && source.every(Array.isArray));
+  const groups = isGrouped ? source : source.flat().map(answer => [answer]);
+
+  return groups.map(group => (Array.isArray(group) ? group : [group])
+    .filter(answer => typeof answer === "string")
+    .map(normalizeBlankAnswer));
+}
+
+// Largest one-to-one pairing of student answers to groups, so one idea earns one
+// point however it is spelled, and groups that share a spelling cannot cost credit.
+function countMatchedAnswerGroups(studentAnswers, groups) {
+  const inputForGroup = new Array(groups.length).fill(-1);
+  const compatibleGroupsByInput = studentAnswers.map(answer =>
+    groups.map(group => blankAnswerMatches(answer, group))
+  );
+
+  const assignToGroup = (inputIndex, visitedGroups) => {
+    for (let groupIndex = 0; groupIndex < groups.length; groupIndex++) {
+      if (visitedGroups.has(groupIndex) || !compatibleGroupsByInput[inputIndex][groupIndex]) continue;
+      visitedGroups.add(groupIndex);
+
+      if (inputForGroup[groupIndex] === -1 || assignToGroup(inputForGroup[groupIndex], visitedGroups)) {
+        inputForGroup[groupIndex] = inputIndex;
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const usedAnswers = new Set();
+  let matchedCount = 0;
+  studentAnswers.forEach((answer, inputIndex) => {
+    if (!answer || usedAnswers.has(answer)) return false; // Prevent duplicate credit for the same answer
+    usedAnswers.add(answer);
+    if (assignToGroup(inputIndex, new Set())) matchedCount++;
+  });
+  return matchedCount;
+}
+
 function gradeFillInTheBlankList(section) {
   let correct = 0;
   const wrongAnswers = [];
 
   section.questions.forEach((q, idx) => {
     const inputs = qsa(`.fibl-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`); // Select inputs for this section and question
-    const studentAnswers = []; // Collect all user answers for the question
-
-    // Accept either schema name for the groups of valid answers.
-    const answerGroups = q.answer_groups || q.answers || [];
-    const normalizedGroups = answerGroups.map(group =>
-      (Array.isArray(group) ? group : [group])
-        .filter(answer => typeof answer === "string")
-        .map(normalizeBlankAnswer)
-    );
-    const matchedInputByGroup = Array(normalizedGroups.length).fill(-1);
-
-    // Match each response to a distinct answer group. This allows any subset of
-    // a larger answer bank while preventing two synonyms for one idea earning
-    // credit as two separate list entries.
-    const assignAnswerGroup = (inputIdx, visitedGroups) => {
-      for (let groupIdx = 0; groupIdx < normalizedGroups.length; groupIdx++) {
-        if (visitedGroups.has(groupIdx) || !blankAnswerMatches(studentAnswers[inputIdx], answerGroups[groupIdx] || [])) continue;
-        visitedGroups.add(groupIdx);
-        if (matchedInputByGroup[groupIdx] === -1 || assignAnswerGroup(matchedInputByGroup[groupIdx], visitedGroups)) {
-          matchedInputByGroup[groupIdx] = inputIdx;
-          return true;
-        }
-      }
-      return false;
-    };
-
-    inputs.forEach((input) => {
-      const userAnswer = input.value.trim().toLowerCase(); // Normalize input
-
-      studentAnswers.push(userAnswer || "(no answer)");
-    });
-
-    let questionCorrectCount = 0;
-    studentAnswers.forEach((answer, inputIdx) => {
-      if (answer !== "(no answer)" && assignAnswerGroup(inputIdx, new Set())) questionCorrectCount++;
-    });
+    const studentAnswers = inputs.map(input => normalizeBlankAnswer(input.value));
+    const answerGroups = getListAnswerGroups(q);
+    const questionCorrectCount = countMatchedAnswerGroups(studentAnswers, answerGroups);
     correct += questionCorrectCount;
-    const possibleAnswers = normalizedGroups.flat();
+    const possibleAnswers = answerGroups.flat();
 
     // Add a single entry to wrongAnswers for the entire question
     if (questionCorrectCount < inputs.length) {
       wrongAnswers.push({
         type: "Fill in the Blank List",
         question: q.prompt,
-        student: `${questionCorrectCount}/${inputs.length} correct: ${studentAnswers.join(", ")}`,
-        correct: possibleAnswers.join(", ")
+        student: `${questionCorrectCount}/${inputs.length} correct: ${studentAnswers.map(answer => answer || "(no answer)").join(", ")}`,
+        correct: answerGroups.map(group => group.join(" / ")).join(", ")
       });
     }
   });
@@ -413,7 +424,7 @@ function gradeQuiz() {
       const testCases = Array.isArray(section.testCases) ? section.testCases : [];
       const passedCount = Array.isArray(studentAnswer?.testResults)
         ? studentAnswer.testResults.filter(test => test.Passed || test.passed).length
-        : 0;
+        : studentAnswer?.passed ? testCases.length : 0;
       const passed = testCases.length > 0 && Boolean(studentAnswer?.passed) && passedCount === testCases.length;
 
       total += score;

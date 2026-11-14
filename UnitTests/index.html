@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Portal Unit Tests</title>
+  <style>
+    body { font: 16px/1.5 sans-serif; margin: 2rem auto; max-width: 900px; padding: 0 1rem; }
+    #test-summary { font-weight: 700; }
+    .pass { color: #176b3a; }
+    .fail { color: #a32020; }
+    #test-results li { margin: 0.35rem 0; }
+    #test-fixtures { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Quiz Portal Unit Tests</h1>
+  <p id="test-summary" aria-live="polite">Running tests...</p>
+  <ol id="test-results"></ol>
+  <section>
+    <h2>Live Email Test</h2>
+    <button id="live-email-button" type="button">Send One Real Midterm Test Email</button>
+    <p id="live-email-status" aria-live="polite">Does not run automatically.</p>
+  </section>
+  <div id="app"></div>
+  <div id="test-fixtures"></div>
+
+  <script>window.__QUIZ_PORTAL_TEST_MODE__ = true;</script>
+  <script src="../state.js"></script>
+  <script src="../utils.js?unit-tests=2"></script>
+  <script src="../auth.js?unit-tests=2"></script>
+  <script src="../render-matching.js"></script>
+  <script src="../render-tf.js"></script>
+  <script src="../render-matching-pictures.js"></script>
+  <script src="../render-mc.js"></script>
+  <script src="../render-likert.js"></script>
+  <script src="../render-code-blocks-mc.js"></script>
+  <script src="../render-fill-in-the-blank.js"></script>
+  <script src="../render-code-blocks-fitb.js"></script>
+  <script src="../render-fill-in-the-blank-list.js"></script>
+  <script src="../render-short-answer.js"></script>
+  <script src="../render-codingTest.js?unit-tests=2"></script>
+  <script src="../grading.js?unit-tests=3"></script>
+  <script src="../app.js?unit-tests=3"></script>
+  <script src="../email.js?unit-tests=3"></script>
+  <script src="test-harness.js?unit-tests=4"></script>
+  <script src="grading.tests.js?unit-tests=4"></script>
+  <script src="renderers.tests.js?unit-tests=3"></script>
+  <script src="app.tests.js?unit-tests=8"></script>
+  <script src="auth-email.tests.js?unit-tests=7"></script>
+  <script src="data.tests.js?unit-tests=12"></script>
+  <script src="closed-book.tests.js?unit-tests=2"></script>
+  <script src="live-email.js?unit-tests=4"></script>
+</body>
+</html>

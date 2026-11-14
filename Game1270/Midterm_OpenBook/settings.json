@@ -1,4 +1,6 @@
 {
+  "timed": true,
+  "durationMinutes": 60,
   "sections": [
     { "file": "short_answer.json" }
   ]
