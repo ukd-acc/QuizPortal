@@ -20,7 +20,7 @@
       ]
     },
     {
-      "prompt": "Name the four casing styles for names covered in Writing Good Code. ___ ___ ___ ___",
+      "prompt": "Name the two main casing styles for names covered in Writing Good Code. ___ ___",
       "answers": [
         [
           "camelCase",
@@ -31,16 +31,6 @@
           "PascalCase",
           "pascal case",
           "pascal"
-        ],
-        [
-          "snake_case",
-          "snake case",
-          "snake"
-        ],
-        [
-          "kebab-case",
-          "kebab case",
-          "kebab"
         ]
       ]
     },
