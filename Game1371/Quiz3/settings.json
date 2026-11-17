@@ -1,11 +1,8 @@
 {
   "timed": true,
-  "durationMinutes": 60,
+  "durationMinutes": 180,
   "sections": [
-    {
-      "file": "fill_in_the_blank_list.json"
-    },
-    {
+        {
       "file": "code_blocks_fitb.json"
     },
     {
@@ -13,9 +10,6 @@
     },
     {
       "file": "code_blocks_mc.json"
-    },
-    {
-      "file": "true_false.json"
     },
     {
       "file": "short_answer.json"

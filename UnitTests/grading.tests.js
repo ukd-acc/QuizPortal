@@ -6,9 +6,12 @@ test("mixed exam awards full points for all correct answers", () => {
     { type: "multiple_choice", points_per_question: 1, prompts: [{ question: "Choose", correct_answer: "C" }], _sectionIndex: 3 },
     { type: "code_blocks_mc", points_per_question: 1, prompts: [{ question: "Code", correct_answer: "return 1;" }], _sectionIndex: 4 },
     { type: "fill_in_the_blank", questions: [{ prompt: "___ then ___", answers: [["first"], ["second"]] }], _sectionIndex: 5 },
-    { type: "fill_in_the_blank_list", questions: [{ prompt: "___ and ___", answers: [["red", "blue"]] }], _sectionIndex: 6 },
+    { type: "fill_in_the_blank_list", questions: [{ prompt: "___ and ___", answers: [["red"], ["blue"]] }], _sectionIndex: 6 },
     { type: "code_blocks_fitb", points_per_question: 1, questions: [{ prompt: "Code", answer: "token" }], _sectionIndex: 7 },
-    { type: "coding_test", points_per_question: 2, title: "Coding", _sectionIndex: 8 }
+    {
+      type: "coding_test", points_per_question: 2, title: "Coding", _sectionIndex: 8,
+      testCases: [{ input: "1, 1", expectedOutput: "2" }, { input: "2, 3", expectedOutput: "5" }]
+    }
   ];
   const answers = {
     "matching-0-0": "alpha",
@@ -16,7 +19,7 @@ test("mixed exam awards full points for all correct answers", () => {
     "tf-2-0": true,
     "mc-3-0": "C",
     "cbmc-4-0": "return 1;",
-    "coding_test-8": { passed: true, output: "4/4 passed" }
+    "coding_test-8": { passed: true, testResults: [{ Passed: true }, { Passed: true }], output: "2/2 passed" }
   };
   resetTestState(sections, answers);
   addTestInput("fib-input", 5, 0, " FIRST ");
@@ -134,14 +137,14 @@ test("list answers: answer_groups give each idea one point", () => {
   assertEqual(gradeListAnswers(question, ["PLUS", " - "]).points, 2, "two ideas");
 });
 
-test("list answers: several nested answers lists are groups, one list is a pool", () => {
+test("list answers: each nested answers list is one idea", () => {
   const grouped = { prompt: "___ ___", answers: [["0", "zero"], ["1", "one"]] };
   assertEqual(gradeListAnswers(grouped, ["0", "zero"]).points, 1, "grouped spellings");
   assertEqual(gradeListAnswers(grouped, ["one", "zero"]).points, 2, "both groups in any order");
 
-  const pool = { prompt: "___ ___", answers: [["red", "blue", "red"]] };
-  assertEqual(gradeListAnswers(pool, ["red", "blue"]).points, 2, "pool entries are separate ideas");
-  assertEqual(gradeListAnswers(pool, ["red", "red"]).points, 1, "repeat in a pool that lists an entry twice");
+  const separate = { prompt: "___ ___", answers: [["red"], ["blue"]] };
+  assertEqual(gradeListAnswers(separate, ["red", "blue"]).points, 2, "single-spelling groups are separate ideas");
+  assertEqual(gradeListAnswers(separate, ["red", "red"]).points, 1, "repeating one idea earns credit once");
 });
 
 test("list answers: groups sharing a spelling are paired to give the most credit", () => {
@@ -158,4 +161,54 @@ test("list answers: blanks, unknown text, and wrong-answer details", () => {
   assertEqual(result.total, 3, "possible points");
   assertEqual(result.wrongAnswers[0].student, "1/3 correct: alpha, (no answer), nope", "student detail");
   assertEqual(result.wrongAnswers[0].correct, "a / alpha, b", "accepted answers");
+});
+
+function gradeBlankAnswers(answers, typedAnswers) {
+  resetTestState([{ type: "fill_in_the_blank", questions: [{ prompt: "___ ".repeat(typedAnswers.length), answers }], _sectionIndex: 0 }]);
+  typedAnswers.forEach(answer => addTestInput("fib-input", 0, 0, answer));
+  return gradeQuiz();
+}
+
+test("symbol-only answers are compared by their symbols", () => {
+  const operators = { prompt: "___ ___ ___ ___", answer_groups: [["+", "plus"], ["-", "minus"], ["*", "multiply"], ["/", "divide"], ["%", "modulo"]] };
+  assertEqual(gradeListAnswers(operators, ["+", "-", "*", "/"]).points, 4, "every operator symbol");
+  assertEqual(gradeListAnswers(operators, [" + ", "-", "PLUS", "%"]).points, 3, "symbol and its word are one idea");
+  assertEqual(gradeListAnswers(operators, ["+", "+", "x", "-"]).points, 2, "repeated or unknown symbols");
+
+  assertEqual(gradeBlankAnswers([["//"]], ["//"]).points, 1, "comment symbol");
+  assertEqual(gradeBlankAnswers([["//"]], [" / / "]).points, 1, "spacing inside symbols is ignored");
+  assertEqual(gradeBlankAnswers([["//"]], ["/"]).points, 0, "a different symbol");
+  assertEqual(gradeBlankAnswers([["//"]], ["!!"]).points, 0, "unrelated punctuation");
+});
+
+test("punctuation around short answers is ignored", () => {
+  assertEqual(gradeBlankAnswers([["cat"]], ["cat."]).points, 1, "trailing period");
+  assertEqual(gradeBlankAnswers([["cat"]], ["Cat!"]).points, 1, "trailing exclamation");
+  assertEqual(gradeBlankAnswers([["Debug.Log()"]], ["debug.log"]).points, 1, "punctuation inside a code name");
+  assertEqual(gradeBlankAnswers([["cat"]], ["cab"]).points, 0, "short answers stay exact");
+});
+
+test("fill in the blank: an answer listed for several blanks earns credit once", () => {
+  const consoleWars = [["nintendo", "sega"], ["nintendo", "sega"]];
+  assertEqual(gradeBlankAnswers(consoleWars, ["sega", "nintendo"]).points, 2, "both answers in any order");
+  assertEqual(gradeBlankAnswers(consoleWars, ["nintendo", "nintendo"]).points, 1, "same answer twice");
+  assertEqual(gradeBlankAnswers(consoleWars, ["nintendo", "nintedo"]).points, 1, "same answer retyped with a typo");
+  assertEqual(gradeBlankAnswers([["first"], ["second"]], ["first", "second"]).points, 2, "different answers per blank");
+});
+
+test("normalized blank answers stay the same when normalized again", () => {
+  for (const value of ["Pong!", "  pre-production ", "+", " / / ", "C#", "PlayerHealth", "Debug.Log(\"Message\")", "ｐｏｎｇ", "' OR '1'='1"]) {
+    const once = normalizeBlankAnswer(value);
+    assertEqual(normalizeBlankAnswer(once), once, JSON.stringify(value));
+  }
+  assertEqual(normalizeBlankAnswer("+") === normalizeBlankAnswer("-"), false, "different symbols stay different");
+  assertEqual(normalizeBlankAnswer("!!!"), "!!!", "punctuation-only text is not treated as blank");
+});
+
+test("list answers: wrong-answer details show typed text and answers as written", () => {
+  const question = { prompt: "___ ___", answers: [["pre-production"], ["post-production"]] };
+  const result = gradeListAnswers(question, ["' OR '1'='1", "Pre-Production!"]);
+  assertEqual(result.points, 1, "score");
+  assertEqual(result.wrongAnswers[0].student, "1/2 correct: ' or '1'='1, pre-production!", "typed text is kept");
+  assertEqual(result.wrongAnswers[0].correct, "pre-production, post-production", "accepted answers as written");
 });

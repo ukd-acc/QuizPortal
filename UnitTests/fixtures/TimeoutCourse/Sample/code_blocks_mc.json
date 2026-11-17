@@ -1,0 +1,14 @@
+{
+  "type": "code_blocks_mc",
+  "title": "Code Multiple Choice",
+  "instructions": "What does the code do?",
+  "points_per_question": 1,
+  "prompts": [
+    {
+      "question": "What is printed?",
+      "code": "/// <summary>Adds two numbers.</summary>\nint total = 2 + 3;\nDebug.Log(total);",
+      "answers": ["5", "23", "Compile error", "0"],
+      "correct_answer": "5"
+    }
+  ]
+}

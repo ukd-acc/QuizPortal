@@ -924,3 +924,72 @@ hr { border:none; height:1px; background:rgba(255,255,255,.08); margin:16px 0; }
   font-weight: 600;
   margin-top: 12px;
 }
+
+/* ---------- TIME'S UP NOTICE ---------- */
+.time-up-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(11, 16, 32, 0.92);
+  animation: time-up-fade-in 0.25s ease-out;
+}
+
+.time-up-panel {
+  max-width: 560px;
+  width: 100%;
+  padding: 40px 32px;
+  border-radius: 20px;
+  text-align: center;
+  background: var(--card);
+  border: 3px solid var(--warn);
+  box-shadow: 0 0 0 8px rgba(255, 200, 87, 0.15), 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.time-up-icon {
+  font-size: 4.5rem;
+  line-height: 1;
+  animation: time-up-shake 0.6s ease-in-out 2;
+}
+
+.time-up-panel h2 {
+  margin: 16px 0 8px;
+  font-size: clamp(2.25rem, 8vw, 3.5rem);
+  color: var(--warn);
+}
+
+.time-up-panel p {
+  margin: 0 0 24px;
+  font-size: 1.15rem;
+}
+
+.time-up-banner {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 2px solid var(--warn);
+  background: rgba(255, 200, 87, 0.12);
+  color: var(--warn);
+  font-weight: 700;
+}
+
+#emailStatus[data-outcome="sent"] { color: var(--ok); }
+#emailStatus[data-outcome="failed"] { color: var(--err); font-weight: 700; }
+
+@keyframes time-up-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes time-up-shake {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time-up-overlay, .time-up-icon { animation: none; }
+}

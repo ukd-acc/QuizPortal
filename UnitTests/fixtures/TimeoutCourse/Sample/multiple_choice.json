@@ -1,0 +1,10 @@
+{
+  "type": "multiple_choice",
+  "title": "Multiple Choice",
+  "instructions": "Pick the best answer.",
+  "points_per_question": 1,
+  "prompts": [
+    { "question": "Which keyword creates a new object?", "answers": ["new", "make", "create", "build"], "correct_answer": "new" },
+    { "question": "Which type holds true or false?", "answers": ["int", "bool", "string", "float"], "correct_answer": "bool" }
+  ]
+}

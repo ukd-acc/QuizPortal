@@ -1,0 +1,16 @@
+{
+  "title": "Timeout Sample",
+  "timed": true,
+  "durationMinutes": 0.0333333333,
+  "randomize": false,
+  "sections": [
+    { "file": "true_false.json" },
+    { "file": "multiple_choice.json" },
+    { "file": "matching.json" },
+    { "file": "fill_in_the_blank.json" },
+    { "file": "fill_in_the_blank_list.json" },
+    { "file": "code_blocks_mc.json" },
+    { "file": "code_blocks_fitb.json" },
+    { "file": "short_answer.json" }
+  ]
+}

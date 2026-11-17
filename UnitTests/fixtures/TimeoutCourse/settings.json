@@ -1,0 +1,6 @@
+{
+  "title": "Timeout Test Course",
+  "emailRecipients": ["unit-test@example.test"],
+  "emailProvider": "emailjs",
+  "emailConfig": { "serviceID": "unit-test-service", "templateID": "unit-test-template", "publicKey": "unit-test-key" }
+}

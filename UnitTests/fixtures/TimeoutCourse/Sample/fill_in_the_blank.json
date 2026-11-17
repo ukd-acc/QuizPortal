@@ -1,0 +1,9 @@
+{
+  "type": "fill_in_the_blank",
+  "title": "Fill in the Blank",
+  "instructions": "Type the missing word.",
+  "questions": [
+    { "prompt": "The symbol ___ starts a single-line comment.", "answers": [["//"]] },
+    { "prompt": "The first console wars were between ___ and ___.", "answers": [["nintendo", "sega"], ["nintendo", "sega"]] }
+  ]
+}

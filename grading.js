@@ -16,15 +16,20 @@ function gradeShortAnswer(section) {
   return responses;
 }
 
+// Compares answers by their words: case, accents, punctuation and spacing are ignored.
+// Answers made only of symbols (e.g. "+", "//") keep their symbols, so they can match
+// and "+" stays different from "-". The result is stable if normalized again.
 function normalizeBlankAnswer(answer) {
-  return String(answer ?? "")
+  const text = String(answer ?? "")
     .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[\u0300-\u036f]/g, "");
+  const words = text
     .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
     .toLowerCase()
-    .trim()
     .replace(/[^a-z0-9]+/g, " ")
-    .replace(/\s+/g, " ");
+    .trim();
+  if (words) return words;
+  return text.replace(/[\s\u200b-\u200d\u2060\ufeff]+/g, "").toLowerCase();
 }
 
 function blankAnswerEditDistance(left, right, maxDistance) {
@@ -56,27 +61,33 @@ function blankAnswerEditDistance(left, right, maxDistance) {
   return rows[left.length][right.length];
 }
 
-function blankAnswerMatches(userAnswer, acceptedAnswers) {
+// Returns the normalized accepted answer the student's answer matches, or null.
+function findBlankAnswerMatch(userAnswer, acceptedAnswers) {
   const normalizedUserAnswer = normalizeBlankAnswer(userAnswer);
-  if (!normalizedUserAnswer) return false;
+  if (!normalizedUserAnswer) return null;
 
   const answerOptions = Array.isArray(acceptedAnswers) ? acceptedAnswers : [acceptedAnswers];
   const normalizedAcceptedAnswers = answerOptions
     .filter(answer => typeof answer === "string")
     .map(normalizeBlankAnswer)
     .filter(Boolean);
-  if (normalizedAcceptedAnswers.includes(normalizedUserAnswer)) return true;
+  if (normalizedAcceptedAnswers.includes(normalizedUserAnswer)) return normalizedUserAnswer;
 
   // Avoid expensive work on unusually long input. Short answers are exact-only
   // because one edit could turn them into an entirely different answer.
-  if (normalizedUserAnswer.length > 128 || normalizedUserAnswer.length < 4) return false;
+  if (normalizedUserAnswer.length > 128 || normalizedUserAnswer.length < 4) return null;
 
-  return normalizedAcceptedAnswers.some(acceptedAnswer => {
+  const fuzzyMatch = normalizedAcceptedAnswers.find(acceptedAnswer => {
     if (acceptedAnswer.length < 4 || acceptedAnswer.length > 128) return false;
     const maxDistance = Math.max(normalizedUserAnswer.length, acceptedAnswer.length) >= 8 ? 2 : 1;
     const distance = blankAnswerEditDistance(normalizedUserAnswer, acceptedAnswer, maxDistance);
     return distance <= maxDistance && distance / Math.max(normalizedUserAnswer.length, acceptedAnswer.length) <= 0.2;
   });
+  return fuzzyMatch === undefined ? null : fuzzyMatch;
+}
+
+function blankAnswerMatches(userAnswer, acceptedAnswers) {
+  return findBlankAnswerMatch(userAnswer, acceptedAnswers) !== null;
 }
 
 function gradeFillInTheBlank(section) {
@@ -96,11 +107,14 @@ function gradeFillInTheBlank(section) {
       const rawAnswers = hasAnswersPerBlank ? q.answers[blankIdx] : q.answers.flat();
       studentAnswers.push(userAnswer || "(no answer)");
 
-      const isCorrect = blankAnswerMatches(userAnswer, rawAnswers);
-      const normalizedAnswer = normalizeBlankAnswer(userAnswer);
-      if (isCorrect && (hasAnswersPerBlank || !usedAnswers.has(normalizedAnswer))) {
+      // An accepted answer earns credit once per question, even when several blanks
+      // list it (e.g. "nintendo" for both console-war blanks) or it is retyped with a typo.
+      const unusedAnswers = rawAnswers.filter(answer =>
+        typeof answer === "string" && !usedAnswers.has(normalizeBlankAnswer(answer)));
+      const matchedAnswer = findBlankAnswerMatch(userAnswer, unusedAnswers);
+      if (matchedAnswer !== null) {
         correct++;
-        usedAnswers.add(normalizedAnswer); // Prevent duplicate credit for a shared answer pool
+        usedAnswers.add(matchedAnswer);
       } else {
         questionCorrect = false; // Mark the question as incorrect
       }
@@ -125,14 +139,14 @@ function gradeFillInTheBlank(section) {
 // Each group is one accepted idea; its entries are spellings of that idea.
 // `answer_groups`, or `answers` with several nested lists, are groups as written.
 // A single flat list is a pool in which every entry is its own idea.
-function getListAnswerGroups(question) {
+function getListAnswerGroups(question, { normalize = true } = {}) {
   const source = question.answer_groups || question.answers || [];
   const isGrouped = Boolean(question.answer_groups) || (source.length > 0 && source.every(Array.isArray));
   const groups = isGrouped ? source : source.flat().map(answer => [answer]);
 
   return groups.map(group => (Array.isArray(group) ? group : [group])
     .filter(answer => typeof answer === "string")
-    .map(normalizeBlankAnswer));
+    .map(answer => (normalize ? normalizeBlankAnswer(answer) : answer)));
 }
 
 // Largest one-to-one pairing of student answers to groups, so one idea earns one
@@ -173,18 +187,18 @@ function gradeFillInTheBlankList(section) {
   section.questions.forEach((q, idx) => {
     const inputs = qsa(`.fibl-input[data-section="${section._sectionIndex}"][data-question="${idx}"]`); // Select inputs for this section and question
     const studentAnswers = inputs.map(input => normalizeBlankAnswer(input.value));
-    const answerGroups = getListAnswerGroups(q);
-    const questionCorrectCount = countMatchedAnswerGroups(studentAnswers, answerGroups);
+    const questionCorrectCount = countMatchedAnswerGroups(studentAnswers, getListAnswerGroups(q));
     correct += questionCorrectCount;
-    const possibleAnswers = answerGroups.flat();
 
-    // Add a single entry to wrongAnswers for the entire question
+    // Add a single entry to wrongAnswers for the entire question. It shows what the
+    // student typed and the answers as written, not their normalized forms.
     if (questionCorrectCount < inputs.length) {
+      const typedAnswers = inputs.map(input => input.value.trim().toLowerCase() || "(no answer)");
       wrongAnswers.push({
         type: "Fill in the Blank List",
         question: q.prompt,
-        student: `${questionCorrectCount}/${inputs.length} correct: ${studentAnswers.map(answer => answer || "(no answer)").join(", ")}`,
-        correct: answerGroups.map(group => group.join(" / ")).join(", ")
+        student: `${questionCorrectCount}/${inputs.length} correct: ${typedAnswers.join(", ")}`,
+        correct: getListAnswerGroups(q, { normalize: false }).map(group => group.join(" / ")).join(", ")
       });
     }
   });
@@ -475,6 +489,9 @@ function showSummary(res) {
   app.innerHTML = `
     <div class="container">
       <div class="card">
+        ${state.timedOut ? `<div class="time-up-banner" role="status" tabindex="-1">
+          <span aria-hidden="true">⏰</span> Time ran out. Your quiz was submitted automatically with the answers you had entered.
+        </div>` : ""}
         <h2>Quiz Summary</h2>
   ${res.total > 0 ? `<p>You scored <strong>${res.points}/${res.total}</strong> (${res.percent}%).</p>` : `<p><em>No score for survey-only quizzes.</em></p>`}
         ${res.shortAnswerResponses.length ? `<h3>Short Answer Responses (instructor review)</h3>
@@ -510,7 +527,7 @@ function showSummary(res) {
                <span class="correct">Correct answer: ${escapeHtml(w.correct)}</span></li>`
             ).join("")}
            </ul>`}
-          <p id="emailStatus" role="status" aria-live="polite">${escapeHtml(state.emailStatus || "Sending results by email…")}</p>
+          <p id="emailStatus" role="status" aria-live="polite" data-outcome="${escapeHtml(state.emailOutcome || "sending")}">${escapeHtml(state.emailStatus || "Sending results by email…")}</p>
         <button id="logoutBtn" class="secondary">Log Out</button>
       </div>
     </div>

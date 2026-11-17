@@ -14,7 +14,19 @@ function assertEqual(actual, expected, message = "Values differ") {
   }
 }
 
+// Stops any quiz timer a previous test left running. A leaked interval keeps
+// ticking and would submit a quiz in the middle of a later test.
+function stopLeakedTimers() {
+  clearInterval(state.timerInterval);
+  clearTimeout(state.timerWarningTimeout);
+  clearTimeout(state.timerWarningFlashTimeout);
+  state.timerInterval = null;
+  state.timerWarningTimeout = null;
+  state.timerWarningFlashTimeout = null;
+}
+
 function resetTestState(sections = [], answers = {}) {
+  stopLeakedTimers();
   document.querySelector("#test-fixtures").replaceChildren();
   document.querySelector("#app").replaceChildren();
   state.quiz = { title: "Unit Test", sections };
@@ -26,10 +38,11 @@ function resetTestState(sections = [], answers = {}) {
   state.user = null;
   state.settings = {};
   state.timerWarnings = new Set();
-  state.timerInterval = null;
-  state.timerWarningTimeout = null;
-  state.timerWarningFlashTimeout = null;
   state.timerWarningAutoHideCancelled = false;
+  state.timedOut = false;
+  state.submissionResult = null;
+  state.emailStatus = "";
+  state.emailOutcome = "sending";
 }
 
 function addTestInput(className, sectionIndex, questionIndex, value = "", extraAttributes = {}) {
@@ -74,6 +87,8 @@ async function runQuizPortalTests() {
       item.className = "fail";
       item.textContent = `FAIL ${name}: ${error.stack || error.message || error}`;
       failures.push({ name, error });
+    } finally {
+      stopLeakedTimers(); // a failed test must not leave a quiz timer running for the next one
     }
     results.appendChild(item);
   }

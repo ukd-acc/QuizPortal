@@ -11,10 +11,13 @@ test("timed quizzes use the configured duration and accommodation multiplier", (
     state.startTime = new Date();
     state.submitted = false;
     state.timerWarnings = new Set();
-    startTimer();
-    assertEqual((state.deadline - state.startTime) / 60000, expectedMinutes, `${accommodation} deadline`);
-    clearInterval(state.timerInterval);
-    state.timerInterval = null;
+    try {
+      startTimer();
+      assertEqual((state.deadline - state.startTime) / 60000, expectedMinutes, `${accommodation} deadline`);
+    } finally {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+    }
   }
 });
 
@@ -215,6 +218,145 @@ test("an email failure before the request starts is reported to the student", ()
     assert(alerts.some(message => /email/i.test(message)), "student was not told the results were not emailed");
   } finally {
     globalThis.emailjs = originalEmailJS;
+    globalThis.alert = originalAlert;
+    console.error = originalConsoleError;
+  }
+});
+
+/* ---------- Submit flow: summary for both manual submit and time running out ---------- */
+
+function submitWithStubbedEmail(timedOut, sections = [{ type: "true_false", points_per_question: 1, questions: [{ question: "Sky is blue?", answer: true }], _sectionIndex: 0 }]) {
+  resetTestState(sections, { "tf-0-0": false });
+  const app = document.querySelector("#app");
+  app.innerHTML = '<button id="submitBtn"></button>';
+  const originalSend = globalThis.sendResultsByEmail;
+  const originalAlert = globalThis.alert;
+  const alerts = [];
+  let sends = 0;
+  globalThis.sendResultsByEmail = () => { sends++; return Promise.resolve({ sent: true }); };
+  globalThis.alert = message => alerts.push(message);
+  try {
+    onSubmit(timedOut);
+  } finally {
+    globalThis.sendResultsByEmail = originalSend;
+    globalThis.alert = originalAlert;
+  }
+  return { app, alerts, sends };
+}
+
+test("manual submit shows the summary of incorrect answers with no time's-up notice", () => {
+  const { app, alerts, sends } = submitWithStubbedEmail(false);
+  assert(state.submitted, "quiz was not submitted");
+  assertEqual(sends, 1, "email sends");
+  assert(app.textContent.includes("Incorrect Answers"), "incorrect-answer summary missing");
+  assert(app.textContent.includes("Sky is blue?"), "the missed question is not listed");
+  assert(!app.querySelector(".time-up-overlay"), "time's-up notice shown for a manual submit");
+  assert(!app.querySelector(".time-up-banner"), "time's-up banner shown for a manual submit");
+  assertEqual(alerts, [], "popups during a normal submit");
+});
+
+test("time running out shows a large time's-up notice over the same summary", () => {
+  const { app, alerts, sends } = submitWithStubbedEmail(true);
+  try {
+    assert(state.submitted, "quiz was not submitted");
+    assertEqual(sends, 1, "email sends");
+    assert(app.textContent.includes("Incorrect Answers"), "summary was not shown behind the notice");
+    assert(app.textContent.includes("Sky is blue?"), "the missed question is not listed");
+
+    const overlay = app.querySelector(".time-up-overlay");
+    assert(overlay, "time's-up notice was not shown");
+    assertEqual(overlay.getAttribute("role"), "alertdialog", "notice role");
+    assert(overlay.textContent.includes("Time's up!"), "notice headline");
+    assertEqual(document.activeElement, overlay.querySelector(".time-up-dismiss"), "focus on the dismiss button");
+    assert(app.querySelector(".time-up-banner").textContent.includes("Time ran out"), "summary banner");
+    assertEqual(alerts, [], "time's-up uses the on-page notice, not a popup");
+
+    overlay.querySelector(".time-up-dismiss").click();
+    assert(!app.querySelector(".time-up-overlay"), "notice did not close");
+    assertEqual(document.activeElement, app.querySelector(".time-up-banner"), "focus moves to the summary banner");
+    assert(app.querySelector(".time-up-banner"), "banner stays after the notice closes");
+  } finally {
+    app.querySelector(".time-up-overlay")?.querySelector(".time-up-dismiss").click();
+  }
+});
+
+test("the time's-up notice closes with Escape", () => {
+  const { app } = submitWithStubbedEmail(true);
+  assert(app.querySelector(".time-up-overlay"), "notice was not shown");
+  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+  assert(!app.querySelector(".time-up-overlay"), "Escape did not close the notice");
+});
+
+test("a submit after the deadline counts as timed out even when clicked", () => {
+  resetTestState([], {});
+  const app = document.querySelector("#app");
+  app.innerHTML = '<button id="submitBtn"></button>';
+  state.deadline = new Date(Date.now() - 1000);
+  const originalSend = globalThis.sendResultsByEmail;
+  globalThis.sendResultsByEmail = () => Promise.resolve({ sent: true });
+  try {
+    onSubmit(false);
+    assert(state.timedOut, "late submit was not marked timed out");
+    assert(app.querySelector(".time-up-banner"), "late submit did not say time ran out");
+  } finally {
+    app.querySelector(".time-up-dismiss")?.click();
+    globalThis.sendResultsByEmail = originalSend;
+  }
+});
+
+test("email outcome is shown on the summary: success quietly, failure with a popup", async () => {
+  const originalEmailJS = globalThis.emailjs;
+  const originalAlert = globalThis.alert;
+  const originalConsoleError = console.error;
+  const alerts = [];
+  globalThis.alert = message => alerts.push(message);
+  console.error = () => {};
+
+  const configure = send => {
+    resetTestState([]);
+    document.querySelector("#app").innerHTML = '<button id="submitBtn"></button>';
+    globalThis.emailjs = { send };
+    state.user = { username: "tester", fullName: "Test User" };
+    state.settings = { emailConfig: { serviceID: "s", templateID: "t" }, emailRecipients: ["teacher@example.test"] };
+  };
+
+  try {
+    configure(() => Promise.resolve({ status: 200 }));
+    onSubmit(false);
+    let status = document.querySelector("#emailStatus");
+    assertEqual(status.dataset.outcome, "sending", "status while sending");
+    await new Promise(resolve => setTimeout(resolve, 0));
+    assertEqual(status.dataset.outcome, "sent", "status after success");
+    assert(status.textContent.includes("emailed successfully"), "success text");
+    assertEqual(alerts, [], "popups after success");
+
+    configure(() => Promise.reject(new Error("offline")));
+    onSubmit(false);
+    await new Promise(resolve => setTimeout(resolve, 0));
+    status = document.querySelector("#emailStatus");
+    assertEqual(status.dataset.outcome, "failed", "status after failure");
+    assert(status.textContent.includes("notify your instructor"), "failure text");
+    assertEqual(alerts.length, 1, "failure popup");
+  } finally {
+    globalThis.emailjs = originalEmailJS;
+    globalThis.alert = originalAlert;
+    console.error = originalConsoleError;
+  }
+});
+
+test("email with no setup reports a clear failure without throwing", async () => {
+  const originalAlert = globalThis.alert;
+  const originalConsoleError = console.error;
+  const alerts = [];
+  globalThis.alert = message => alerts.push(message);
+  console.error = () => {};
+  resetTestState([]);
+  try {
+    const outcome = await sendResultsByEmail({ points: 0, total: 0, percent: 0, wrongAnswers: [], shortAnswerResponses: [], likertResponses: [] });
+    assertEqual(outcome.sent, false, "outcome without a signed-in user");
+    assert(alerts[0].includes("no user is signed in"), `unexpected message: ${alerts[0]}`);
+    assertEqual(state.emailOutcome, "failed", "recorded outcome");
+  } finally {
     globalThis.alert = originalAlert;
     console.error = originalConsoleError;
   }

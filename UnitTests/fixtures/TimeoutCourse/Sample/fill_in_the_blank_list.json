@@ -1,0 +1,8 @@
+{
+  "type": "fill_in_the_blank_list",
+  "title": "List Answers",
+  "instructions": "Name each item once.",
+  "questions": [
+    { "prompt": "Name two arithmetic operators: ___ ___", "answer_groups": [["+", "plus"], ["-", "minus"], ["*", "times"]] }
+  ]
+}

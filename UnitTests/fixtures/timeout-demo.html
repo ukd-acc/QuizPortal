@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeout demo</title>
+  <!-- Manual check: open http://localhost:8000/UnitTests/fixtures/timeout-demo.html with the
+       local server running. The sample quiz opens with a 3-second limit and runs out by itself. -->
+
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../../state.js"></script>
+  <script src="../../utils.js"></script>
+  <script src="../../auth.js"></script>
+  <script src="../../render-matching.js"></script>
+  <script src="../../render-tf.js"></script>
+  <script src="../../render-matching-pictures.js"></script>
+  <script src="../../render-mc.js"></script>
+  <script src="../../render-likert.js"></script>
+  <script src="../../render-code-blocks-mc.js"></script>
+  <script src="../../render-fill-in-the-blank.js"></script>
+  <script src="../../render-code-blocks-fitb.js"></script>
+  <script src="../../render-fill-in-the-blank-list.js"></script>
+  <script src="../../render-short-answer.js"></script>
+  <script src="../../render-codingTest.js"></script>
+  <script src="../../grading.js"></script>
+  <script src="../../app.js"></script>
+  <script src="../../email.js"></script>
+  <script>
+    // Opens the timeout sample quiz directly (no login) with a 3-second limit.
+    window.removeEventListener("DOMContentLoaded", initApp);
+    window.emailjs = { init() {}, send: () => new Promise(resolve => setTimeout(resolve, 1000)) };
+    window.alert = message => console.log("ALERT:", message);
+    window.addEventListener("DOMContentLoaded", async () => {
+      const realLoadJSON = loadJSON;
+      loadJSON = async (path, timeoutMs) => {
+        const value = await realLoadJSON(`/${path}`, timeoutMs);
+        if (value && path.endsWith("/Sample/settings.json")) value.durationMinutes = 3 / 60;
+        return value;
+      };
+      state.selectedCourse = "UnitTests/fixtures/TimeoutCourse";
+      state.selectedQuizFolder = "Sample";
+      state.user = { username: "demo", fullName: "Demo Student", accommodation: "standard" };
+      await initQuiz();
+      loadJSON = realLoadJSON;
+      // A partly answered attempt, so the summary has a mix of right and wrong answers.
+      document.querySelectorAll(".tf-row")[1].querySelectorAll(".tf-option")[0].click();
+      const blanks = document.querySelectorAll(".fib-input");
+      blanks[0].value = "//";
+      blanks[1].value = "nintendo";
+      blanks[2].value = "nintendo";
+      document.querySelectorAll(".fibl-input")[0].value = "+";
+    });
+  </script>
+</body>
+</html>

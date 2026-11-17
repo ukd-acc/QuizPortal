@@ -27,7 +27,7 @@
       "correct_answer": "Not every path through the method returns a value"
     },
     {
-      "question": "The <strong>100</strong> in this line is a magic number. Which change fixes that best?",
+      "question": "The 100 in this line is a magic number. Which change fixes that best?",
       "code": "playerHealth = Mathf.Min(playerHealth + healAmount, 100);",
       "answers": [
         "Store 100 in a named constant such as maxHealth and use that name instead",
@@ -47,6 +47,17 @@
         "The dot operator only works on methods"
       ],
       "correct_answer": "sword was never created with new, so there is no object to set a name on"
+    },
+    {
+      "question": "Which statement best describes the code below?",
+      "code": "/// <summary>\n/// Handles player health and damage.\n/// </summary>\npublic class playerHealth\n{\n    public int currenthealth;\n    public void takeDamage(int damageAmount)\n    {\n        currenthealth -= damageAmount;\n    }\n}",
+      "answers": [
+        "It uses a summary comment correctly, but the class and field names do not follow PascalCase/camelCase conventions",
+        "It follows all naming rules correctly, and the summary comment is optional but acceptable",
+        "It is correct because lowercase method names are allowed in C#",
+        "It is invalid because summary comments must use // instead of ///"
+      ],
+      "correct_answer": "It uses a summary comment correctly, but the class and field names do not follow PascalCase/camelCase conventions"
     }
   ]
 }

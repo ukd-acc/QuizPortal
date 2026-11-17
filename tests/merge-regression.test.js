@@ -78,6 +78,23 @@ test("flat list answer pools count each distinct answer as its own idea", () => 
   assert.equal(result.wrongAnswers.length, 0);
 });
 
+test("symbol-only answers match by their symbols and stay distinct", () => {
+  assert.equal(gradingContext.blankAnswerMatches("+", ["+", "plus"]), true);
+  assert.equal(gradingContext.blankAnswerMatches("-", ["+", "plus"]), false);
+  assert.equal(gradingContext.blankAnswerMatches(" // ", ["//"]), true);
+  assert.equal(gradingContext.blankAnswerMatches("cat.", ["cat"]), true);
+});
+
+test("an answer shared by several blanks earns credit once", () => {
+  setInputValues('.fib-input[data-section="4"][data-question="0"]', ["nintendo", "nintendo"]);
+  const result = gradingContext.gradeFillInTheBlank({
+    _sectionIndex: 4,
+    questions: [{ prompt: "___ ___", answers: [["nintendo", "sega"], ["nintendo", "sega"]] }]
+  });
+  assert.equal(result.correct, 1);
+  assert.equal(result.wrongAnswers.length, 1);
+});
+
 test("empty and extremely long answers safely earn no fuzzy credit", () => {
   assert.equal(gradingContext.blankAnswerMatches("", ["communication"]), false);
   assert.equal(gradingContext.blankAnswerMatches("x".repeat(5000), ["communication"]), false);

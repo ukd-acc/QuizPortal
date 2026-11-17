@@ -32,6 +32,8 @@ async function initQuiz() {
   state.submitted = false;
   state.submissionResult = null;
   state.emailStatus = "";
+  state.emailOutcome = "sending";
+  state.timedOut = false;
   state.deadline = null;
   state.timerWarnings = new Set();
   state.timerWarningTimeout = null;
@@ -313,51 +315,104 @@ function startTimer() {
     }
   }
   update();
-  state.timerInterval = setInterval(update, 1000);
+  // A quiz opened after its deadline submits during the first update; start no interval then.
+  if (!state.submitted) {
+    state.timerInterval = setInterval(update, 1000);
+  }
 }
 
-function onSubmit(timedOut = false) {
-  if (state.submitted) return;
-  timedOut = timedOut || Boolean(state.deadline && Date.now() >= state.deadline.getTime());
-  state.submitted = true;
+function stopTimer() {
   clearInterval(state.timerInterval);
   state.timerInterval = null;
   clearTimeout(state.timerWarningTimeout);
   clearTimeout(state.timerWarningFlashTimeout);
   state.timerWarningTimeout = null;
   state.timerWarningFlashTimeout = null;
-  const submitButton = qs("#submitBtn");
-  if (submitButton) submitButton.disabled = true;
-  state.endTime = new Date();
-  state.submissionResult = gradeQuiz();
-  state.emailStatus = "Sending results by email…";
-  sendResultsByEmail(state.submissionResult).catch(error => {
-    console.error("Unexpected error while sending quiz results:", error);
-    updateEmailStatus("Results were graded, but email failed. Please notify your instructor.");
-  });
+}
 
-  if (timedOut) {
-    showTimeoutContinue();
-  } else {
-    showSummary(state.submissionResult);
+// Grades the quiz, emails the results, and shows the summary of incorrect answers.
+// The same path runs when the student clicks Submit and when time runs out; a
+// timed-out attempt also gets a full-screen "Time's up" notice over the summary.
+function onSubmit(timedOut = false) {
+  if (state.submitted) return;
+  timedOut = timedOut || Boolean(state.deadline && Date.now() >= state.deadline.getTime());
+  const submitButton = qs("#submitBtn");
+  state.endTime = new Date();
+
+  let result;
+  try {
+    result = gradeQuiz();
+  } catch (error) {
+    // Leave the answers on the page so the student (or instructor) can retry.
+    console.error("Quiz grading failed:", error);
+    if (timedOut) stopTimer();
+    if (submitButton) submitButton.disabled = false;
+    alert("Your quiz could not be graded. Your answers are still on this page; please try again or contact your instructor.");
+    return;
+  }
+
+  state.submitted = true;
+  state.timedOut = timedOut;
+  state.submissionResult = result;
+  stopTimer();
+  if (submitButton) submitButton.disabled = true;
+
+  // Send first: the attempt must reach the instructor even if the summary fails to render.
+  updateEmailStatus("Sending results by email…", "sending");
+  try {
+    sendResultsByEmail(result);
+  } catch (error) {
+    console.error("Unexpected error while sending quiz results:", error);
+  }
+
+  try {
+    showSummary(result);
+    if (timedOut) showTimeUpNotice();
+  } catch (error) {
+    console.error("Quiz summary failed:", error);
+    alert("Your quiz was graded, but your results page could not be displayed. Please keep this page open and contact your instructor.");
   }
 }
 
-function showTimeoutContinue() {
+const TIME_UP_NOTICE_MS = 5000;
+
+// Full-screen notice shown over the summary when time runs out. It closes by itself
+// after a few seconds, or when the student clicks the button or presses Escape.
+function showTimeUpNotice() {
   const app = qs("#app");
-  app.innerHTML = `
-    <div class="container">
-      <div class="card">
-        <h2>Time is up</h2>
-        <p>Your quiz has been automatically submitted and graded.</p>
-        <button id="continueToResultsBtn">Continue to Results</button>
-      </div>
+  const overlay = document.createElement("div");
+  overlay.className = "time-up-overlay";
+  overlay.setAttribute("role", "alertdialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "timeUpTitle");
+  overlay.setAttribute("aria-describedby", "timeUpText");
+  overlay.innerHTML = `
+    <div class="time-up-panel">
+      <div class="time-up-icon" aria-hidden="true">⏰</div>
+      <h2 id="timeUpTitle">Time's up!</h2>
+      <p id="timeUpText">You are out of time. Your quiz has been submitted automatically.</p>
+      <button type="button" class="time-up-dismiss">See my results</button>
     </div>
   `;
+  app.appendChild(overlay);
 
-  qs("#continueToResultsBtn").addEventListener("click", () => {
-    showSummary(state.submissionResult);
-  }, { once: true });
+  let closeTimeout;
+  const close = () => {
+    clearTimeout(closeTimeout);
+    document.removeEventListener("keydown", onKeydown);
+    if (!overlay.isConnected) return;
+    overlay.remove();
+    const banner = app.querySelector(".time-up-banner");
+    if (banner) banner.focus();
+  };
+  const onKeydown = event => {
+    if (event.key === "Escape") close();
+  };
+
+  overlay.querySelector(".time-up-dismiss").addEventListener("click", close);
+  document.addEventListener("keydown", onKeydown);
+  closeTimeout = setTimeout(close, TIME_UP_NOTICE_MS);
+  overlay.querySelector(".time-up-dismiss").focus();
 }
 
 window.addEventListener("DOMContentLoaded", initApp);

@@ -1,0 +1,8 @@
+{
+  "type": "short_answer",
+  "title": "Short Answer",
+  "instructions": "Write your code.",
+  "questions": [
+    { "prompt": "Write a method that returns the larger of two ints.", "answers": ["int Max(int a, int b) { return a > b ? a : b; }"] }
+  ]
+}

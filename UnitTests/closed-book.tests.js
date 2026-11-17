@@ -139,7 +139,8 @@ test("closed book: all correct scores 100 with nothing marked wrong", async () =
   assertEqual(attempt.result.wrongAnswers.length, 0, "wrong-answer records");
   assert(attempt.text.includes("All answers correct"), "summary did not celebrate a perfect score");
   assert(attempt.emails[0].message.includes("All answers correct"), "email did not report a perfect score");
-  assert(attempt.alerts.some(message => message.includes("emailed successfully")), "student was not told the email was sent");
+  assert(document.querySelector("#emailStatus").textContent.includes("emailed successfully"), "student was not told the email was sent");
+  assertEqual(attempt.alerts, [], "a successful submission should not interrupt the student with a popup");
 });
 
 test("closed book: all incorrect scores 0 with one record per question", async () => {
@@ -242,6 +243,7 @@ test("closed book: repeating an answer earns credit once", async () => {
   const cases = [
     ["first console wars", ["nintendo", "nintendo"], 99],
     ["first console wars", ["Nintendo", "  NINTENDO "], 99],
+    ["first console wars", ["nintendo", "nintedo"], 99],
     ["founders of the first video game company", ["nolan bushnell", "nolan bushnell"], 99],
     ["List two of the oldest games", ["senet", "SENET"], 99],
     ["Bartle's Player Types", ["killers", "killers", "killers", "killers"], 97],
@@ -318,8 +320,21 @@ test("closed book: accepted spellings, symbols, case, and outer whitespace earn 
   }
 });
 
+// Fuzzy matching forgives punctuation, width/accents, and a one-letter typo.
+test("closed book: punctuation, character width, and small typos earn credit", async () => {
+  const forgiven = ["pong.", "Pong!", "po ng", "po​ng", "ｐｏｎｇ", "pongs", "ponng"];
+
+  for (const value of forgiven) {
+    const attempt = await attemptClosedBook(() => {
+      answerRenderedClosedBookMidterm(true);
+      typeBlanks("Atari's first hit game", [value]);
+    });
+    assertScore(attempt, 100, JSON.stringify(value));
+  }
+});
+
 test("closed book: near misses earn no credit", async () => {
-  const nearMisses = ["pong.", "po ng", "po​ng", "ｐｏｎｇ", "pong pong", "<b>pong</b>", "pon", "pongs", "Pong!"];
+  const nearMisses = ["pong pong", "<b>pong</b>", "pon", "png", "pnog pnog", "ping pong"];
 
   for (const value of nearMisses) {
     const attempt = await attemptClosedBook(() => {
@@ -470,7 +485,7 @@ test("closed book: an email that never answers leaves the results on screen and 
   assert(attempt.alerts.some(message => message.includes("notify your instructor")), "student was not told");
 });
 
-test("closed book: reaching the deadline grades typed answers and sends them before alerting", async () => {
+test("closed book: reaching the deadline grades typed answers, emails them, and shows the summary with a time's-up notice", async () => {
   const previousEmailJS = globalThis.emailjs;
   const previousAlert = globalThis.alert;
   const events = [];
@@ -489,16 +504,21 @@ test("closed book: reaching the deadline grades typed answers and sends them bef
     typeBlanks("Atari's first hit game", ["pong"]);
     state.deadline = new Date(Date.now() - 1000);
 
+    const emailStatus = () => document.querySelector("#emailStatus")?.textContent || "";
     const giveUpAt = Date.now() + 3000;
-    while (!events.some(event => event.includes("emailed successfully")) && Date.now() < giveUpAt) {
+    while (!emailStatus().includes("emailed successfully") && Date.now() < giveUpAt) {
       await new Promise(resolve => setTimeout(resolve, 20));
     }
 
+    const app = document.querySelector("#app");
     assert(state.submitted, "the deadline did not submit the exam");
-    assert(document.querySelector("#app").textContent.includes("You scored 1/100"), "typed answer was not graded");
+    assert(app.textContent.includes("You scored 1/100"), "typed answer was not graded");
+    assert(app.textContent.includes("Incorrect Answers"), "the summary of incorrect answers was not shown");
     assert(events[0].includes("Score: 1/100 (1%)."), `results were not sent first: ${String(events[0]).slice(0, 60)}`);
     assertEqual(events.filter(event => event.includes("Score:")).length, 1, "emails sent");
-    assert(events.some(event => event.includes("out of time")), "student was not told time ran out");
+    assert(emailStatus().includes("emailed successfully"), "student was not told the email was sent");
+    assert(app.querySelector(".time-up-overlay")?.textContent.includes("Time's up!"), "student was not shown the time's-up notice");
+    assert(app.querySelector(".time-up-banner")?.textContent.includes("Time ran out"), "summary does not say time ran out");
   } finally {
     if (state.timerInterval) clearInterval(state.timerInterval);
     state.timerInterval = null;

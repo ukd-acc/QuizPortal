@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "title": "True or False",
+  "instructions": "Choose True or False.",
+  "points_per_question": 1,
+  "questions": [
+    { "question": "A C# array index starts at 0.", "answer": true },
+    { "question": "A method can only return a string.", "answer": false }
+  ]
+}

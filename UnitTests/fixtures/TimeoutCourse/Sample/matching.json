@@ -1,0 +1,11 @@
+{
+  "type": "matching",
+  "title": "Matching",
+  "instructions": "Match each description to a term.",
+  "points_per_question": 1,
+  "prompts": [
+    { "question": "Repeats a block of code", "answer": "Loop" },
+    { "question": "Stores one value with a name", "answer": "Variable" }
+  ],
+  "word_bank": [ { "text": "Loop" }, { "text": "Variable" }, { "text": "Comment" } ]
+}

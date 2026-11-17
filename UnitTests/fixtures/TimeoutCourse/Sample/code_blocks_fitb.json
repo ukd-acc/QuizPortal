@@ -1,0 +1,9 @@
+{
+  "type": "code_blocks_fitb",
+  "title": "Code Fill in the Blank",
+  "instructions": "Write the printed value.",
+  "points_per_question": 2,
+  "questions": [
+    { "prompt": "What value is printed?", "code": "int lives = 3;\nlives -= 1;\nDebug.Log(lives);", "answer": "2" }
+  ]
+}

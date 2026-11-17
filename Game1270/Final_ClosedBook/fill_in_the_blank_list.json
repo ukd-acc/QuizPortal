@@ -6,11 +6,11 @@
   "questions": [
     {
       "prompt": "Name the four types of interface (input) modalities for games ___ ___ ___ ___",
-      "answers": [["inertial","touch","audio","video"]]
+      "answers": [["inertial"], ["touch"], ["audio"], ["video"]]
     },
     {
       "prompt": "What are the fundamental attributes of games according to Chris Crawford? ___ ___ ___ ___",
-      "answers": [["representation","interaction","conflict","safety"]]
+      "answers": [["representation"], ["interaction"], ["conflict"], ["safety"]]
     },
     {
       "prompt": "What are Bartle's Player Types? ___ ___ ___ ___",
@@ -18,15 +18,15 @@
     },
     {
       "prompt": "List Quantic Foundry's Gamer Types: ___ ___ ___ ___ ___ ___ ___ ___ ___",
-      "answers": [["acrobat","gardener","slayer","skirmisher","gladiator","ninja","bounty hunter","architect","bard"]]
+      "answers": [["acrobat"], ["gardener"], ["slayer"], ["skirmisher"], ["gladiator"], ["ninja"], ["bounty hunter"], ["architect"], ["bard"]]
     },
     {
       "prompt": "List Quantic Foundry's Motivation Clusters: ___ ___ ___ ___ ___ ___",
-      "answers": [["action","mastery","social","creativity","immersion","achievement"]]
+      "answers": [["action"], ["mastery"], ["social"], ["creativity"], ["immersion"], ["achievement"]]
     },
     {
       "prompt": "List Quantic Foundry's Gamer Motivations: ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___",
-      "answers": [["destruction","excitement","competition","community","challenge","strategy","completion","power","fantasy","story","design","discovery"]]
+      "answers": [["destruction"], ["excitement"], ["competition"], ["community"], ["challenge"], ["strategy"], ["completion"], ["power"], ["fantasy"], ["story"], ["design"], ["discovery"]]
     },
     {
       "prompt": "What are the three parts of the MDA framework? ___ ___ ___",
@@ -38,11 +38,11 @@
     },
     {
       "prompt": "Name 5 of the eight types of fun: ___ ___ ___ ___ ___",
-      "answers": [["sensation","fantasy","narrative","challenge","fellowship","discovery","expression","submission", "competition"]] 
+      "answers": [["sensation"], ["fantasy"], ["narrative"], ["challenge"], ["fellowship"], ["discovery"], ["expression"], ["submission"], ["competition"]] 
     },
     {
       "prompt": "What are the 3 phases of the game development lifecycle? ___ ___ ___",
-      "answers": [["pre-production","production","post-production"]]
+      "answers": [["pre-production"], ["production"], ["post-production"]]
     },
     {
       "prompt": "What are the constraints in the Iron Triangle of Quality? ___ ___ ___",
@@ -54,7 +54,7 @@
     },
     {
       "prompt": "Name the 4 managers/supervisors of the Functional Management in large companies responsible for turning the corporate vision into reality. ___ ___ ___ ___",
-      "answers": [["executive producer","creative director","technical director","art director"]]
+      "answers": [["executive producer"], ["creative director"], ["technical director"], ["art director"]]
     },
     {
       "prompt": "List 3 software tools game designers use most frequently during development according to our lectures: ___ ___ ___",
